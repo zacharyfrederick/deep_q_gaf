@@ -169,6 +169,7 @@ if __name__ == "__main__":
     #dqn.compile(Adam(lr=.00025), metrics=['mae'])
 
     if False:
+        pass
         #weights_filename = weights_filename.format('gaf')
         #checkpoint_weights_filename = 'dqn_' + \
         #    'gaf' + '_weights_{step}.h5f'
