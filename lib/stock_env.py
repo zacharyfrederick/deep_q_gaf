@@ -65,6 +65,9 @@ class StockEnv(gym.Env):
     def reset(self):
         self.episodes_ran += 1
 
+        if self.episodes_ran > 1:
+            print('reset')
+
         with open('results.txt', 'a') as file:
             file.write(str(self.cash) + "\n")
 
