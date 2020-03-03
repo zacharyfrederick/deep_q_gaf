@@ -169,20 +169,19 @@ if __name__ == "__main__":
     #dqn.compile(Adam(lr=.00025), metrics=['mae'])
 
     if False:
-        weights_filename = weights_filename.format('gaf')
-        checkpoint_weights_filename = 'dqn_' + \
-            'gaf' + '_weights_{step}.h5f'
-        log_filename = 'dqn_{}_log.json'.format('gaf')
-        callbacks = [ModelIntervalCheckpoint(
-            checkpoint_weights_filename, interval=250000)]
-        callbacks += [FileLogger(log_filename, interval=100)]
-        dqn.fit(env, nb_steps=1750000, log_interval=10000)
+        #weights_filename = weights_filename.format('gaf')
+        #checkpoint_weights_filename = 'dqn_' + \
+        #    'gaf' + '_weights_{step}.h5f'
+        #log_filename = 'dqn_{}_log.json'.format('gaf')
+        #callbacks = [ModelIntervalCheckpoint(
+        #    checkpoint_weights_filename, interval=250000)]
+        #callbacks += [FileLogger(log_filename, interval=100)]
+        #dqn.fit(env, nb_steps=1750000, log_interval=10000)
 
     print('About to start!')
     while True:
         if env.dm.is_done() is False:
             env.dm.step()
-
 
             if env.dm._current_index % 500 is 0:
                 print(env.dm._current_index)

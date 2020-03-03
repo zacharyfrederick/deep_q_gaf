@@ -73,11 +73,7 @@ class DataManager:
             if self.symbol_index + 1 == len(self.symbols):
                 return True
             else:
-                print('symbold incremented')
-                self.symbol_index += 1
-                self.current_symbol = self.symbols[self.symbol_index]
-                self._current_index = 3
-                print('new symbol: {}', self.current_symbol)
+                self.increment_symbol()
                 return False
         else:
             return False
@@ -89,6 +85,7 @@ class DataManager:
         self._current_index = 3
         self.load_pricing_data(self.current_symbol)
         self.load_image_data(self.current_symbol)
+        print('new symbol: {}', self.current_symbol)
         print('length', len(self._open))
         self.reshape_images()
 
