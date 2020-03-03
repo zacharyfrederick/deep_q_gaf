@@ -69,7 +69,7 @@ class DataManager:
 
     def is_done(self):
         if self._current_index >= len(self._open):
-            if self.symbols[self.symbol_index + 1] is  None:
+            if len(self.symbols) > self.symbol_index + 1 is  None:
                 return True
             else:
                 print('symbold incremented')
