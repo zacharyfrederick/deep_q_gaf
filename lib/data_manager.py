@@ -89,6 +89,8 @@ class DataManager:
         self._current_index = 3
         self.load_pricing_data(self.current_symbol)
         self.load_image_data(self.current_symbol)
+        print('length', len(self._open))
+        self.reshape_images()
 
     def get_frame(self):
         if self.is_done():
