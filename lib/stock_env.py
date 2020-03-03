@@ -29,8 +29,6 @@ from position_manager import Position, PositionManager, PositionQueue
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-
-
 class StockEnv(gym.Env):
     def __init__(self):
         self.env_name = 'gaf-environment-v0.0'

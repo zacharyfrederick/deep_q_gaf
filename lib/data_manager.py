@@ -69,8 +69,8 @@ class DataManager:
         return self.images[self._current_index + offset]
 
     def is_done(self):
-        if self._current_index >= len(self._open):
-            if self.symbol_index + 1 < len(self.symbols):
+        if self._current_index == len(self._open):
+            if self.symbol_index + 1 == len(self.symbols):
                 return True
             else:
                 print('symbold incremented')
@@ -83,6 +83,7 @@ class DataManager:
             return False
 
     def increment_symbol(self):
+        print('Incrementing symbol')
         self.symbol_index += 1
         self.current_symbol = self.symbols[self.symbol_index]
         self._current_index = 3
