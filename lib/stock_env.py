@@ -178,9 +178,11 @@ if __name__ == "__main__":
         callbacks += [FileLogger(log_filename, interval=100)]
         dqn.fit(env, nb_steps=1750000, log_interval=10000)
 
+    print('About to start!')
     while True:
         if env.dm.is_done() is False:
             env.dm.step()
+            print(env.dm._current_index)
         else:
             print('Ran out of data')
             print(env.index)
