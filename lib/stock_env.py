@@ -31,7 +31,6 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 class StockEnv(gym.Env):
     def __init__(self):
-        locale.setlocale(locale.LC_ALL, '')
         self.env_name = 'gaf-environment-v0.0'
         self.current_action = None
         self.previous_action = None
@@ -150,7 +149,8 @@ class StockEnv(gym.Env):
         print('Starting Balance:', fg('green'), self.get_cash(), attr('reset'))
 
     def get_cash(self):
-        return locale.currency(self.cash,'en_CA.UTF-8', grouping=True)
+        #need t0 make a proper formatting method
+        return self.cash
 
 
 if __name__ == "__main__":
