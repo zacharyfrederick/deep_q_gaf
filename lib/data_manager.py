@@ -19,7 +19,6 @@ class DataManager:
         self.load_pricing_data(self.current_symbol)
         self.load_image_data(self.current_symbol)
         self.reshape_images()
-        print('len symbols: ', len(self.symbols))
     
     def print_state(self):
         print('Current index: {}, Symbol index: {}'.format(self._current_index, self.symbol_index))
@@ -49,8 +48,6 @@ class DataManager:
         self._adj_close = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'adj_close.csv'))
 
         self._vol = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'vol.csv'))
-
-        print(self._open)
 
     def reshape_images(self):
         self._open = self._open.drop(columns='Date')

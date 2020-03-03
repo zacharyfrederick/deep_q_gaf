@@ -182,7 +182,10 @@ if __name__ == "__main__":
     while True:
         if env.dm.is_done() is False:
             env.dm.step()
-            print(env.dm._current_index)
+
+
+            if env.dm._current_index % 500 is 0:
+                print(env.dm._current_index)
         else:
             print('Ran out of data')
             print(env.index)
