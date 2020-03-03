@@ -49,7 +49,7 @@ class DataManager:
 
         self._vol = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'vol.csv'))
 
-        print(len(self._open))
+        print(self._open)
 
     def reshape_images(self):
         self._open = self._open.drop(columns='Date')
