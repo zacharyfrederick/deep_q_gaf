@@ -170,7 +170,7 @@ if __name__ == "__main__":
                 train_interval=4, delta_clip=1.)
     dqn.compile(Adam(lr=.00025), metrics=['mae'])
 
-    if True:
+    if False:
         weights_filename = weights_filename.format('gaf')
         checkpoint_weights_filename = 'dqn_' + \
             'gaf' + '_weights_{step}.h5f'
@@ -179,3 +179,10 @@ if __name__ == "__main__":
             checkpoint_weights_filename, interval=250000)]
         callbacks += [FileLogger(log_filename, interval=100)]
         dqn.fit(env, nb_steps=1750000, log_interval=10000)
+
+    while True:
+        if env.dm.is_done() is False:
+            self.env.dm.step()
+        else:
+            print('Ran out of data')
+            print(env.index)
