@@ -155,18 +155,18 @@ class StockEnv(gym.Env):
         return self.cash
 
 if __name__ == "__main__":
-    weights_filename = '../data/weights/dqn_{}_weights.h5f'.format('test')
+    #weights_filename = '../data/weights/dqn_{}_weights.h5f'.format('test')
     env = StockEnv()
 
-    model = env.build_paper_model()
-    memory = SequentialMemory(limit=1000000, window_length=4)
-    policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1., value_min=.1, value_test=.05,
-                                nb_steps=1000000)
+    #model = env.build_paper_model()
+    #memory = SequentialMemory(limit=1000000, window_length=4)
+    #policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1., value_min=.1, value_test=.05,
+    #                            nb_steps=1000000)
 
-    dqn = DQNAgent(model=model, nb_actions=3, policy=policy, memory=memory,
-                nb_steps_warmup=50000, gamma=.99, target_model_update=10000,
-                train_interval=4, delta_clip=1.)
-    dqn.compile(Adam(lr=.00025), metrics=['mae'])
+    #dqn = DQNAgent(model=model, nb_actions=3, policy=policy, memory=memory,
+    #            nb_steps_warmup=50000, gamma=.99, target_model_update=10000,
+    #            train_interval=4, delta_clip=1.)
+    #dqn.compile(Adam(lr=.00025), metrics=['mae'])
 
     if False:
         weights_filename = weights_filename.format('gaf')
