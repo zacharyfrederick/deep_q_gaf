@@ -77,7 +77,7 @@ class DataManager:
                 self.symbol_index += 1
                 self.current_symbol = self.symbols[self.symbol_index]
                 self._current_index = 3
-                self.print('new symbol: {}', self.current_symbol)
+                print('new symbol: {}', self.current_symbol)
                 return False
         else:
             return False

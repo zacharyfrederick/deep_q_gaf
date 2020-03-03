@@ -71,7 +71,6 @@ class StockEnv(gym.Env):
         with open('results.txt', 'a') as file:
             file.write(str(self.cash) + "\n")
 
-            self.print('new symbol: {}'.format(self.current_symbol))
 
         self.dm.reset()
         self.index = 0
