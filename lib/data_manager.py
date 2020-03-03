@@ -68,14 +68,15 @@ class DataManager:
         return self.images[self._current_index + offset]
 
     def is_done(self):
-        if self._current_index >= len(self._open)
-            if self.symbols[self.symbol_index + 1] is  none:
+        if self._current_index >= len(self._open):
+            if self.symbols[self.symbol_index + 1] is  None:
                 return True
             else:
                 print('symbold incremented')
                 self.symbol_index += 1
                 self.current_symbol = self.symbols[self.symbol_index]
                 self._current_index = 3
+                return False
         else:
             return False
 
