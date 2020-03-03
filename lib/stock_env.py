@@ -186,3 +186,4 @@ if __name__ == "__main__":
         else:
             print('Ran out of data')
             print(env.index)
+            return exit()
