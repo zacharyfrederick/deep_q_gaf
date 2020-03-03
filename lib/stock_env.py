@@ -64,7 +64,6 @@ class StockEnv(gym.Env):
 
     def reset(self):
         self.episodes_ran += 1
-        print('Episode completed')
 
         with open('results.txt', 'a') as file:
             file.write(str(self.cash) + "\n")
@@ -126,7 +125,7 @@ class StockEnv(gym.Env):
 
         if self.index % 10000 == 0:
             self.dm.print_state()
-            
+
         self.last_obsv = frame
         return(frame, reward, done, info)
 
