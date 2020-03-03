@@ -19,6 +19,7 @@ class DataManager:
         self.load_pricing_data(self.current_symbol)
         self.load_image_data(self.current_symbol)
         self.reshape_images()
+        print('len symbols: ', len(self.symbols))
     
     def print_state(self):
         print('Current index: {}, Symbol index: {}'.format(self._current_index, self.symbol_index))
@@ -69,7 +70,7 @@ class DataManager:
 
     def is_done(self):
         if self._current_index >= len(self._open):
-            if len(self.symbols) > self.symbol_index + 1 is  None:
+            if self.current_symbol + 1 < len(self.symbols):
                 return True
             else:
                 print('symbold incremented')
