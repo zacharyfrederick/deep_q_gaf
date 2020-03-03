@@ -180,7 +180,7 @@ if __name__ == "__main__":
 
     while True:
         if env.dm.is_done() is False:
-            self.env.dm.step()
+            env.dm.step()
         else:
             print('Ran out of data')
             print(env.index)
