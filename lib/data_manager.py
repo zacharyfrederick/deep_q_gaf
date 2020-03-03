@@ -86,6 +86,8 @@ class DataManager:
         self.symbol_index += 1
         self.current_symbol = self.symbols[self.symbol_index]
         self._current_index = 3
+        self.load_pricing_data(self.current_symbol)
+        self.load_image_data(self.current_symbol)
 
     def get_frame(self):
         if self.is_done():
