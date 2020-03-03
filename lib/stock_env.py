@@ -48,6 +48,9 @@ class StockEnv(gym.Env):
     def get_frame(self):
         return self.dm.get_frame()
 
+    def test_method(self):
+        print('this is a test method')
+
     def build_paper_model(self):
         model = Sequential()
         model.add(Conv2D(32, (8, 8), strides=(4, 4), input_shape=(4, 30,180), activation='relu', data_format='channels_first'))
