@@ -11,8 +11,8 @@ class DataManager:
     def __init__(self):
         self._index_col = 'Date'
         self._current_index = 3
-        self._raw_data_folder = '/Users/zacharyfrederick/Documents/GitHub/senior_project/data/raw/'
-        self._processed_data_folder = '/Users/zacharyfrederick/Documents/GitHub/senior_project/data/processed/'
+        self._raw_data_folder = '../data/raw/'
+        self._processed_data_folder = '../data/processed/'
         self.load_symbols()
         self.symbol_index = 0
         self.current_symbol = self.symbols[0]
