@@ -72,7 +72,6 @@ class StockEnv(gym.Env):
             file.write(str(self.cash) + "\n")
 
         self.dm.reset()
-        self.cash = 100000
         self.index = 0
         frame = self.dm.get_frame()
         self.first_frame = frame
