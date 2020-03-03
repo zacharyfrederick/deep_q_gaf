@@ -48,7 +48,6 @@ class StockEnv(gym.Env):
     def get_frame(self):
         return self.dm.get_frame()
 
-
     def build_paper_model(self):
         model = Sequential()
         model.add(Conv2D(32, (8, 8), strides=(4, 4), input_shape=(4, 30,180), activation='relu', data_format='channels_first'))
@@ -151,7 +150,7 @@ class StockEnv(gym.Env):
         print('Starting Balance:', fg('green'), self.get_cash(), attr('reset'))
 
     def get_cash(self):
-        return locale.currency(self.cash, grouping=True)
+        return locale.currency(self.cash,'en_CA.UTF-8', grouping=True)
 
 
 if __name__ == "__main__":
