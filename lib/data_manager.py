@@ -19,6 +19,9 @@ class DataManager:
         self.load_pricing_data(self.current_symbol)
         self.load_image_data(self.current_symbol)
         self.reshape_images()
+    
+    def print_state(self):
+        print('Current index: {}, Symbol index: {}'.format(self._current_index, self.symbol_index))
 
     def load_symbols(self):
         symbols = os.listdir(self._raw_data_folder) 

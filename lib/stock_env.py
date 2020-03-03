@@ -124,9 +124,9 @@ class StockEnv(gym.Env):
 
         reward = 0
 
-        if self.index == 100:
-            done = True
-
+        if self.index % 10000 == 0:
+            self.dm.print_state()
+            
         self.last_obsv = frame
         return(frame, reward, done, info)
 
@@ -151,7 +151,6 @@ class StockEnv(gym.Env):
     def get_cash(self):
         #need t0 make a proper formatting method
         return self.cash
-
 
 if __name__ == "__main__":
     weights_filename = '../data/weights/dqn_{}_weights.h5f'.format('test')
