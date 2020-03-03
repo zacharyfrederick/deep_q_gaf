@@ -48,8 +48,6 @@ class StockEnv(gym.Env):
     def get_frame(self):
         return self.dm.get_frame()
 
-    def test_method(self):
-        print('this is a test method')
 
     def build_paper_model(self):
         model = Sequential()
