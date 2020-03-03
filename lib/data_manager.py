@@ -27,6 +27,7 @@ class DataManager:
     def load_symbols(self):
         symbols = os.listdir(self._raw_data_folder) 
         symbols.remove('.DS_Store') #mac is weird
+        symbols.remove('tsla.csv')
         self.symbols = symbols
 
     def load_pricing_data(self, symbol):
