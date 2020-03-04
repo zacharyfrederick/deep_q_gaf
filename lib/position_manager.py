@@ -64,15 +64,17 @@ class PositionManager:
             
         open_ = position.open_price
         close = position.close_price
-        #print('date', self.dm.get_date_w_index(self.dm._current_index),'type', position.type, 'Open:', open_, "close:", close)
+        print('date', self.dm.get_date_w_index(self.dm._current_index),'type', position.type, 'Open:', open_, "close:", close)
 
         if Actions(position.type) == Actions.HOLD:
             return 0
         elif Actions(position.type) == Actions.BUY:
             return_ = ((close - open_) / open_)
+            print(return_)
             return return_
         elif Actions(position.type) == Actions.SELL:
             return_ = ((open_ - close) / close)
+            print(return_)
             return return_
 
 
