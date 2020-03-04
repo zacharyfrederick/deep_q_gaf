@@ -155,7 +155,7 @@ class StockEnv(gym.Env):
         return self.cash
 
 if __name__ == "__main__":
-    #weights_filename = '../data/weights/dqn_{}_weights.h5f'.format('test')
+    weights_filename = '../data/weights/dqn_{}_weights.h5f'.format('test')
     env = StockEnv()
 
     model = env.build_paper_model()
