@@ -89,7 +89,6 @@ class StockEnv(gym.Env):
 
         reward = self.pm.close_position()
         self.update_cash(reward)
-        print(reward)
 
         done = self.is_done()
         frame = self.dm.get_frame() if not done else self.first_frame
