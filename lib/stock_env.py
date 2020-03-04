@@ -40,7 +40,7 @@ class StockEnv(gym.Env):
         self.index = 3
         self.action_space = gym.spaces.Discrete(3)
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(4, 30, 180))
-        self.print_intro()
+        #self.print_intro()
         self.avg_reward = 0
         self.episodes_ran = 0
 
@@ -158,26 +158,25 @@ if __name__ == "__main__":
     #weights_filename = '../data/weights/dqn_{}_weights.h5f'.format('test')
     env = StockEnv()
 
-    #model = env.build_paper_model()
-    #memory = SequentialMemory(limit=1000000, window_length=4)
-    #policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1., value_min=.1, value_test=.05,
-    #                            nb_steps=1000000)
-
-    #dqn = DQNAgent(model=model, nb_actions=3, policy=policy, memory=memory,
-    #            nb_steps_warmup=50000, gamma=.99, target_model_update=10000,
-    #            train_interval=4, delta_clip=1.)
-    #dqn.compile(Adam(lr=.00025), metrics=['mae'])
+    model = env.build_paper_model()
+    memory = SequentialMemory(limit=1000000, window_length=4)
+    policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1., value_min=.1, value_test=.05,
+                               nb_steps=1000000)
+ 
+    dqn = DQNAgent(model=model, nb_actions=3, policy=policy, memory=memory,
+               nb_steps_warmup=50000, gamma=.99, target_model_update=10000,
+               train_interval=4, delta_clip=1.)
+    dqn.compile(Adam(lr=.00025), metrics=['mae'])
 
     if False:
-        pass
-        #weights_filename = weights_filename.format('gaf')
-        #checkpoint_weights_filename = 'dqn_' + \
-        #    'gaf' + '_weights_{step}.h5f'
-        #log_filename = 'dqn_{}_log.json'.format('gaf')
-        #callbacks = [ModelIntervalCheckpoint(
-        #    checkpoint_weights_filename, interval=250000)]
-        #callbacks += [FileLogger(log_filename, interval=100)]
-        #dqn.fit(env, nb_steps=1750000, log_interval=10000)
+        weights_filename = weights_filename.format('gaf')
+        checkpoint_weights_filename = 'dqn_' + \
+           'gaf' + '_weights_{step}.h5f'
+        log_filename = 'dqn_{}_log.json'.format('gaf')
+        callbacks = [ModelIntervalCheckpoint(
+           checkpoint_weights_filename, interval=250000)]
+        callbacks += [FileLogger(log_filename, interval=100)]
+        dqn.fit(env, nb_steps=1750000, log_interval=10000)
 
     print('About to start!')
     while True:
@@ -187,6 +186,6 @@ if __name__ == "__main__":
             if env.dm._current_index % 500 is 0:
                 print(env.dm._current_index)
         else:
-            print('Ran out of data')
-            print(env.index)
-            exit()
+            break
+    
+    print('Completed')

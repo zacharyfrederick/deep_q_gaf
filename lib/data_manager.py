@@ -16,7 +16,7 @@ class DataManager:
         self.concat_data_folder = '../data/concat/'
         self.load_symbols()
         self.symbol_index = 0
-        self.current_symbol = self.symbols[0]
+        self.current_symbol = self.symbols[0]   
         self.load_pricing_data(self.current_symbol)
         #self.load_image_data(self.current_symbol)
         self.load_image_data2(self.current_symbol)
@@ -74,7 +74,7 @@ class DataManager:
         return self.images[self._current_index + offset]
 
     def is_done(self):
-        if self._current_index == len(self._open):
+        if self.current_index >= len(self.images):
             if self.symbol_index + 1 == len(self.symbols):
                 return True
             else:
@@ -90,7 +90,7 @@ class DataManager:
         self._current_index = 3
         self.load_pricing_data(self.current_symbol)
         self.load_image_data(self.current_symbol)
-        print('new symbol: {}', self.current_symbol)
+        print('new symbol: {}'.format(self.current_symbol))
         print('length', len(self._open))
         self.reshape_images()
 
