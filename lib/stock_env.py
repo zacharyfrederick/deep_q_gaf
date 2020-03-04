@@ -168,7 +168,7 @@ if __name__ == "__main__":
                train_interval=4, delta_clip=1.)
     dqn.compile(Adam(lr=.00025), metrics=['mae'])
 
-    if False:
+    if True:
         weights_filename = weights_filename.format('gaf')
         checkpoint_weights_filename = 'dqn_' + \
            'gaf' + '_weights_{step}.h5f'
@@ -178,14 +178,14 @@ if __name__ == "__main__":
         callbacks += [FileLogger(log_filename, interval=100)]
         dqn.fit(env, nb_steps=1750000, log_interval=10000)
 
-    print('About to start!')
-    while True:
-        if env.dm.is_done() is False:
-            env.dm.step()
+    # print('About to start!')
+    # while False:
+    #     if env.dm.is_done() is False:
+    #         env.dm.step()
 
-            if env.dm._current_index % 500 is 0:
-                print(env.dm._current_index)
-        else:
-            break
+    #         if env.dm._current_index % 500 is 0:
+    #             print(env.dm._current_index)
+    #     else:
+    #         break
     
     print('Completed')
