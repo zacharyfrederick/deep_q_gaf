@@ -38,15 +38,10 @@ class DataManager:
     def load_image_data(self, symbol):
         symbol = symbol.split('.')[0]
         self._open = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'open.csv'))
-
         self._high = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'high.csv'))
-
         self._low = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'low.csv'))
-
         self._close = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'close.csv'))
-
         self._adj_close = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'adj_close.csv'))
-
         self._vol = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'vol.csv'))
 
     def reshape_images(self):
