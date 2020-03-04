@@ -73,7 +73,7 @@ class StockEnv(gym.Env):
 
 
         self.dm.reset()
-        self.index = 0
+        self.index = 3
         frame = self.dm.get_frame()
         self.first_frame = frame
         return frame
