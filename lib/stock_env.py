@@ -31,7 +31,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 
 class StockEnv(gym.Env):
     def __init__(self):
-        self.env_name = 'gaf-environment-v0.0'
+        self.env_name = 'gaf-environment-v1.0'
         self.current_action = None
         self.previous_action = None
         self.dm = DataManager()

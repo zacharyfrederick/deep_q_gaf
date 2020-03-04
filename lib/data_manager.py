@@ -13,12 +13,14 @@ class DataManager:
         self._current_index = 3
         self._raw_data_folder = '../data/raw/'
         self._processed_data_folder = '../data/processed/'
+        self.concat_data_folder = '../data/concat/'
         self.load_symbols()
         self.symbol_index = 0
         self.current_symbol = self.symbols[0]
         self.load_pricing_data(self.current_symbol)
-        self.load_image_data(self.current_symbol)
-        self.reshape_images()
+        #self.load_image_data(self.current_symbol)
+        self.load_image_data2(self.current_symbol)
+        #self.reshape_images()
     
     def print_state(self):
         print('Current index: {}, Symbol index: {}'.format(self._current_index, self.symbol_index))
@@ -34,6 +36,14 @@ class DataManager:
         self._dates = self._prices['Date']
         self._dates = pd.to_datetime(self._dates)
         print('Loaded pricing data')
+
+    def load_image_data2(self, symbol):
+        symbol = symbol.split('.')[0]
+        symbol += '.npy'
+
+        data_path = os.path.join(self.concat_data_folder, symbol)
+        self.images = np.load(data_path)
+        print(self.images.shape)
 
     def load_image_data(self, symbol):
         symbol = symbol.split('.')[0]
