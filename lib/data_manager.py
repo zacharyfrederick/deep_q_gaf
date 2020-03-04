@@ -74,7 +74,7 @@ class DataManager:
         return self.images[self._current_index + offset]
 
     def is_done(self):
-        if self.current_index >= len(self.images):
+        if self._current_index >= len(self.images):
             if self.symbol_index + 1 == len(self.symbols):
                 return True
             else:
@@ -117,7 +117,7 @@ class DataManager:
         return self._dates.iloc[index].to_pydatetime()
 
     def reset(self):
-        self._current_index = 0
+        self._current_index = 3
         return self.get_frame()
 
     def get_ohlc(self):
