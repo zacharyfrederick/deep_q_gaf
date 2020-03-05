@@ -94,7 +94,6 @@ class StockEnv(gym.Env):
         self.index += 1
         self.dm.step()
 
-        print(reward)
         return (frame, reward, done, info)
 
     def update_cash(self, reward):
