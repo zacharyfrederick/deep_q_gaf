@@ -24,7 +24,7 @@ class PositionQueue:
         else:
             return self.queue[0]
 
-    def remove(self):
+    def remove(self): 
         current = self.peek()
 
         if current is not None:
@@ -45,7 +45,7 @@ class PositionManager:
         close_index = open_index + self.holding_period
 
         open_ = self.dm.get_value_w_index(open_index, 'Open')
-        close = self.dm.get_value_w_index(close_index, 'Open')
+        close = self.dm.get_value_w_index(close_index, 'Close')
 
         position = Position(type_, open_index, close_index,\
             open_, close)

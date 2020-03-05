@@ -95,6 +95,8 @@ class StockEnv(gym.Env):
         info = {}
     
         self.step_()
+        wait = input()
+        print(reward)
         return (frame, reward, done, info)
 
     def update_cash(self, reward):
