@@ -83,10 +83,9 @@ class StockEnv(gym.Env):
         return self.pm.close_positions()
 
     def step(self, action):
-        self.pm.open_position(action, self.index)
-
         reward = self.pm.close_position()
         self.update_cash(reward)
+        self.pm.open_position(action, self.index)
 
         done = self.is_done()
         frame = self.dm.get_frame() if not done else self.first_frame
