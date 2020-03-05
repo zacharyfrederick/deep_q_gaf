@@ -68,6 +68,7 @@ class StockEnv(gym.Env):
         if self.episodes_ran > 1:
             print('reset', self.episodes_ran)
 
+
         self.dm.reset()
         self.index = 3
         frame = self.dm.get_frame()
@@ -90,17 +91,14 @@ class StockEnv(gym.Env):
         frame = self.dm.get_frame() if not done else self.first_frame
         info = {}
     
-        self.step_()
-        wait = input()
+        self.index += 1
+        self.dm.step()
+
         print(reward)
         return (frame, reward, done, info)
 
     def update_cash(self, reward):
         self.cash = (1 + reward) * self.cash
-
-    def step_(self):
-        self.index += 1
-        self.dm.step()
 
     def is_done(self):
         return True if (self.dm.is_done() or self.cash <= 0) else False
