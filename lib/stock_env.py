@@ -62,6 +62,8 @@ class StockEnv(gym.Env):
         model.add(Activation('linear'))
         return model
 
+    def test(self):
+        pass
     def reset(self):
         self.episodes_ran += 1
 
