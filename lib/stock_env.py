@@ -68,10 +68,6 @@ class StockEnv(gym.Env):
         if self.episodes_ran > 1:
             print('reset', self.episodes_ran)
 
-        with open('results.txt', 'a') as file:
-            file.write(str(self.cash) + "\n")
-
-
         self.dm.reset()
         self.index = 3
         frame = self.dm.get_frame()
