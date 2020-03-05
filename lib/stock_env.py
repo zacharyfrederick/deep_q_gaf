@@ -68,7 +68,6 @@ class StockEnv(gym.Env):
         if self.episodes_ran > 1:
             print('reset', self.episodes_ran)
 
-
         self.dm.reset()
         self.index = 3
         frame = self.dm.get_frame()
