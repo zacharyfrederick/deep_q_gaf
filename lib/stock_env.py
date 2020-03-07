@@ -100,20 +100,21 @@ class StockEnv(gym.Env):
         done = self.clock.done()
         reward = self.pm.close_position()
 
-        if self.cash < 0.01 or self.cash == np.nan:
-            done = True
-            self.cash = 100000
-
-        if done is self.dm.SYMBOL_INCR_FLAG:
+        if done is True or self.cash < 0.01 or self.cash == np.nan:
+                done = True
+                self.cash = 100000
+        elif done is self.dm.SYMBOL_INCR_FLAG:
             len_images, len_symbols = self.dm.increment_symbol()
             self.clock.set_params(len_images, len_symbols)
             done = False
+        else:
+            self.pm.open_position(action, self.clock.index)
+
 
         frame = self.dm.get_frame() if not done else self.first_frame
         info = {}
 
         self.update_cash(reward)
-        self.pm.open_position(action, self.clock.index)
         self.clock.tick()
         return frame, reward, done, info
 
