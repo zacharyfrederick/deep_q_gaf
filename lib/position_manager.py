@@ -43,7 +43,6 @@ class PositionManager:
         self.is_open = False
         self.is_long = False
 
-
     def open_position(self, type_, open_index):
         close_index = open_index + self.holding_period
 
@@ -53,12 +52,10 @@ class PositionManager:
         open_ = self.dm.get_value_w_index(open_index, 'Open')
         close = self.dm.get_value_w_index(close_index, 'Close')
 
-
         position = Position(type_, open_index, close_index,\
             open_, close)
 
         self.pq.add(position)
-        
 
     def get_value_w_index(self, index, column):
         self.dm.get_value_w_index(index, column)

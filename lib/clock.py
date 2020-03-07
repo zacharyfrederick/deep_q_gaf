@@ -26,6 +26,7 @@ class Clock:
         self.is_done = False
         self.index = self.initial_value
         self.symbol_index = 0
+        self.JUST_RESET = True
 
     def set_params(self, len_images, len_symbols):
         self.len_images = len_images
