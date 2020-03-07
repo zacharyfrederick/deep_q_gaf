@@ -46,9 +46,6 @@ class PositionManager:
     def open_position(self, type_, open_index):
         close_index = open_index + self.holding_period
 
-        if self.clock.is_done:
-            return
-
         open_ = self.dm.get_value_w_index(open_index, 'Open')
         close = self.dm.get_value_w_index(close_index, 'Close')
 
