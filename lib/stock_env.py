@@ -109,7 +109,7 @@ class StockEnv(gym.Env):
             reward = 0
 
         if done is self.dm.SYMBOL_INCR_FLAG:
-            print('Cash before increment:', self.cash)
+            print('\nCash before increment:', self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
             self.clock.set_params(len_images, len_symbols)
             done = False
@@ -164,7 +164,7 @@ if __name__ == "__main__":
         callbacks = [ModelIntervalCheckpoint(
            checkpoint_weights_filename, interval=250000)]
         callbacks += [FileLogger(log_filename, interval=100)]
-        dqn.fit(env, nb_steps=1750000, log_interval=10000)
+        dqn.fit(env, nb_max_episode_steps=None, log_interval=10000)
 
     # print('About to start!')
     # while False:
