@@ -48,42 +48,8 @@ class DataManager:
         self.images = np.load(data_path)
         print(self.images.shape)
 
-    def load_image_data(self, symbol):
-        symbol = symbol.split('.')[0]
-        self._open = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'open.csv'), nrows=10)
-        self._high = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'high.csv'),nrows=10)
-        self._low = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'low.csv'), nrows=10)
-        self._close = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'close.csv'), nrows=10)
-        self._adj_close = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'adj_close.csv'), nrows=10)
-        self._vol = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'vol.csv'), nrows=10)
-
-    def reshape_images(self):
-        self._open = self._open.drop(columns='Date')
-        self._high = self._high.drop(columns='Date')
-        self._low = self._low.drop(columns='Date')
-        self._close = self._close.drop(columns='Date')
-        self._adj_close = self._adj_close.drop(columns='Date')
-        self._vol = self._vol.drop(columns='Date')
-
-        images = pd.concat([self._open, self._high], axis=1)
-        images = pd.concat([images, self._low], axis=1)
-        images = pd.concat([images, self._close], axis=1)
-        images = pd.concat([images, self._adj_close], axis=1)
-        images = pd.concat([images, self._vol], axis=1)
-        images = images.values.reshape(images.shape[0], 1, 30, 180)
-        self.images = images
-
     def get_current_image(self, offset=0):
         return self.images[self._current_index + offset]
-
-    def done(self):
-        done = self.clock.done()
-
-        if done is -1:
-            self.increment_symbol()
-
-    def test(self):
-        print('this is a test')
 
     def increment_symbol(self):
         print('Incrementing symbol')
@@ -92,7 +58,6 @@ class DataManager:
         self._current_index = 3
         self.load_pricing_data(self.current_symbol)
         self.load_image_data2(self.current_symbol)
-        self.len = self.images.shape[0]
         print('new symbol: {}'.format(self.current_symbol))
         print('length', len(self.images.shape))
 
