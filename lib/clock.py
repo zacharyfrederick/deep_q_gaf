@@ -23,7 +23,7 @@ class Clock:
             return False
 
     def reset(self):
-        self.is_done = True
+        self.is_done = False
         self.index = self.initial_value
         self.symbol_index = 0
 
