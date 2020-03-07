@@ -9,9 +9,6 @@ class Clock:
     def tick(self):
         self.index += 1
 
-    def incr_symbol(self):
-        self.symbol_index += 1
-
     def done(self):
         if self.index >= self.len_images:
             if self.symbol_index + 1 == self.len_symbols:
