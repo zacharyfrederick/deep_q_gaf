@@ -89,11 +89,14 @@ class ImageConcat:
         """Loads the symbols (the directories) of the companies 
         that we have image data for. '.DS_Store' is a weird mac thing 
         """
-        symbols = os.listdir(self.DATA_FOLDER) 
-        temp = symbols.remove('.DS_Store') #this is a weird macosx thing
-        #self.symbols = symbols if temp is None else temp
-        ref = ['fb', 'amzn', 'googl', 'nvda', 'spy', 'msft', 'brk-b', 'aapl', 'nflx', 'goog']
-        self.symbols = ('nvda',)
+        symbols = os.listdir(self.DATA_FOLDER)
+        try:
+            temp = symbols.remove('.DS_Store') #this is a weird macosx thing
+        except Exception as e:
+            print('Could not remove .DS_Store', e)
+
+        self.symbols = symbols if temp is None else temp
+
 
     def load_data(self, symbol):
         """Loads the data for each descriptor for the passed in symbol into 
