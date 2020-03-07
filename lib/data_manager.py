@@ -63,7 +63,7 @@ class DataManager:
 
     def get_frame(self):
         if self.clock.done():
-            return np.empty((1, 30, 180))
+            return np.empty((30, 180))
 
         return self.get_current_image().squeeze(axis=0)
         
