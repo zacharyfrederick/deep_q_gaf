@@ -75,6 +75,7 @@ class StockEnv(gym.Env):
         if self.episodes_ran > 1:
             print('reset', self.episodes_ran)
             print('Current cash:', self.cash)
+            self.cash = 0
 
         self.dm.reset()
         self.index = 3
