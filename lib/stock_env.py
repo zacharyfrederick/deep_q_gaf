@@ -111,7 +111,7 @@ class StockEnv(gym.Env):
         info = {}
 
         self.update_cash(reward)
-        self.pm.open_position(action, self.index)
+        self.pm.open_position(action, self.clock.index)
         self.clock.tick()
         return frame, reward, done, info
 
