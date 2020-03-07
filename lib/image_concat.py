@@ -92,6 +92,8 @@ class ImageConcat:
         symbols = os.listdir(self.DATA_FOLDER) 
         temp = symbols.remove('.DS_Store') #this is a weird macosx thing
         self.symbols = symbols if temp is None else temp
+        print(symbols)
+        exit()
 
     def load_data(self, symbol):
         """Loads the data for each descriptor for the passed in symbol into 
