@@ -5,6 +5,7 @@ class Clock:
         self.symbol_index = 0
         self.len = None
         self.SYMBOL_INCR_FLAG = -1
+        self.is_done = False
 
     def tick(self):
         self.index += 1
@@ -22,6 +23,7 @@ class Clock:
             return False
 
     def reset(self):
+        self.is_done = True
         self.index = self.initial_value
         self.symbol_index = 0
 
