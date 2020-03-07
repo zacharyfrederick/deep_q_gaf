@@ -97,7 +97,6 @@ class StockEnv(gym.Env):
 
         done = self.clock.done()
         reward = self.pm.close_position()
-        reward = self.update_cash(reward)
 
         if done is True or self.cash < 0.01 or self.cash == np.nan:
                 done = True
@@ -120,8 +119,6 @@ class StockEnv(gym.Env):
     def update_cash(self, reward):
         self.old_cash = self.cash
         self.cash = (1 + reward) * self.cash
-        return self.cash - self.old_cash
-
 
     def step_old(self, action):
         self.previous_action = self.current_action
