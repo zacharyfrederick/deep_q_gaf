@@ -101,7 +101,7 @@ class StockEnv(gym.Env):
         reward = self.pm.close_position() * self.REWARD_MULT
         info = {}
 
-        if done is True or self.cash < 0.01 or self.cash == np.nan:
+        if done is True or self.cash < 0.01:
                 done = True
                 self.cash = 100000
                 self.clock.reset()
@@ -109,6 +109,7 @@ class StockEnv(gym.Env):
             len_images, len_symbols = self.dm.increment_symbol()
             self.clock.set_params(len_images, len_symbols)
             done = False
+            self.pm.open_position(action, self.clock.index)
             self.update_cash(reward)
             self.clock.tick()
         else:
@@ -121,39 +122,6 @@ class StockEnv(gym.Env):
     def update_cash(self, reward):
         self.old_cash = self.cash
         self.cash = (1 + reward) * self.cash
-
-    def step_old(self, action):
-        self.previous_action = self.current_action
-        self.current_action = action 
-
-        frame, date = self.dm.step()
-
-        if frame is None:
-            frame = self.last_obsv
-
-        if frame is -1:
-            done = True
-        else:
-            done = False
-
-        self.index += 1
-        info = {}
-
-        reward = 0
-
-        if self.index % 10000 == 0:
-            self.dm.print_state()
-
-        self.last_obsv = frame
-        return frame, reward, done, info
-
-    def process_action(self, action):
-        if action == Actions.BUY:
-            return 0
-        elif action == Actions.SELL:
-            return 1
-        elif action == Actions.HOLD:
-            return 2
 
     def print_intro(self):
         start = self.dm.get_date()
