@@ -54,14 +54,20 @@ class DataManager:
     def increment_symbol(self):
         print('\nIncrementing symbol')
         self.current_symbol = self.symbols[self.clock.symbol_index]
-        self._current_index = 3
-        self.load_pricing_data(self.current_symbol)
-        self.load_image_data2(self.current_symbol)
+        self.load_data()
         print('Loaded new symbol: {}'.format(self.current_symbol))
         return (len(self.images), len(self.symbols))
 
+    def reset(self):
+        self.current_symbol = self.symbols[self.clock.symbol_index]
+        self.load_data()
+
+    def load_data(self):
+        self.load_pricing_data(self.current_symbol)
+        self.load_image_data2(self.current_symbol)
+
     def get_frame(self):
-        if self.clock.done():
+        if self.clock.just_reset is True():
             return np.empty((30, 180))
 
         return self.get_current_image().squeeze(axis=0)
