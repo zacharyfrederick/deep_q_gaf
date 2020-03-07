@@ -52,7 +52,7 @@ class DataManager:
         return self.images[self._current_index + offset]
 
     def increment_symbol(self):
-        print('Incrementing symbol')
+        print('\nIncrementing symbol')
         self.symbol_index += 1
         self.current_symbol = self.symbols[self.symbol_index]
         self._current_index = 3
