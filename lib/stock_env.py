@@ -110,7 +110,7 @@ class StockEnv(gym.Env):
             self.pm.open_position(action, self.clock.index)
 
             reward *= self.REWARD_MULT
-            if self.reward == np.nan:
+            if reward == np.nan:
                 done = True
 
         frame = self.dm.get_frame() if not done else self.first_frame
