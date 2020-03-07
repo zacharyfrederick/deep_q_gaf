@@ -92,6 +92,9 @@ class StockEnv(gym.Env):
             len_images, len_symbols = self.dm.increment_symbol()
             self.clock.set_params(len_images, len_symbols)
 
+        if self.cash < 0.01:
+            done = True
+
         frame = self.dm.get_frame() if not done else self.first_frame
         info = {}
 
