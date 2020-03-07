@@ -41,7 +41,7 @@ class StockEnv(gym.Env):
         self.previous_action = None
         self.clock = Clock()
         self.dm = DataManager(self.clock)
-        self.pm = PositionManager(self.dm, 1)
+        self.pm = PositionManager(self.clock, self.dm, 1)
         self.cash = 100000
         self.action_space = gym.spaces.Discrete(3)
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(4, 30, 180))

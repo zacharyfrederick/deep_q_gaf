@@ -34,7 +34,8 @@ class PositionQueue:
             return None
 
 class PositionManager:
-    def __init__(self, dm, holding_period=1):
+    def __init__(self,clock, dm, holding_period=1):
+        self.clock = clock
         self.dm = dm #the data manager, needed for pricing data
         self.pq = PositionQueue()
         self.holding_period = holding_period #how long before the position is closed
@@ -46,6 +47,9 @@ class PositionManager:
 
         open_ = self.dm.get_value_w_index(open_index, 'Open')
         close = self.dm.get_value_w_index(close_index, 'Close')
+
+        if self.clock.is_done:
+            close=open_
 
         position = Position(type_, open_index, close_index,\
             open_, close)
