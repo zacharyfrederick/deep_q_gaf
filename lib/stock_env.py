@@ -100,7 +100,7 @@ class StockEnv(gym.Env):
         done = self.clock.done()
         reward = self.pm.close_position()
 
-        if self.cash < 0.01 and self.cash is not 0.0:
+        if self.cash < 0.01 or self.cash == np.nan:
             done = True
             self.cash = 100000
 

@@ -53,13 +53,11 @@ class DataManager:
 
     def increment_symbol(self):
         print('\nIncrementing symbol')
-        self.symbol_index += 1
-        self.current_symbol = self.symbols[self.symbol_index]
+        self.current_symbol = self.symbols[self.clock.symbol_index]
         self._current_index = 3
         self.load_pricing_data(self.current_symbol)
         self.load_image_data2(self.current_symbol)
-        print('new symbol: {}'.format(self.current_symbol))
-        print('length', len(self.images.shape))
+        print('Loaded new symbol: {}'.format(self.current_symbol))
         return (len(self.images), len(self.symbols))
 
     def get_frame(self):
