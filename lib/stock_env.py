@@ -23,12 +23,16 @@ from rl.core import Processor
 from rl.memory import SequentialMemory
 from rl.policy import BoltzmannQPolicy, EpsGreedyQPolicy, LinearAnnealedPolicy
 
-from actions import Actions
+import actions
 from data_manager import DataManager
 from position_manager import Position, PositionManager, PositionQueue
 from clock import Clock
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
+
+buy_count = 0;
+sell_count = 0;
+hold_count = 0;
 
 class StockEnv(gym.Env):
     def __init__(self):
@@ -85,6 +89,13 @@ class StockEnv(gym.Env):
         return self.pm.close_positions()
 
     def step(self, action):
+        if action == actions.Actions.BUY:
+            buy_count += 1
+        elif action == actions.Actions.SELL:
+            sell_count += 1
+        elif action == actions.Actions.HOLD:
+            hold_count += 1
+
         done = self.clock.done()
         reward = self.pm.close_position()
 
@@ -188,3 +199,4 @@ if __name__ == "__main__":
     #         break
     
     print('Completed')
+    print('buy count:', self.buy_count)
