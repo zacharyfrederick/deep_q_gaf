@@ -99,6 +99,8 @@ class StockEnv(gym.Env):
         done = self.clock.done()
         reward = self.pm.close_position()
 
+        reward *= self.REWARD_MULT
+
         if done is True or self.cash < 0.01 or self.cash == np.nan:
                 done = True
                 self.cash = 100000
@@ -108,10 +110,6 @@ class StockEnv(gym.Env):
             done = False
         else:
             self.pm.open_position(action, self.clock.index)
-
-            reward *= self.REWARD_MULT
-            if reward == np.nan:
-                done = True
 
         frame = self.dm.get_frame() if not done else self.first_frame
         info = {}
