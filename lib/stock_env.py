@@ -105,7 +105,12 @@ class StockEnv(gym.Env):
         reward = self.pm.close_position() * self.REWARD_MULT
         info = {}
 
+        if reward == np.nan:
+            print('found')
+            reward = 0
+
         if done is self.dm.SYMBOL_INCR_FLAG:
+            print('Cash before increment:', self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
             self.clock.set_params(len_images, len_symbols)
             done = False
