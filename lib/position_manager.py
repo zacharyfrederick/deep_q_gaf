@@ -34,13 +34,15 @@ class PositionQueue:
             return None
 
 class PositionManager:
-    def __init__(self,clock, dm, holding_period=1):
+    def __init__(self,clock, dm, cash, holding_period=1):
         self.clock = clock
         self.dm = dm #the data manager, needed for pricing data
+        self.cash = cash
         self.pq = PositionQueue()
         self.holding_period = holding_period #how long before the position is closed
         self.is_open = False
         self.is_long = False
+
 
     def open_position(self, type_, open_index):
         close_index = open_index + self.holding_period

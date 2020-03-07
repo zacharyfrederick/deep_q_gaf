@@ -37,12 +37,12 @@ hold_count = 0;
 class StockEnv(gym.Env):
     def __init__(self):
         self.env_name = 'gaf-environment-v1.0'
+        self.cash = 100000
         self.current_action = None
         self.previous_action = None
         self.clock = Clock()
         self.dm = DataManager(self.clock)
-        self.pm = PositionManager(self.clock, self.dm, 1)
-        self.cash = 100000
+        self.pm = PositionManager(self.clock, self.dm, self.cash, 1)
         self.action_space = gym.spaces.Discrete(3)
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(4, 30, 180))
         #self.print_intro()
@@ -67,8 +67,6 @@ class StockEnv(gym.Env):
         model.add(Activation('linear'))
         return model
 
-    def test(self):
-        pass
     def reset(self):
         self.episodes_ran += 1
 
@@ -99,6 +97,7 @@ class StockEnv(gym.Env):
 
         done = self.clock.done()
         reward = self.pm.close_position()
+        reward = self.update_cash(reward)
 
         if done is True or self.cash < 0.01 or self.cash == np.nan:
                 done = True
@@ -119,7 +118,10 @@ class StockEnv(gym.Env):
         return frame, reward, done, info
 
     def update_cash(self, reward):
+        self.old_cash = self.cash
         self.cash = (1 + reward) * self.cash
+        return self.cash - self.old_cash
+
 
     def step_old(self, action):
         self.previous_action = self.current_action
