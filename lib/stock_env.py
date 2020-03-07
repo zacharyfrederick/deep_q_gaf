@@ -103,7 +103,7 @@ class StockEnv(gym.Env):
         if done is self.dm.SYMBOL_INCR_FLAG:
             len_images, len_symbols = self.dm.increment_symbol()
             self.clock.set_params(len_images, len_symbols)
-            self.cash = 0.0
+            self.cash = 100000
 
         frame = self.dm.get_frame() if not done else self.first_frame
         info = {}
