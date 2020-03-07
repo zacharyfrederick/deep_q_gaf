@@ -37,6 +37,7 @@ hold_count = 0;
 class StockEnv(gym.Env):
     def __init__(self):
         self.env_name = 'gaf-environment-v1.0'
+        self.REWARD_MULT = 100000
         self.cash = 100000
         self.current_action = None
         self.previous_action = None
@@ -114,7 +115,7 @@ class StockEnv(gym.Env):
 
         self.update_cash(reward)
         self.clock.tick()
-        return frame, reward, done, info
+        return frame, reward * self.REWARD_MULT, done, info
 
     def update_cash(self, reward):
         self.old_cash = self.cash
