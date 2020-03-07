@@ -86,6 +86,10 @@ class StockEnv(gym.Env):
     def step(self, action):
         done = self.clock.done()
         reward = self.pm.close_position()
+
+        if done:
+            self.dm.increment_symbol()
+
         frame = self.dm.get_frame() if not done else self.first_frame
         info = {}
 
