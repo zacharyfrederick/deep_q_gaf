@@ -15,6 +15,7 @@ class Clock:
                 return True
             else:
                 self.index = self.initial_value
+                self.symbol_index += 1
                 return self.SYMBOL_INCR_FLAG
         else:
             return False
