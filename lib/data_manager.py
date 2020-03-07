@@ -91,7 +91,7 @@ class DataManager:
         self.current_symbol = self.symbols[self.symbol_index]
         self._current_index = 3
         self.load_pricing_data(self.current_symbol)
-        self.load_image_data(self.current_symbol)
+        self.load_image_data2(self.current_symbol)
         self.len = self.images.shape[0]
         print('new symbol: {}'.format(self.current_symbol))
         print('length', len(self._open))
