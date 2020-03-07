@@ -26,6 +26,7 @@ from rl.policy import BoltzmannQPolicy, EpsGreedyQPolicy, LinearAnnealedPolicy
 from actions import Actions
 from data_manager import DataManager
 from position_manager import Position, PositionManager, PositionQueue
+from clock import Clock
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
@@ -34,10 +35,10 @@ class StockEnv(gym.Env):
         self.env_name = 'gaf-environment-v1.0'
         self.current_action = None
         self.previous_action = None
-        self.dm = DataManager()
+        self.clock = Clock()
+        self.dm = DataManager(self.clock)
         self.pm = PositionManager(self.dm, 1)
         self.cash = 100000
-        self.index = 3
         self.action_space = gym.spaces.Discrete(3)
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(4, 30, 180))
         #self.print_intro()
@@ -83,24 +84,18 @@ class StockEnv(gym.Env):
         return self.pm.close_positions()
 
     def step(self, action):
+        done = self.clock.done()
         reward = self.pm.close_position()
-        self.update_cash(reward)
-        self.pm.open_position(action, self.index)
-
-        done = self.is_done()
         frame = self.dm.get_frame() if not done else self.first_frame
         info = {}
-    
-        self.index += 1
-        self.dm.step()
 
-        return (frame, reward, done, info)
+        self.update_cash(reward)
+        self.pm.open_position(action, self.index)
+        self.clock.tick()
+        return frame, reward, done, info
 
     def update_cash(self, reward):
         self.cash = (1 + reward) * self.cash
-
-    def is_done(self):
-        return True if (self.dm.is_done() or self.cash <= 0) else False
 
     def step_old(self, action):
         self.previous_action = self.current_action
@@ -125,7 +120,7 @@ class StockEnv(gym.Env):
             self.dm.print_state()
 
         self.last_obsv = frame
-        return(frame, reward, done, info)
+        return frame, reward, done, info
 
     def process_action(self, action):
         if action == Actions.BUY:

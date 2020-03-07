@@ -8,7 +8,7 @@ import numpy as np
 import pandas as pd
 
 class DataManager:
-    def __init__(self):
+    def __init__(self, clock):
         self._index_col = 'Date'
         self._current_index = 3
         self._raw_data_folder = '../data/raw/'
@@ -20,6 +20,9 @@ class DataManager:
         self.load_pricing_data(self.current_symbol)
         #self.load_image_data(self.current_symbol)
         self.load_image_data2(self.current_symbol)
+        self.SYMBOL_INCR_FLAG = -1
+        self.clock = clock
+        self.clock.set_params(len(self.images), len(self.symbols))
         #self.reshape_images()
     
     def print_state(self):
@@ -47,12 +50,12 @@ class DataManager:
 
     def load_image_data(self, symbol):
         symbol = symbol.split('.')[0]
-        self._open = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'open.csv'))
-        self._high = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'high.csv'))
-        self._low = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'low.csv'))
-        self._close = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'close.csv'))
-        self._adj_close = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'adj_close.csv'))
-        self._vol = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'vol.csv'))
+        self._open = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'open.csv'), nrows=10)
+        self._high = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'high.csv'),nrows=10)
+        self._low = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'low.csv'), nrows=10)
+        self._close = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'close.csv'), nrows=10)
+        self._adj_close = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'adj_close.csv'), nrows=10)
+        self._vol = pd.read_csv(os.path.join(self._processed_data_folder, symbol, 'vol.csv'), nrows=10)
 
     def reshape_images(self):
         self._open = self._open.drop(columns='Date')
@@ -73,15 +76,14 @@ class DataManager:
     def get_current_image(self, offset=0):
         return self.images[self._current_index + offset]
 
-    def is_done(self):
-        if self._current_index >= len(self.images):
-            if self.symbol_index + 1 == len(self.symbols):
-                return True
-            else:
-                self.increment_symbol()
-                return False
-        else:
-            return False
+    def done(self):
+        done = self.clock.done()
+
+        if done is -1:
+            self.increment_symbol()
+
+    def test(self):
+        print('this is a test')
 
     def increment_symbol(self):
         print('Incrementing symbol')
@@ -90,12 +92,13 @@ class DataManager:
         self._current_index = 3
         self.load_pricing_data(self.current_symbol)
         self.load_image_data(self.current_symbol)
+        self.len = self.images.shape[0]
         print('new symbol: {}'.format(self.current_symbol))
         print('length', len(self._open))
-        self.reshape_images()
+        #self.reshape_images()
 
     def get_frame(self):
-        if self.is_done():
+        if self.clock.done():
             return None
 
         return self.get_current_image().squeeze(axis=0)
