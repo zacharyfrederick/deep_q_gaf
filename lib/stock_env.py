@@ -81,6 +81,7 @@ class StockEnv(gym.Env):
         self.index = 3
         frame = self.dm.get_frame()
         self.first_frame = frame
+        exit()
         return frame
 
     def position_to_close(self, index):
