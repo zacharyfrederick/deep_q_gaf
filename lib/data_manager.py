@@ -94,8 +94,7 @@ class DataManager:
         self.load_image_data2(self.current_symbol)
         self.len = self.images.shape[0]
         print('new symbol: {}'.format(self.current_symbol))
-        print('length', len(self._open))
-        #self.reshape_images()
+        print('length', len(self.images.shape))
 
     def get_frame(self):
         if self.clock.done():
