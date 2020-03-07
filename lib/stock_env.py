@@ -86,13 +86,16 @@ class StockEnv(gym.Env):
     def close_positions(self):
         return self.pm.close_positions()
 
-    def step(self, action):
+    def update_action_count(self, action):
         if action == actions.Actions.BUY:
             buy_count += 1
         elif action == actions.Actions.SELL:
             sell_count += 1
         elif action == actions.Actions.HOLD:
             hold_count += 1
+
+    def step(self, action):
+        self.update_action_count(action)
 
         done = self.clock.done()
         reward = self.pm.close_position()
@@ -104,6 +107,7 @@ class StockEnv(gym.Env):
         if done is self.dm.SYMBOL_INCR_FLAG:
             len_images, len_symbols = self.dm.increment_symbol()
             self.clock.set_params(len_images, len_symbols)
+            done = False
 
         frame = self.dm.get_frame() if not done else self.first_frame
         info = {}
