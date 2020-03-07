@@ -104,9 +104,7 @@ class StockEnv(gym.Env):
         reward = self.pm.close_position() * self.REWARD_MULT
         info = {}
 
-        if done is True or self.cash < 0.01:
-                done = True
-        elif done is self.dm.SYMBOL_INCR_FLAG:
+        if done is self.dm.SYMBOL_INCR_FLAG:
             len_images, len_symbols = self.dm.increment_symbol()
             self.clock.set_params(len_images, len_symbols)
             done = False
