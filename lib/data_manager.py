@@ -67,9 +67,6 @@ class DataManager:
         self.load_image_data2(self.current_symbol)
 
     def get_frame(self):
-        if self.clock.just_reset is True():
-            return np.empty((30, 180))
-
         return self.get_current_image().squeeze(axis=0)
         
     def get_date(self):
