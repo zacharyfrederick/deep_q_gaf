@@ -105,7 +105,7 @@ class StockEnv(gym.Env):
         reward = self.pm.close_position() * self.REWARD_MULT
         info = {}
 
-        if np.isfinite(reward):
+        if not np.isfinite(reward):
             reward = 0
 
         if done is self.dm.SYMBOL_INCR_FLAG:
