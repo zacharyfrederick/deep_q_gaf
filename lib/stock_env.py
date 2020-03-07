@@ -77,8 +77,6 @@ class StockEnv(gym.Env):
             print('Current cash:', self.cash)
             self.cash = 0.0
 
-        self.dm.reset()
-        self.index = 3
         frame = self.dm.get_frame()
         self.first_frame = frame
         exit()

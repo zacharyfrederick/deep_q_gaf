@@ -84,10 +84,6 @@ class DataManager:
     def get_date_w_index(self, index):
         return self._dates.iloc[index].to_pydatetime()
 
-    def reset(self):
-        self._current_index = 3
-        return self.get_frame()
-
     def get_ohlc(self):
         return self._prices.iloc[self._current_index]
 
