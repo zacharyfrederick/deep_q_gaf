@@ -87,7 +87,7 @@ class StockEnv(gym.Env):
         done = self.clock.done()
         reward = self.pm.close_position()
 
-        if done:
+        if done is self.dm.SYMBOL_INCR_FLAG:
             self.dm.increment_symbol()
 
         frame = self.dm.get_frame() if not done else self.first_frame
