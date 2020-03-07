@@ -105,7 +105,7 @@ class StockEnv(gym.Env):
         reward = self.pm.close_position() * self.REWARD_MULT
         info = {}
 
-        if reward == np.nan:
+        if type(reward) == int:
             print('found')
             reward = 0
 
