@@ -69,6 +69,7 @@ class StockEnv(gym.Env):
         return model
 
     def reset(self):
+        self.clock.reset()
         self.episodes_ran += 1
 
         if self.episodes_ran > 1:
@@ -97,17 +98,17 @@ class StockEnv(gym.Env):
         self.update_action_count(action)
 
         done = self.clock.done()
-        reward = self.pm.close_position()
-
-        reward *= self.REWARD_MULT
+        reward = self.pm.close_position() * self.REWARD_MULT
 
         if done is True or self.cash < 0.01 or self.cash == np.nan:
                 done = True
                 self.cash = 100000
+
         elif done is self.dm.SYMBOL_INCR_FLAG:
             len_images, len_symbols = self.dm.increment_symbol()
             self.clock.set_params(len_images, len_symbols)
             done = False
+
         else:
             self.pm.open_position(action, self.clock.index)
 
@@ -116,7 +117,7 @@ class StockEnv(gym.Env):
 
         self.update_cash(reward)
         self.clock.tick()
-        return frame, reward * self.REWARD_MULT, done, info
+        return frame, reward, done, info
 
     def update_cash(self, reward):
         self.old_cash = self.cash
