@@ -14,6 +14,7 @@ class Clock:
             if self.symbol_index + 1 == self.len_symbols:
                 return True
             else:
+                self.index = self.initial_value
                 return self.SYMBOL_INCR_FLAG
         else:
             return False

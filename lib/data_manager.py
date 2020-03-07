@@ -60,6 +60,7 @@ class DataManager:
         self.load_image_data2(self.current_symbol)
         print('new symbol: {}'.format(self.current_symbol))
         print('length', len(self.images.shape))
+        return (len(self.images), len(self.symbols))
 
     def get_frame(self):
         if self.clock.done():
