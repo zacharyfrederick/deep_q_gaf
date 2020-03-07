@@ -105,9 +105,7 @@ class StockEnv(gym.Env):
         reward = self.pm.close_position() * self.REWARD_MULT
         info = {}
 
-        if type(reward) != int:
-            print('found')
-            reward = 0
+        print(type(reward))
 
         if done is self.dm.SYMBOL_INCR_FLAG:
             print('Cash before increment:', self.cash)
