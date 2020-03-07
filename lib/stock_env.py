@@ -69,6 +69,7 @@ class StockEnv(gym.Env):
         return model
 
     def reset(self):
+        print('Cash before reset:', self.cash)
         self.clock.reset()
         self.cash = 100000
         self.episodes_ran += 1
