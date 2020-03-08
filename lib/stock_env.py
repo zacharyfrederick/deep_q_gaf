@@ -147,8 +147,11 @@ class StockEnv(gym.Env):
         return self.cash
 
     def print_returns(self):
-        for i, symbol in enumerate(self.symbols):
-            print(symbol, self.final_cash_value[i])
+        if self.symbols is None:
+            return
+        else:
+            for i, symbol in enumerate(self.symbols):
+                print(symbol, self.final_cash_value[i])
 
 
 if __name__ == "__main__":

@@ -5,7 +5,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 import os
 
 import numpy as np
-import pandas as pdc
+import pandas as pd
 
 class DataManager:
     def __init__(self, clock):
