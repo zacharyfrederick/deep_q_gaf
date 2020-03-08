@@ -74,7 +74,6 @@ class StockEnv(gym.Env):
 
     def reset(self):
         print('Cash before reset:', self.cash)
-        self.print_returns()
         self.clock.reset()
         self.cash = 100000
         self.episodes_ran += 1
@@ -112,6 +111,9 @@ class StockEnv(gym.Env):
 
         if not np.isfinite(reward):
             reward = 0
+
+        if done == True:
+            self.print_returns()
 
         if done is self.dm.SYMBOL_INCR_FLAG:
             print('\nCash before increment:' +  str(self.cash))
@@ -154,7 +156,7 @@ class StockEnv(gym.Env):
 
 
 if __name__ == "__main__":
-    K.tensorflow_backend._get_available_gpus()
+    print(K.tensorflow_backend._get_available_gpus())
     weights_filename = '../data/weights/dqn_{}_weights.h5f'.format('test')
     env = StockEnv()
     mode = 'train'
