@@ -45,6 +45,8 @@ class StockEnv(gym.Env):
         self.dm = DataManager(self.clock)
         self.pm = PositionManager(self.clock, self.dm, self.cash, 1)
         self.symbols = self.dm.get_symbols()
+        print(self.symbols)
+        exit()
         self.action_space = gym.spaces.Discrete(3)
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(4, 30, 180))
         self.symbols = None
@@ -112,7 +114,7 @@ class StockEnv(gym.Env):
             reward = 0
 
         if done is self.dm.SYMBOL_INCR_FLAG:
-            print('\nCash before increment:', self.cash)
+            print('\nCash before increment:' +  self.cash)
             self.final_cash_value.append(self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
             self.clock.set_params(len_images, len_symbols)
@@ -147,7 +149,7 @@ class StockEnv(gym.Env):
 
     def print_returns(self):
         for i, symbol in enumerate(self.symbols):
-            print(symbol, self.final_cash_value[i])
+            print(symbol, self.final_cash_value[i - 1])
 
 
 if __name__ == "__main__":
