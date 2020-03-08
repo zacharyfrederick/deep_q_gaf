@@ -5,7 +5,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 import os
 
 import numpy as np
-import pandas as pd
+import pandas as pdc
 
 class DataManager:
     def __init__(self, clock):
@@ -15,7 +15,7 @@ class DataManager:
         self._processed_data_folder = '../data/processed/'
         self.concat_data_folder = '../data/concat/'
         self.load_symbols()
-        self.symbol_index = 0
+        self.symbol_indeccx = 0
         self.current_symbol = self.symbols[0]   
         self.load_pricing_data(self.current_symbol)
         #self.load_image_data(self.current_symbol)

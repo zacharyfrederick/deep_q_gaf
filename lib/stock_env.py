@@ -73,6 +73,7 @@ class StockEnv(gym.Env):
 
     def reset(self):
         print('Cash before reset:', self.cash)
+        self.print_returns()
         self.clock.reset()
         self.cash = 100000
         self.episodes_ran += 1
@@ -111,9 +112,6 @@ class StockEnv(gym.Env):
         if not np.isfinite(reward):
             reward = 0
 
-        if done is True:
-            self.print_returns()
-
         if done is self.dm.SYMBOL_INCR_FLAG:
             print('\nCash before increment:' +  str(self.cash))
             self.final_cash_value.append(self.cash)
@@ -150,7 +148,7 @@ class StockEnv(gym.Env):
 
     def print_returns(self):
         for i, symbol in enumerate(self.symbols):
-            print(symbol, self.final_cash_value[i - 1])
+            print(symbol, self.final_cash_value[i])
 
 
 if __name__ == "__main__":
