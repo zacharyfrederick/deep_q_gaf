@@ -178,9 +178,6 @@ if __name__ == "__main__":
 
         # After training is done, we save the final weights one more time.
         dqn.save_weights(weights_filename, overwrite=True)
-
-        # Finally, evaluate our algorithm for 10 episodes.
-        dqn.test(env, nb_episodes=10, visualize=False)
     elif mode == 'test':
         weights_filename = '../data/weights/{}'.format(env_name)
         dqn.load_weights(weights_filename)
