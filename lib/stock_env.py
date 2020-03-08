@@ -113,6 +113,9 @@ class StockEnv(gym.Env):
         if not np.isfinite(reward):
             reward = 0
 
+        if done is True:
+            self.print_returns()
+
         if done is self.dm.SYMBOL_INCR_FLAG:
             print('\nCash before increment:' +  self.cash)
             self.final_cash_value.append(self.cash)
@@ -185,6 +188,5 @@ if __name__ == "__main__":
         dqn.load_weights(weights_filename)
         dqn.test(env, nb_episodes=10, visualize=True)
 
-    env.print_returns()
     print('Completed')
     print('buy count:', buy_count)
