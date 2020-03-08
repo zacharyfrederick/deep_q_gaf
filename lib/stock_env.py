@@ -145,36 +145,39 @@ class StockEnv(gym.Env):
 if __name__ == "__main__":
     weights_filename = '../data/weights/dqn_{}_weights.h5f'.format('test')
     env = StockEnv()
+    mode = 'train'
 
+    env_name = 'senior_thesis_env_v1.0'
     model = env.build_paper_model()
     memory = SequentialMemory(limit=1000000, window_length=4)
     policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1., value_min=.1, value_test=.05,
                                nb_steps=1000000)
- 
+
     dqn = DQNAgent(model=model, nb_actions=3, policy=policy, memory=memory,
-               nb_steps_warmup=50000, gamma=.99, target_model_update=10000,
-               train_interval=4, delta_clip=1.)
+                   nb_steps_warmup=50000, gamma=.99, target_model_update=10000,
+                   train_interval=4, delta_clip=1.)
     dqn.compile(Adam(lr=.00025), metrics=['mae'])
 
-    if True:
-        weights_filename = weights_filename.format('gaf')
-        checkpoint_weights_filename = 'dqn_' + \
-           'gaf' + '_weights_{step}.h5f'
-        log_filename = 'dqn_{}_log.json'.format('gaf')
-        callbacks = [ModelIntervalCheckpoint(
-           checkpoint_weights_filename, interval=250000)]
+    if mode == 'train':
+        # Okay, now it's time to learn something! We capture the interrupt exception so that training
+        # can be prematurely aborted. Notice that now you can use the built-in Keras callbacks!
+        weights_filename = 'dqn_{}_weights.h5f'.format(env_name)
+        checkpoint_weights_filename = 'dqn_' + env_name + '_weights_{step}.h5f'
+        log_filename = 'dqn_{}_log.json'.format(env_name)
+        callbacks = [ModelIntervalCheckpoint(checkpoint_weights_filename, interval=250000)]
         callbacks += [FileLogger(log_filename, interval=100)]
-        dqn.fit(env, nb_max_episode_steps=None, log_interval=10000)
+        dqn.fit(env, callbacks=callbacks, nb_steps=1750000, log_interval=10000)
 
-    # print('About to start!')
-    # while False:
-    #     if env.dm.is_done() is False:
-    #         env.dm.step()
+        # After training is done, we save the final weights one more time.
+        dqn.save_weights(weights_filename, overwrite=True)
 
-    #         if env.dm._current_index % 500 is 0:
-    #             print(env.dm._current_index)
-    #     else:
-    #         break
+        # Finally, evaluate our algorithm for 10 episodes.
+        dqn.test(env, nb_episodes=10, visualize=False)
+    elif mode == 'test':
+        weights_filename = '../data/weights/{}'.format(env_name)
+        dqn.load_weights(weights_filename)
+        dqn.test(env, nb_episodes=10, visualize=True)
+
     
     print('Completed')
-    print('buy count:', self.buy_count)
+    print('buy count:', buy_count)
