@@ -1,20 +1,32 @@
+import argparse
+import enum
+import locale
+import random
+import sys
 import warnings
+from datetime import datetime
 
-import actions
 import gym
 import gym.spaces
+import keras.backend as K
 import numpy as np
-from clock import Clock
-from colored import attr, fg
-from data_manager import DataManager
-from keras.layers import (Activation, Conv2D, Dense, Flatten)
+import pandas as pd
+from colored import attr, bg, fg
+from keras.layers import (Activation, Conv2D, Convolution2D, Dense, Flatten,
+                          Input, Permute)
 from keras.models import Sequential
 from keras.optimizers import Adam
-from position_manager import PositionManager
+from PIL import Image
 from rl.agents.dqn import DQNAgent
 from rl.callbacks import FileLogger, ModelIntervalCheckpoint
+from rl.core import Processor
 from rl.memory import SequentialMemory
-from rl.policy import EpsGreedyQPolicy, LinearAnnealedPolicy
+from rl.policy import BoltzmannQPolicy, EpsGreedyQPolicy, LinearAnnealedPolicy
+
+import actions
+from data_manager import DataManager
+from position_manager import Position, PositionManager, PositionQueue
+from clock import Clock
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
@@ -135,11 +147,8 @@ class StockEnv(gym.Env):
         return self.cash
 
     def print_returns(self):
-        if self.symbols is None:
-            return
-        else:
-            for i, symbol in enumerate(self.symbols):
-                print(symbol, self.final_cash_value[i])
+        for i, symbol in enumerate(self.symbols):
+            print(symbol, self.final_cash_value[i])
 
 
 if __name__ == "__main__":
