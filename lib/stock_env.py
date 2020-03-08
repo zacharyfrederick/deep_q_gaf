@@ -27,6 +27,7 @@ import actions
 from data_manager import DataManager
 from position_manager import Position, PositionManager, PositionQueue
 from clock import Clock
+from keras import backend as K
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
@@ -153,6 +154,7 @@ class StockEnv(gym.Env):
 
 
 if __name__ == "__main__":
+    K.tensorflow_backend._get_available_gpus()
     weights_filename = '../data/weights/dqn_{}_weights.h5f'.format('test')
     env = StockEnv()
     mode = 'train'
