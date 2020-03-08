@@ -115,7 +115,7 @@ class StockEnv(gym.Env):
             self.print_returns()
 
         if done is self.dm.SYMBOL_INCR_FLAG:
-            print('\nCash before increment:' +  self.cash)
+            print('\nCash before increment:' +  str(self.cash))
             self.final_cash_value.append(self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
             self.clock.set_params(len_images, len_symbols)
