@@ -5,7 +5,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 import os
 
 import numpy as np
-import pandas
+import pandas as pd
 
 class DataManager:
     def __init__(self, clock):
@@ -15,7 +15,7 @@ class DataManager:
         self._processed_data_folder = '../data/processed/'
         self.concat_data_folder = '../data/concat/'
         self.load_symbols()
-        self.symbol_indeccx = 0
+        self.symbol_index = 0
         self.current_symbol = self.symbols[0]   
         self.load_pricing_data(self.current_symbol)
         #self.load_image_data(self.current_symbol)
@@ -36,9 +36,9 @@ class DataManager:
         self.symbols = symbols
 
     def load_pricing_data(self, symbol):
-        self._prices = pandas.read_csv(os.path.join(self._raw_data_folder, symbol))
+        self._prices = pd.read_csv(os.path.join(self._raw_data_folder, symbol))
         self._dates = self._prices['Date']
-        self._dates = pandas.to_datetime(self._dates)
+        self._dates = pd.to_datetime(self._dates)
         print('Loaded pricing data')
 
     def load_image_data2(self, symbol):
