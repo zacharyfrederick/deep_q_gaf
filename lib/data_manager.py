@@ -23,6 +23,7 @@ class DataManager:
         self.SYMBOL_INCR_FLAG = -1
         self.clock = clock
         self.clock.set_params(len(self.images), len(self.symbols))
+        self.final_cash_value = []
         #self.reshape_images()
     
     def print_state(self):
@@ -90,3 +91,6 @@ class DataManager:
 
     def get_value_w_index(self, index, column):
         return self._prices.iloc[index][column]
+
+    def get_symbols(self):
+        return self.symbols

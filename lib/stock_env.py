@@ -44,8 +44,11 @@ class StockEnv(gym.Env):
         self.clock = Clock()
         self.dm = DataManager(self.clock)
         self.pm = PositionManager(self.clock, self.dm, self.cash, 1)
+        self.symbols = self.dm.get_symbols()
         self.action_space = gym.spaces.Discrete(3)
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(4, 30, 180))
+        self.symbols = None
+        self.final_cash_value = []
         #self.print_intro()
         self.avg_reward = 0
         self.episodes_ran = 0
@@ -110,11 +113,11 @@ class StockEnv(gym.Env):
 
         if done is self.dm.SYMBOL_INCR_FLAG:
             print('\nCash before increment:', self.cash)
+            self.final_cash_value.append(self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
             self.clock.set_params(len_images, len_symbols)
             done = False
             self.pm.open_position(action, self.clock.index)
-            self.update_cash(reward)
             self.clock.tick()
         else:
             self.pm.open_position(action, self.clock.index)
@@ -142,6 +145,11 @@ class StockEnv(gym.Env):
         #need t0 make a proper formatting method
         return self.cash
 
+    def print_returns(self):
+        for i, symbol in enumerate(self.symbols):
+            print(symbol, self.final_cash_value[i])
+
+
 if __name__ == "__main__":
     weights_filename = '../data/weights/dqn_{}_weights.h5f'.format('test')
     env = StockEnv()
@@ -166,7 +174,7 @@ if __name__ == "__main__":
         log_filename = 'dqn_{}_log.json'.format(env_name)
         callbacks = [ModelIntervalCheckpoint(checkpoint_weights_filename, interval=250000)]
         callbacks += [FileLogger(log_filename, interval=100)]
-        dqn.fit(env, callbacks=callbacks, nb_steps=1750000, log_interval=10000)
+        dqn.fit(env, callbacks=callbacks, nb_max_episode_steps=None, log_interval=10000)
 
         # After training is done, we save the final weights one more time.
         dqn.save_weights(weights_filename, overwrite=True)
@@ -178,6 +186,6 @@ if __name__ == "__main__":
         dqn.load_weights(weights_filename)
         dqn.test(env, nb_episodes=10, visualize=True)
 
-    
+    env.print_returns()
     print('Completed')
     print('buy count:', buy_count)
