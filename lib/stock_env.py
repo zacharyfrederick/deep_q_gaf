@@ -28,6 +28,7 @@ from data_manager import DataManager
 from position_manager import Position, PositionManager, PositionQueue
 from clock import Clock
 from keras import backend as K
+import math
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
