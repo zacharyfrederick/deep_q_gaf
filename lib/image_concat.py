@@ -59,8 +59,9 @@ class ImageConcat:
         #read the data 
         for descriptor in self.data_descriptor:
             path = self.construct_path_to_descriptor(self.data_descriptor[descriptor])
-            self.data[descriptor] = pd.read_csv(path)
-            dates = self.data[descriptor]['Dates']
+            df = pd.read_csv(path)
+            self.data[descriptor] = df
+            self.dates = self.data['Date']
 
         #build the initial images
         self.images = pd.concat([self.data[self.IMAGE_SEED_KEYS[0]], self.data[self.IMAGE_SEED_KEYS[1]]], axis=1)
@@ -79,7 +80,7 @@ class ImageConcat:
         output_path = os.path.join(self.OUTPUT_FOLDER, self.current_symbol + '.npy')
         dates_path = os.path.join(self.OUTPUT_FOLDER, self.current_symbol + '_dates')
         np.save(output_path, self.images)
-        dates.to_csv(dates_path)
+        self.dates.to_csv(dates_path)
         print('Done saving data for:', self.current_symbol)
         print('Output saved to:', output_path) 
 
