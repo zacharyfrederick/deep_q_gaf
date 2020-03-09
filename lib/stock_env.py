@@ -14,8 +14,8 @@ import pandas as pd
 from colored import attr, bg, fg
 from keras.layers import (Activation, Conv2D, Convolution2D, Dense, Flatten,
                           Input, Permute)
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.optimizers import Adam
+from keras.models import Sequential
+from keras.optimizers import Adam
 from PIL import Image
 from rl.agents.dqn import DQNAgent
 from rl.callbacks import FileLogger, ModelIntervalCheckpoint
