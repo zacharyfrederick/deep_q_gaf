@@ -74,7 +74,6 @@ class ImageConcat:
             self.images = pd.concat([self.images, self.data[descriptor]], axis=1)
 
         self.images = self.images.values.reshape(self.images.shape[0], 1, 30, 180)
-
         print('Done processing data for:', self.current_symbol)
 
         output_path = os.path.join(self.OUTPUT_FOLDER, self.current_symbol + '.npy')
