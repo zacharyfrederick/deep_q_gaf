@@ -24,6 +24,7 @@ class DataManager:
         self.clock = clock
         self.clock.set_params(len(self.images), len(self.symbols))
         self.final_cash_value = []
+
         #self.reshape_images()
     
     def print_state(self):
@@ -58,6 +59,9 @@ class DataManager:
         self.load_data()
         print('Loaded new symbol: {}'.format(self.current_symbol))
         return (len(self.images), len(self.symbols))
+
+    def get_date_with_index(self, index):
+        pass
 
     def reset(self):
         self.current_symbol = self.symbols[self.clock.symbol_index]
