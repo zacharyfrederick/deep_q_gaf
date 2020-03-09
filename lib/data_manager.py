@@ -24,7 +24,7 @@ class DataManager:
         self.clock.set_params(len(self.images), len(self.symbols))
 
     def load_dates(self, symbol):
-        symbol = symbol.splot('.')[0]
+        symbol = symbol.split('.')[0]
         date_path = os.path.join(self.concat_data_folder, symbol + '_dates.csv')
         self.dates = pd.read_csv(date_path)
 
