@@ -61,7 +61,7 @@ class ImageConcat:
             path = self.construct_path_to_descriptor(self.data_descriptor[descriptor])
             df = pd.read_csv(path)
             self.dates = df['Date']
-            df.drop(columns='Date')
+            df = df.drop(columns='Date')
             self.data[descriptor] = df
 
         #build the initial images
