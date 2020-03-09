@@ -9,24 +9,24 @@ import pandas as pd
 
 class DataManager:
     def __init__(self, clock):
+        self.clock = clock
+        self.final_cash_value = []
+        self.SYMBOL_INCR_FLAG = -1
         self._index_col = 'Date'
         self._current_index = 3
         self._raw_data_folder = '../data/raw/'
         self._processed_data_folder = '../data/processed/'
         self.concat_data_folder = '../data/concat/'
-        self.load_symbols()
         self.symbol_index = 0
-        self.current_symbol = self.symbols[0]   
-        self.load_pricing_data(self.current_symbol)
-        #self.load_image_data(self.current_symbol)
-        self.load_image_data2(self.current_symbol)
-        self.SYMBOL_INCR_FLAG = -1
-        self.clock = clock
-        self.clock.set_params(len(self.images), len(self.symbols))
-        self.final_cash_value = []
 
-        #self.reshape_images()
-    
+        self.current_symbol = self.load_symbols()
+        self.load_data()
+        self.clock.set_params(len(self.images), len(self.symbols))
+
+    def load_dates(self, symbol):
+        date_path = os.path.join(self.concat_data_folder, symbol)
+        self.dates = pd.read_csv(date_path)
+
     def print_state(self):
         print('Current index: {}, Symbol index: {}'.format(self._current_index, self.symbol_index))
 
@@ -35,6 +35,7 @@ class DataManager:
         symbols.remove('.DS_Store') #mac is weird
         symbols.remove('tsla.csv')
         self.symbols = symbols
+        return symbols[0]
 
     def load_pricing_data(self, symbol):
         self._prices = pd.read_csv(os.path.join(self._raw_data_folder, symbol))
@@ -70,6 +71,7 @@ class DataManager:
     def load_data(self):
         self.load_pricing_data(self.current_symbol)
         self.load_image_data2(self.current_symbol)
+        self.load_dates(self.current_symbol)
 
     def get_frame(self):
         return self.get_current_image().squeeze(axis=0)

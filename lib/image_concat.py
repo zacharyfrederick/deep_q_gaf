@@ -77,9 +77,8 @@ class ImageConcat:
 
         print('Done processing data for:', self.current_symbol)
 
-
         output_path = os.path.join(self.OUTPUT_FOLDER, self.current_symbol + '.npy')
-        dates_path = os.path.join(self.OUTPUT_FOLDER, self.current_symbol + '_dates')
+        dates_path = os.path.join(self.OUTPUT_FOLDER, self.current_symbol + '_dates.csv')
         np.save(output_path, self.images)
         self.dates.to_csv(dates_path)
         print('Done saving data for:', self.current_symbol)
