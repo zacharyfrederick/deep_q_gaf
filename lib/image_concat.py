@@ -40,7 +40,7 @@ class ImageConcat:
         self.run()
 
     def run(self):
-        while self.symbol_index < len(self.symbols):
+        while self.symbol_index + 1 < len(self.symbols):
             self.resource_heavy_way()
             self.incr_symbol()
 
