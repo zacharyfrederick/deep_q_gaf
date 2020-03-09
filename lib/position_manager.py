@@ -45,7 +45,7 @@ class PositionManager:
 
     def open_position(self, type_, open_index):
         close_index = open_index + self.holding_period
-        test = self.dm.dates[open_index]['Date']
+        test = self.dm.dates[open_index]
         print(test)
         exit()
         open_ = self.dm.get_value_w_index(open_index, 'Open')

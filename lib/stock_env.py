@@ -156,9 +156,6 @@ class StockEnv(gym.Env):
 
 
 if __name__ == "__main__":
-    from tensorflow.python.client import device_lib
-
-    print(device_lib.list_local_devices())
     weights_filename = '../data/weights/dqn_{}_weights.h5f'.format('test')
     env = StockEnv()
     mode = 'train'
