@@ -53,7 +53,7 @@ class DataManager:
         return self.images[self._current_index + offset]
 
     def increment_symbol(self):
-        print('\nIncrementing symbol')
+        print('Incrementing symbol')
         self.current_symbol = self.symbols[self.clock.symbol_index]
         self.load_data()
         print('Loaded new symbol: {}'.format(self.current_symbol))
