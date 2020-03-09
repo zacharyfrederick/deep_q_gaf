@@ -14,8 +14,8 @@ import pandas as pd
 from colored import attr, bg, fg
 from keras.layers import (Activation, Conv2D, Convolution2D, Dense, Flatten,
                           Input, Permute)
-from keras.models import Sequential
-from keras.optimizers import Adam
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.optimizers import Adam
 from PIL import Image
 from rl.agents.dqn import DQNAgent
 from rl.callbacks import FileLogger, ModelIntervalCheckpoint
@@ -27,7 +27,7 @@ import actions
 from data_manager import DataManager
 from position_manager import Position, PositionManager, PositionQueue
 from clock import Clock
-from keras import backend as K
+from tensorflow.keras import backend as K
 import math
 
 warnings.simplefilter(action='ignore', category=FutureWarning)

@@ -7,9 +7,7 @@ gsutil cp 'gs://zachf632_senior_project/concat.zip' .;
 unzip concat.zip;
 rm concat.zip;
 sudo apt install python3;
-pip install tensorflow;
-pip install keras;
-pip install gym;
+pip install 'requirements.txt'
 cd 'lib';
 
 
