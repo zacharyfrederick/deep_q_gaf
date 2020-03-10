@@ -3,6 +3,7 @@ import sys
 
 import pandas as pd
 from pyts.image import MarkovTransitionField, GramianAngularField
+from multiprocessing import Pool, cpu_count
 
 def extract_period(df, column, index, period=30, reversed=True):
     """Extracts a period of data from the dataframe column at the specified index. 
@@ -85,9 +86,82 @@ def extract_ohlc(df, index):
 def extract_date(df, index):
     return df.iloc[index]['Date']
 
-if __name__ == "__main__":
+def job(symbol):
     raw_data_folder = '../data/raw/'
     output_data_folder = '../data/processed/'
+    print('Starting processing for', symbol)
+    path = os.path.join(raw_data_folder, symbol)
+    output_created = False
+    days_processed = 0
+    symbol_print = symbol.split('.')[0]
+
+    df = pd.read_csv(path, )
+    df = df.iloc[::-1]  # reverse the dataframe for easier working
+    df = df.dropna()  # drop any nan
+    # df['Date'] = pd.to_datetime(df['Date']) #converts the date to datetime
+
+    for index in range(0, len(df)):  # iterate through each day in the dataframe
+        date = extract_date(df, index)
+
+        open_t, high_t, low_t, close_t, adj_close_t, vol_t = extract_ohlc(df, index)  # temporary
+        if open_t is None:
+            break
+
+        open_img = create_image(open_t, date)
+        high_img = create_image(high_t, date)
+        low_img = create_image(low_t, date)
+        close_img = create_image(close_t, date)
+        adj_close_img = create_image(adj_close_t, date)
+        vol_img = create_image(vol_t, date)
+
+        date = df.iloc[index]['Date']
+        open_img['Date'] = date
+        high_img['Date'] = date
+        low_img['Date'] = date
+        close_img['Date'] = date
+        adj_close_img['Date'] = date
+        vol_img['Date'] = date
+
+        if not output_created:
+            open_ = open_img
+            high = high_img
+            low = low_img
+            close = close_img
+            adj_close = adj_close_img
+            vol = vol_img
+            output_created = True
+        else:
+            open_ = open_.append(open_img)
+            high = high.append(high_img)
+            low = low.append(low_img)
+            close = close.append(close_img)
+            adj_close = adj_close.append(adj_close_img)
+            vol = vol.append(vol_img)
+
+        days_processed += 1
+
+    folder = symbol_print + '/'
+    path = os.path.join(output_data_folder, folder)
+
+    if not os.path.exists(path):
+        os.mkdir(path)
+
+    os.chdir(path)
+    open_ = open_.iloc[::-1]
+    open_.to_csv('open.csv', index=False)
+    high.to_csv('high.csv', index=False)
+    low.to_csv('low.csv', index=False)
+    close.to_csv('close.csv', index=False)
+    adj_close.to_csv('adj_close.csv', index=False)
+    vol.to_csv('vol.csv', index=False)
+
+    with open(',,/data/processed_files.txt', 'a+') as file:
+        file.write(symbol + '\n')
+
+    print('finished processing {} days for {}\n'.format(days_processed, symbol_print))
+
+if __name__ == "__main__":
+    raw_data_folder = '../data/raw/'
     processed_file_list = '../data/processed_files.txt'
 
     symbols = os.listdir(raw_data_folder)
@@ -106,79 +180,9 @@ if __name__ == "__main__":
             except Exception as e:
                 #print(file)
                 #print(e)
-                pass 
+                pass
 
-    days_processed = 0
-    for symbol in symbols:
-        print('Starting processing for', symbol)
-        path = os.path.join(raw_data_folder, symbol)
-        output_created = False
-
-        df = pd.read_csv(path, )
-        df = df.iloc[::-1] #reverse the dataframe for easier working
-        df = df.dropna() #drop any nan
-        #df['Date'] = pd.to_datetime(df['Date']) #converts the date to datetime
-
-        for index in range(0, len(df)): #iterate through each day in the dataframe
-            date = extract_date(df, index)
-
-            open_t, high_t, low_t, close_t, adj_close_t, vol_t = extract_ohlc(df, index) #temporary 
-            if open_t is None:
-                break
-            
-            open_img = create_image(open_t, date)
-            high_img = create_image(high_t, date)
-            low_img = create_image(low_t, date)
-            close_img = create_image(close_t, date)
-            adj_close_img = create_image(adj_close_t, date)
-            vol_img = create_image(vol_t, date)
-
-            date = df.iloc[index]['Date']
-            open_img['Date'] = date
-            high_img['Date'] = date
-            low_img['Date'] = date
-            close_img['Date'] = date
-            adj_close_img['Date'] = date
-            vol_img['Date'] = date
-
-            if not output_created:
-                open_ = open_img
-                high = high_img
-                low = low_img
-                close = close_img
-                adj_close = adj_close_img
-                vol = vol_img
-                output_created = True
-            else:
-                open_ = open_.append(open_img)
-                high = high.append(high_img)
-                low = low.append(low_img)
-                close = close.append(close_img)
-                adj_close = adj_close.append(adj_close_img)
-                vol = vol.append(vol_img)
-          
-            days_processed += 1 
-            sys.stdout.write("\rdays processed: {} images processed: {}".format(days_processed, days_processed * 6))
-
-        symbol_print = symbol.split('.')[0]
-        folder = symbol_print + '/'
-        path = os.path.join(output_data_folder, folder)
-
-        if not os.path.exists(path):
-            os.mkdir(path)
-
-        os.chdir(path)
-        open_ = open_.iloc[::-1]
-        open_.to_csv('open.csv', index=False)
-        high.to_csv('high.csv', index=False)
-        low.to_csv('low.csv', index=False)
-        close.to_csv('close.csv', index=False)
-        adj_close.to_csv('adj_close.csv', index=False)
-        vol.to_csv('vol.csv', index=False)
-
-        with open(',,/data/processed_files.txt', 'a+') as file:
-            file.write(symbol + '\n')
-
-        print("")
+    with Pool(cpu_count()) as p:
+        p.map(job, symbols)
 
     print("Completed")
