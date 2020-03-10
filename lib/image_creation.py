@@ -109,7 +109,7 @@ if __name__ == "__main__":
         path = os.path.join(raw_data_folder, symbol)
         output_created = False
 
-        df = pd.read_csv(path, )
+        df = pd.read_csv(path, nrows=10)
         df = df.iloc[::-1] #reverse the dataframe for easier working
         df = df.dropna() #drop any nan
         #df['Date'] = pd.to_datetime(df['Date']) #converts the date to datetime
