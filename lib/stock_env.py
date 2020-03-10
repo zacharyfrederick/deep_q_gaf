@@ -58,7 +58,7 @@ class StockEnv(gym.Env):
         model.add(Activation('relu'))
         model.add(Dense(3))
         model.add(Activation('linear'))
-        model = multi_gpu_model(model)
+        model = multi_gpu_model(model, gpus=None)
         return model
 
     def reset(self):
