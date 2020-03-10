@@ -45,18 +45,14 @@ class PositionManager:
 
     def open_position(self, type_, open_index):
         close_index = open_index + self.holding_period
-        print(type(self.dm.dates))
-        exit()
-        open_ = self.dm.get_value_w_index(open_index, 'Open')
-        close = self.dm.get_value_w_index(close_index, 'Close')
-
+        open_ = self.dm.get_price_w_index(open_index, 'Open')
+        close = self.dm.get_price_w_index(close_index, 'Close')
         position = Position(type_, open_index, close_index,\
             open_, close)
-
         self.pq.add(position)
 
     def get_value_w_index(self, index, column):
-        self.dm.get_value_w_index(index, column)
+        self.dm.get_price_w_index(index, column)
 
     def close_position(self):
         position = self.pq.remove()
