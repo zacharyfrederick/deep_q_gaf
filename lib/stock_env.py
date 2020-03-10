@@ -1,33 +1,20 @@
-import argparse
-import enum
-import locale
-import random
-import sys
 import warnings
-from datetime import datetime
-
-import gym
-import gym.spaces
-import keras.backend as K
-import numpy as np
-import pandas as pd
-from colored import attr, bg, fg
-from keras.layers import (Activation, Conv2D, Convolution2D, Dense, Flatten,
-                          Input, Permute)
-from keras.models import Sequential
-from keras.optimizers import Adam
-from PIL import Image
-from rl.agents.dqn import DQNAgent
-from rl.callbacks import FileLogger, ModelIntervalCheckpoint
-from rl.core import Processor
-from rl.memory import SequentialMemory
-from rl.policy import BoltzmannQPolicy, EpsGreedyQPolicy, LinearAnnealedPolicy
 
 import actions
-from data_manager import DataManager
-from position_manager import Position, PositionManager, PositionQueue
+import gym
+import gym.spaces
+import numpy as np
 from clock import Clock
-import math
+from colored import attr, fg
+from data_manager import DataManager
+from keras.layers import (Activation, Conv2D, Dense, Flatten)
+from keras.models import Sequential
+from keras.optimizers import Adam
+from position_manager import PositionManager
+from rl.agents.dqn import DQNAgent
+from rl.callbacks import FileLogger, ModelIntervalCheckpoint
+from rl.memory import SequentialMemory
+from rl.policy import EpsGreedyQPolicy, LinearAnnealedPolicy
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
@@ -53,6 +40,8 @@ class StockEnv(gym.Env):
         #self.print_intro()
         self.avg_reward = 0
         self.episodes_ran = 0
+
+        exit()
 
     def get_frame(self):
         return self.dm.get_frame()
@@ -115,7 +104,9 @@ class StockEnv(gym.Env):
         if done == True:
             self.print_returns()
 
-        if done is self.dm.SYMBOL_INCR_FLAG:
+        print(self.dm.get_date_with_index(self.clock.index))
+
+        if done is self.dm.INCR_FLAG:
             print('\nCash before increment:' +  str(self.cash))
             self.final_cash_value.append(self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
@@ -162,6 +153,8 @@ if __name__ == "__main__":
 
     env_name = 'senior_thesis_env_v1.0'
     model = env.build_paper_model()
+
+    '''
     memory = SequentialMemory(limit=1000000, window_length=4)
     policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1., value_min=.1, value_test=.05,
                                nb_steps=1000000)
@@ -190,3 +183,4 @@ if __name__ == "__main__":
 
     print('Completed')
     print('buy count:', buy_count)
+    '''

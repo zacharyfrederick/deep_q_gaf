@@ -1,5 +1,3 @@
-from position import Position
-
 class PositionQueue:
     def __init__(self):
         self.queue = []

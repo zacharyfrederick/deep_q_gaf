@@ -1,10 +1,9 @@
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-import gym
 import gym.spaces
 import locale
-from data_manager import DataManager
+
 
 class Stockpup(gym.Env):
     def __init__(self):

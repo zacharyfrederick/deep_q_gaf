@@ -1,5 +1,5 @@
 from actions import Actions
-import queue
+
 
 class Position:
     def __init__(self, type_, open_index, \
