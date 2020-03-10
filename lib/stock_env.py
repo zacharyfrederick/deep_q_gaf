@@ -9,6 +9,7 @@ from colored import attr, fg
 from data_manager import DataManager
 from keras.layers import (Activation, Conv2D, Dense, Flatten)
 from keras.models import Sequential
+from keras.utils import multi_gpu_model
 from keras.optimizers import Adam
 from position_manager import PositionManager
 from rl.agents.dqn import DQNAgent
@@ -57,6 +58,7 @@ class StockEnv(gym.Env):
         model.add(Activation('relu'))
         model.add(Dense(3))
         model.add(Activation('linear'))
+        model = multi_gpu_model(model)
         return model
 
     def reset(self):
