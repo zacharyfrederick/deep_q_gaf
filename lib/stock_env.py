@@ -63,9 +63,7 @@ class StockEnv(gym.Env):
         model.add(Dense(3))
         model.add(Activation('linear'))
 
-        platform  = Janet.python_tools.get_os()
-
-        if platform != 'darwin':
+        if Janet.python_tools.is_mac():
             model = multi_gpu_model(model, gpus=2)
             
         return model

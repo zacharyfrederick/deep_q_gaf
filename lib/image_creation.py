@@ -4,7 +4,6 @@ import sys
 import pandas as pd
 from pyts.image import MarkovTransitionField, GramianAngularField
 
-
 def extract_period(df, column, index, period=30, reversed=True):
     """Extracts a period of data from the dataframe column at the specified index. 
     Index row is NOT included 
