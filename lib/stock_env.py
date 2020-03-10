@@ -19,6 +19,10 @@ from rl.policy import EpsGreedyQPolicy, LinearAnnealedPolicy
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
+import sys
+sys.path.append('../../../Github/')
+import Janet
+
 buy_count = 0;
 sell_count = 0;
 hold_count = 0;
@@ -58,7 +62,12 @@ class StockEnv(gym.Env):
         model.add(Activation('relu'))
         model.add(Dense(3))
         model.add(Activation('linear'))
-        model = multi_gpu_model(model, gpus=None)
+
+        platform  = Janet.python_tools.get_os()
+
+        if platform != 'darwin':
+            model = multi_gpu_model(model, gpus=2)
+            
         return model
 
     def reset(self):

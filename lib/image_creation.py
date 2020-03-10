@@ -177,7 +177,7 @@ if __name__ == "__main__":
         adj_close.to_csv('adj_close.csv', index=False)
         vol.to_csv('vol.csv', index=False)
 
-        with open('/Users/zacharyfrederick/Documents/GitHub/senior_project/data/processed_files.txt', 'a') as file:
+        with open(',,/data/processed_files.txt', 'a+') as file:
             file.write(symbol + '\n')
 
         print("")
