@@ -105,7 +105,7 @@ class ImageConcat:
             print('Could not remove .DS_Store', e)
 
         self.symbols = symbols if temp is None else temp
-        self.symbols = ('goog',)
+        #self.symbols = ('goog',)
 
 
     def load_data(self, symbol):
