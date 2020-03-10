@@ -92,6 +92,12 @@ if __name__ == "__main__":
     processed_file_list = '../data/processed_files.txt'
 
     symbols = os.listdir(raw_data_folder)
+
+    try:
+        symbols.remove('.DS_Store')
+    except Exception as e:
+        print(e)
+
     with open('../data/processed_files.txt', 'w+') as file:
         processed_files = file.readlines()
         for file in processed_files:
@@ -109,7 +115,7 @@ if __name__ == "__main__":
         path = os.path.join(raw_data_folder, symbol)
         output_created = False
 
-        df = pd.read_csv(path, nrows=10)
+        df = pd.read_csv(path, )
         df = df.iloc[::-1] #reverse the dataframe for easier working
         df = df.dropna() #drop any nan
         #df['Date'] = pd.to_datetime(df['Date']) #converts the date to datetime
@@ -158,7 +164,6 @@ if __name__ == "__main__":
         symbol_print = symbol.split('.')[0]
         folder = symbol_print + '/'
         path = os.path.join(output_data_folder, folder)
-        path = os.path.abspath(path)
 
         if not os.path.exists(path):
             os.mkdir(path)
