@@ -87,8 +87,8 @@ def extract_date(df, index):
     return df.iloc[index]['Date']
 
 if __name__ == "__main__":
-    raw_data_folder = '/Users/zacharyfrederick/Documents/GitHub/senior_project/data/raw/'
-    output_data_folder = '/Users/zacharyfrederick/Documents/GitHub/senior_project/data/processed/'
+    raw_data_folder = '../data/raw/'
+    output_data_folder = '/../data/processed/'
 
     symbols = os.listdir(raw_data_folder) 
 
