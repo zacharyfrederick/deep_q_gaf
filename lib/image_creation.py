@@ -89,13 +89,17 @@ def extract_date(df, index):
 def job(symbol):
     raw_data_folder = '../data/raw/'
     output_data_folder = '../data/processed/'
+    processed_file_list = os.path.abspath('../data/processed_files.txt')
     print('Starting processing for', symbol)
     path = os.path.join(raw_data_folder, symbol)
     output_created = False
     days_processed = 0
     symbol_print = symbol.split('.')[0]
 
-    df = pd.read_csv(path, )
+    if not os.path.exists(output_data_folder):
+        os.mkdir(output_data_folder)
+
+    df = pd.read_csv(path)
     df = df.iloc[::-1]  # reverse the dataframe for easier working
     df = df.dropna()  # drop any nan
     # df['Date'] = pd.to_datetime(df['Date']) #converts the date to datetime
@@ -140,30 +144,39 @@ def job(symbol):
 
         days_processed += 1
 
-    folder = symbol_print + '/'
+    folder = symbol_print
     path = os.path.join(output_data_folder, folder)
+    prev_path = os.getcwd()
 
     if not os.path.exists(path):
         os.mkdir(path)
 
-    os.chdir(path)
     open_ = open_.iloc[::-1]
-    open_.to_csv('open.csv', index=False)
-    high.to_csv('high.csv', index=False)
-    low.to_csv('low.csv', index=False)
-    close.to_csv('close.csv', index=False)
-    adj_close.to_csv('adj_close.csv', index=False)
-    vol.to_csv('vol.csv', index=False)
+    open_.to_csv(os.path.join(path, 'open.csv'), index=False)
 
-    with open(',,/data/processed_files.txt', 'a+') as file:
+    high = high.iloc[::-1]
+    high.to_csv(os.path.join(path, 'high.csv'), index=False)
+
+    low = low.iloc[::-1]
+    low.to_csv(os.path.join(path, 'low.csv'), index=False)
+
+    close = close.iloc[::-1]
+    close.to_csv(os.path.join(path, 'close.csv'), index=False)
+
+    adj_close = adj_close.iloc[::-1]
+    adj_close.to_csv(os.path.join(path, 'adj_close.csv'), index=False)
+
+    vol = vol[::-1]
+    vol.to_csv(os.path.join(path, 'vol.csv'), index=False)
+
+    with open(processed_file_list, 'a+') as file:
         file.write(symbol + '\n')
 
-    print('finished processing {} days for {}\n'.format(days_processed, symbol_print))
+    print('finished processing {} days for {}'.format(days_processed, symbol_print))
 
 if __name__ == "__main__":
-    raw_data_folder = '../data/raw/'
-    processed_file_list = '../data/processed_files.txt'
-
+    raw_data_folder = os.path.abspath('../data/raw/')
+    processed_file_list = os.path.abspath('../data/processed_files.txt')
     symbols = os.listdir(raw_data_folder)
 
     try:
@@ -171,7 +184,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(e)
 
-    with open('../data/processed_files.txt', 'w+') as file:
+    with open(processed_file_list, 'a+') as file:
         processed_files = file.readlines()
         for file in processed_files:
             file = file.strip('\n')
