@@ -158,6 +158,7 @@ if __name__ == "__main__":
         symbol_print = symbol.split('.')[0]
         folder = symbol_print + '/'
         path = os.path.join(output_data_folder, folder)
+        path = os.path.abspath(path)
 
         if not os.path.exists(path):
             os.mkdir(path)
