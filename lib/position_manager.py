@@ -4,7 +4,6 @@ from actions import Actions
 class Position:
     def __init__(self, type_, open_index, \
         close_index, open_price, close_price):
-
         self.type = type_
         self.open_index = open_index
         self.close_index = close_index

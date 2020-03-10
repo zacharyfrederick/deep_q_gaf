@@ -25,11 +25,7 @@ class DataManager:
         self.symbols = []
         self.current_symbol = self.load_symbols()
         self.length = 0
-
         self.set_initial_state()
-
-        print(self.prices.iloc[0]['Date'])
-        print(self.dates.iloc[0]['Date'])
 
     def set_initial_state(self):
         self.load_data()
@@ -62,10 +58,9 @@ class DataManager:
         #self.prices = Janet.pandas.reverse_df(self.prices)
 
     def load_image_data2(self, symbol):
-        symbol = symbol.split('.')[0]
-        symbol += '.npy'
-
+        symbol = symbol.split('.')[0] + '.npy'
         data_path = os.path.join(self.concat_dir, symbol)
+        
         self.images = np.load(data_path)
         self.images = Janet.numpy.rev_ndarray(self.images)
 

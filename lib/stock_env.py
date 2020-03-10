@@ -41,8 +41,6 @@ class StockEnv(gym.Env):
         self.avg_reward = 0
         self.episodes_ran = 0
 
-        exit()
-
     def get_frame(self):
         return self.dm.get_frame()
 
@@ -104,8 +102,6 @@ class StockEnv(gym.Env):
         if done == True:
             self.print_returns()
 
-        print(self.dm.get_date_with_index(self.clock.index))
-
         if done is self.dm.INCR_FLAG:
             print('\nCash before increment:' +  str(self.cash))
             self.final_cash_value.append(self.cash)
@@ -154,7 +150,6 @@ if __name__ == "__main__":
     env_name = 'senior_thesis_env_v1.0'
     model = env.build_paper_model()
 
-    '''
     memory = SequentialMemory(limit=1000000, window_length=4)
     policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1., value_min=.1, value_test=.05,
                                nb_steps=1000000)
@@ -183,4 +178,3 @@ if __name__ == "__main__":
 
     print('Completed')
     print('buy count:', buy_count)
-    '''
