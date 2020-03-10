@@ -88,7 +88,7 @@ def extract_date(df, index):
 
 if __name__ == "__main__":
     raw_data_folder = '../data/raw/'
-    output_data_folder = '/../data/processed/'
+    output_data_folder = '../data/processed/'
     processed_file_list = '../data/processed_files.txt'
 
     symbols = os.listdir(raw_data_folder)
