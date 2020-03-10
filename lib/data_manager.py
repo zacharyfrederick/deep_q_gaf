@@ -27,6 +27,7 @@ class DataManager:
         self.length = 0
         
         self.set_initial_state()
+        print('after initial state is set in dm')
         print(self.dates.head())
         print(self.prices.head())
         print(self.images[0])
@@ -34,7 +35,8 @@ class DataManager:
     def set_initial_state(self):
         self.load_data()
         self.set_length()
-        self.clock.set_params(self.length, len(self.symbols))        2
+        self.clock.set_params(self.length, len(self.symbols))
+
 
     def load_dates(self, symbol):
         date_path = os.path.join(self.concat_dir, symbol.split('.')[0] + '_dates.csv')
