@@ -57,7 +57,6 @@ if __name__ == "__main__":
     logging.basicConfig(filename=log_file, level=level)
 
     env = StockEnv()
-    '''
     model = build_paper_model(num_gpus)
     memory = SequentialMemory(limit=1000000, window_length=4)
     policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1., value_min=.1, value_test=.05,
@@ -77,7 +76,6 @@ if __name__ == "__main__":
         weights_filename = '../data/weights/{}'.format(env_name)
         dqn.load_weights(weights_filename)
         dqn.test(env, nb_episodes=10, visualize=True)
-    '''
     logging.info('Finished')
     print('buy count:', buy_count)
     print('sell count:', sell_count)
