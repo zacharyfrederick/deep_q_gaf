@@ -16,6 +16,8 @@ else:
     janet_path = '../../../zachfred62/'
 
 sys.path.append('../../../Github/')
+print(os.getcwd())
+exit()
 import Janet
 
 class DataManager:
