@@ -57,7 +57,9 @@ class DataManager:
     def load_symbols(self):
         self.symbols = os.listdir(self.raw_dir)
         self.symbols.remove('.DS_Store') #mac is weird
-        return self.get_rand_sym()
+        symbol = self.get_rand_sym()
+        print(symbol, 'loaded')
+        return symbol
 
     def load_prices(self, symbol):
         self.prices = pd.read_csv(os.path.join(self.raw_dir, symbol))

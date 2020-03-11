@@ -8,7 +8,7 @@ from rl.policy import EpsGreedyQPolicy, LinearAnnealedPolicy
 from rl.memory import SequentialMemory
 from keras.layers import (Activation, Conv2D, Dense, Flatten)
 from keras.models import Sequential
-from keras.utils import multi_gpu_model
+from keras.utils import multi_gpu_model, count
 from keras.optimizers import Adam
 
 if sys.platform == 'darwin':
@@ -36,7 +36,7 @@ def build_paper_model(num_gpus):
 
     if not Janet.python_tools.is_mac():
         pass
-        #model = multi_gpu_model(model, gpus=num_gpus)
+        #model = multi_gpu_model(model, gpus=gpu_count())
 
     return model
 
