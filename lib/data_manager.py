@@ -84,7 +84,7 @@ class DataManager:
     def increment_symbol(self):
         self.symbols_processed.append(self.current_symbol)
         self.symbols.remove((self.current_symbol))
-        self.current_symbol = self.symbols[self.clock.symbol_index]
+        self.current_symbol = self.get_rand_sym()
         self.load_data()
         print(self.current_symbol)
         return (len(self.images), len(self.symbols))
@@ -131,6 +131,7 @@ class DataManager:
             return self.prices.iloc[index][column]
         except IndexError as e:
             print(e)
+            print(index)
             exit()
 
     def get_symbols(self):
