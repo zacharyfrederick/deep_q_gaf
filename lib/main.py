@@ -63,19 +63,15 @@ if __name__ == "__main__":
     dqn = DQNAgent(model=model, nb_actions=3, policy=policy, memory=memory,
                    nb_steps_warmup=50000, gamma=.99, target_model_update=10000,
                    train_interval=4, delta_clip=1.)
-    dqn.compile(Adam(lr=.00025), metrics=['mae'])
+    dqn.compile(Adam(lr=.025), metrics=['mae'])
 
     if mode == 'train':
         weights_filename = 'dqn_{}_weights.h5f'.format(env_name)
-        checkpoint_weights_filename = 'dqn_' + env_name + '_weights_{step}.h5f'
-        callbacks = [ModelIntervalCheckpoint(checkpoint_weights_filename, interval=250000)]
-
-        dqn.fit(env, callbacks=callbacks, nb_steps=100000, log_interval=10000)
+        dqn.fit(env, nb_steps=100000, log_interval=10000)
         dqn.save_weights(weights_filename, overwrite=True)
 
     elif mode == 'test':
         weights_filename = '../data/weights/{}'.format(env_name)
-
         dqn.load_weights(weights_filename)
         dqn.test(env, nb_episodes=10, visualize=True)
 
