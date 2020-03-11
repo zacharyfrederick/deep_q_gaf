@@ -78,7 +78,7 @@ class StockEnv(gym.Env):
         if not np.isfinite(reward):
             reward = 0
 
-        if reward < -1.0e-04:
+        if reward < -3.0e-04:
             print('Error threshold reached. Trading stopped')
             action = actions.Actions.HOLD
 
