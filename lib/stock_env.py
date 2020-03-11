@@ -47,8 +47,8 @@ class StockEnv(gym.Env):
             self.print_returns()
             self.dm.reset()
             self.perm_symbols = [self.dm.current_symbol,]
-            logging.debug('reset', self.episodes_ran)
-            logging.debug('Current cash:', self.get_cash())
+            logging.debug('reset ' + str(self.episodes_ran))
+            logging.debug('Current cash: ' + self.get_cash())
 
         frame = self.dm.get_frame()
         self.first_frame = frame
