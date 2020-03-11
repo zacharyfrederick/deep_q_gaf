@@ -6,7 +6,7 @@ from rl.callbacks import FileLogger, ModelIntervalCheckpoint
 from rl.memory import SequentialMemory
 from rl.policy import EpsGreedyQPolicy, LinearAnnealedPolicy
 from rl.memory import SequentialMemory
-from keras.layers import (Activation, Conv2D, Dense, Flatten)
+from keras.layers import Activation, Conv2D, Dense, Flatten, Dropout
 from keras.models import Sequential
 from keras.utils import multi_gpu_model
 from keras.optimizers import Adam
@@ -30,6 +30,7 @@ def build_paper_model(num_gpus):
     model.add(Activation('relu'))
     model.add(Flatten())
     model.add(Dense(512))
+    model.add(Dropout())
     model.add(Activation('relu'))
     model.add(Dense(3))
     model.add(Activation('linear'))
