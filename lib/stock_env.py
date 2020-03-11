@@ -83,7 +83,7 @@ class StockEnv(gym.Env):
 
         info = {}
 
-        if reward < self.circuit_breaker:
+        if  not reward > self.circuit_breaker:
             action = actions.Actions.HOLD
 
         if done == self.dm.INCR_FLAG:
