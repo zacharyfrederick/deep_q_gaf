@@ -10,6 +10,8 @@ from data_manager import DataManager
 from position_manager import PositionManager
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
+warnings.simplefilter(action='ignore', category=UserWarning)
+
 
 class StockEnv(gym.Env):
     def __init__(self):
@@ -75,7 +77,7 @@ class StockEnv(gym.Env):
 
         if done == self.dm.INCR_FLAG:
             print('Cash before increment:' +  self.get_cash())
-            print('Return: {:.2f}'.format(str((self.cash - 100000)/100000 * 100) + '%'))
+            print('Return: {:.2}'.format(str((self.cash - 100000)/100000 * 100) + '%'))
             self.final_cash_value.append(self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
             self.cash = 100000
