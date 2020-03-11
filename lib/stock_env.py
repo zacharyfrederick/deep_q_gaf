@@ -6,6 +6,7 @@ import actions
 import gym
 import gym.spaces
 import numpy as np
+import pandas as pd
 from clock import Clock
 from colored import attr, fg
 from data_manager import DataManager
@@ -40,6 +41,7 @@ class StockEnv(gym.Env):
         self.avg_reward = 0
         self.episodes_ran = 0
         self.perm_symbols = [self.dm.current_symbol, ]
+        self.returns = pd.DataFrame()
 
     def get_frame(self):
         return self.dm.get_frame()
@@ -115,6 +117,7 @@ class StockEnv(gym.Env):
             self.final_cash_value.append(self.cash)
             self.print_returns()
 
+        self.returns.append(reward)
         return frame, reward, done, info
 
     def update_cash(self, reward):
