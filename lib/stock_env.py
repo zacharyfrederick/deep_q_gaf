@@ -10,6 +10,7 @@ from clock import Clock
 from colored import attr, fg
 from data_manager import DataManager
 from position_manager import PositionManager
+import logging
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.simplefilter(action='ignore', category=UserWarning)
@@ -17,6 +18,7 @@ warnings.simplefilter(action='ignore', category=UserWarning)
 class StockEnv(gym.Env):
     def __init__(self):
         self.env_name = 'gaf-environment-v1.0'
+        logging.basicConfig(self.env_name + '.log', level=logging.DEBUG)
         self.REWARD_MULT = 1
         self.cash = 100000
         self.current_action = None
@@ -29,7 +31,7 @@ class StockEnv(gym.Env):
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(4, 30, 180))
         self.symbols = None
         self.final_cash_value = []
-        #self.print_intro()
+        #self.logging.debug_intro()
         self.avg_reward = 0
         self.episodes_ran = 0
         self.perm_symbols = [self.dm.current_symbol, ]
@@ -43,11 +45,11 @@ class StockEnv(gym.Env):
         self.cash = 100000
 
         if self.episodes_ran >= 1:
-            self.print_returns()
+            self.logging.debug_returns()
             self.dm.reset()
             self.perm_symbols = [self.dm.current_symbol,]
-            print('reset', self.episodes_ran)
-            print('Current cash:', self.get_cash())
+            logging.debug('reset', self.episodes_ran)
+            logging.debug('Current cash:', self.get_cash())
 
         frame = self.dm.get_frame()
         self.first_frame = frame
@@ -78,7 +80,7 @@ class StockEnv(gym.Env):
             if not np.isfinite(reward):
                 reward = 0
         except Exception as e:
-            print(e)
+            logging.debug(e)
             exit()
 
         info = {}
@@ -87,8 +89,8 @@ class StockEnv(gym.Env):
             action = actions.Actions.HOLD
 
         if done == self.dm.INCR_FLAG:
-            print('\nCash before increment:' +  str(self.get_cash()))
-            print('Return: {value:.2f}%'.format(value=(float((self.cash - 100000)/100000) * 100)))
+            logging.debug('\nCash before increment:' +  str(self.get_cash()))
+            logging.debug('Return: {value:.2f}%'.format(value=(float((self.cash - 100000)/100000) * 100)))
             self.final_cash_value.append(self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
             self.perm_symbols.append(self.dm.current_symbol)
@@ -111,7 +113,7 @@ class StockEnv(gym.Env):
             self.update_cash(reward)
             self.final_cash_value.append(self.cash)
 
-        print(self.get_cash())
+        logging.debug(self.get_cash())
         return frame, reward, done, info
 
     def update_cash(self, reward):
@@ -119,26 +121,26 @@ class StockEnv(gym.Env):
         self.old_cash = self.cash
         self.cash = (1 + reward) * self.cash
 
-    def print_intro(self):
+    def logging.debug_intro(self):
         start = self.dm.get_date()
         end = self.dm.get_ending_date()
         delta = end-start
-        print('Preparing environment for:', fg('red'),
+        logging.debug('Preparing environment for:', fg('red'),
               self.dm.get_symbol() + attr('reset'))
-        print('Starting date:', start, 'Ending Date:', end)
-        print("Time period:", delta.days, 'days')
-        print('Starting Balance:', fg('green'), self.get_cash(), attr('reset'))
+        logging.debug('Starting date:', start, 'Ending Date:', end)
+        logging.debug("Time period:", delta.days, 'days')
+        logging.debug('Starting Balance:', fg('green'), self.get_cash(), attr('reset'))
 
     def get_cash(self, value=None):
         source = float(self.cash if value is None else value)
         return '${value:,.2f}'.format(value=source)
 
-    def print_returns(self):
+    def logging.debug_returns(self):
         ending_capital = 0
         starting_capital = len(self.perm_symbols) * 100000
         for symbol, value in zip(self.perm_symbols, self.final_cash_value):
             ending_capital += value
-            print('{}:{}'.format(symbol, self.get_cash(value)))
+            logging.debug('{}:{}'.format(symbol, self.get_cash(value)))
 
-        print('\nEnding portfolio value: {}'.format(self.get_cash()))
-        print('Total Return: {value:0.2f}%'.format(value=((ending_capital - starting_capital) / starting_capital) * 100))
+        logging.debug('\nEnding portfolio value: {}'.format(self.get_cash()))
+        logging.debug('Total Return: {value:0.2f}%'.format(value=((ending_capital - starting_capital) / starting_capital) * 100))
