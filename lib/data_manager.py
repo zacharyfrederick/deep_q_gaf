@@ -60,6 +60,7 @@ class DataManager:
         self.symbols = os.listdir(self.raw_dir)
         self.symbols.remove('.DS_Store') #mac is weird
         symbol = self.get_rand_sym()
+        self.symbols.remove(symbol)
         print(symbol, 'loaded')
         return symbol
 
@@ -84,9 +85,9 @@ class DataManager:
 
     def increment_symbol(self):
         self.symbols_processed.append(self.current_symbol)
-        self.symbols.remove((self.current_symbol))
         self.clock.len_symbols = len(self.symbols)
         self.current_symbol = self.get_rand_sym()
+        self.symbols.remove((self.current_symbol))
         self.load_data()
         print(len(self.images), len(self.symbols))
         return (len(self.images), len(self.symbols))
