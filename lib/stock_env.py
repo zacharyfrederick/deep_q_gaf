@@ -135,7 +135,7 @@ class StockEnv(gym.Env):
         source = float(self.cash if value is None else value)
         return '${value:,.2f}'.format(value=source)
 
-    def logging.debug_returns(self):
+    def print_returns(self):
         ending_capital = 0
         starting_capital = len(self.perm_symbols) * 100000
         for symbol, value in zip(self.perm_symbols, self.final_cash_value):
