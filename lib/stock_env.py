@@ -18,6 +18,10 @@ warnings.simplefilter(action='ignore', category=UserWarning)
 class StockEnv(gym.Env):
     def __init__(self):
         self.env_name = 'gaf-environment-v1.0'
+
+        with open(self.env_name + '_debug.log', 'w+') as file:
+            pass
+
         logging.basicConfig(filename= self.env_name + '_debug.log', level=logging.INFO)
         loggging = logging.getLogger('Test')
         self.REWARD_MULT = 1
