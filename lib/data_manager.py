@@ -55,8 +55,6 @@ class DataManager:
     def load_symbols(self):
         self.symbols = os.listdir(self.raw_dir)
         self.symbols.remove('.DS_Store') #mac is weird
-        self.symbols.remove('tsla.csv')
-        self.symbols = ['goog.csv',]
         return self.symbols[0]
 
     def load_prices(self, symbol):
