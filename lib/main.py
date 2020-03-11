@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
     if mode == 'train':
         weights_filename = 'dqn_{}_weights.h5f'.format(env_name)
-        dqn.fit(env, nb_steps=100000, log_interval=10000)
+        dqn.fit(env, nb_steps=10000000, log_interval=10000)
         dqn.save_weights(weights_filename, overwrite=True)
 
     elif mode == 'test':
