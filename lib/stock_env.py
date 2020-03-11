@@ -32,6 +32,7 @@ class StockEnv(gym.Env):
         #self.print_intro()
         self.avg_reward = 0
         self.episodes_ran = 0
+        self.perm_symbols = (self.dm.current_symbol, )
 
     def get_frame(self):
         return self.dm.get_frame()
@@ -81,6 +82,7 @@ class StockEnv(gym.Env):
             print('Return: {value}%'.format(value=(int((self.cash - 100000)/100000) * 100)))
             self.final_cash_value.append(self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
+
             self.cash = 100000
             self.clock.set_params(len_images, len_symbols)
             done = False
