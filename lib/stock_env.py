@@ -117,7 +117,7 @@ class StockEnv(gym.Env):
             self.final_cash_value.append(self.cash)
             self.print_returns()
 
-        self.returns.append(pd.Series(reward))
+        self.returns.append(pd.Series(reward), ignore_index=True)
         return frame, reward, done, info
 
     def update_cash(self, reward):
