@@ -34,12 +34,12 @@ class DataManager:
         self.concat_dir = '../data/concat/'
         self.symbol_index = 0
         self.symbols = []
-        self.current_symbol = self.load_symbols()
         self.length = 0
         self.symbols_processed = []
         self.set_initial_state()
 
     def set_initial_state(self):
+        self.current_symbol = self.load_symbols()
         self.load_data()
         self.set_length()
         self.clock.set_params(self.length, len(self.symbols))

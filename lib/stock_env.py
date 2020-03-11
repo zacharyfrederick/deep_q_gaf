@@ -44,6 +44,7 @@ class StockEnv(gym.Env):
         if self.episodes_ran >= 1:
             self.print_returns()
             self.dm.reset()
+            self.perm_symbols = (self.dm.current_symbol,)
             print('reset', self.episodes_ran)
             print('Current cash:', self.get_cash())
 
