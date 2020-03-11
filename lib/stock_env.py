@@ -34,7 +34,7 @@ class StockEnv(gym.Env):
         return self.dm.get_frame()
 
     def reset(self):
-        print('Cash before reset:', self.get_cash())
+        print('\nCash before reset:', self.get_cash())
         self.clock.reset()
         self.cash = 100000
         self.episodes_ran += 1
@@ -75,6 +75,7 @@ class StockEnv(gym.Env):
 
         if done is self.dm.INCR_FLAG:
             print('\nCash before increment:' +  self.get_cash())
+            print('Return: ' + str((self.cash - 100000)/100000 * 100) + '%')
             self.final_cash_value.append(self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
             self.cash = 100000
