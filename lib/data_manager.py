@@ -87,6 +87,7 @@ class DataManager:
         self.clock.len_symbols = len(self.symbols)
         self.current_symbol = self.get_rand_sym()
         self.load_data()
+        print(len(self.images), len(self.symbols))
         return (len(self.images), len(self.symbols))
 
     def get_date_with_index(self, index):
