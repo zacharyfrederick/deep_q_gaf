@@ -91,7 +91,7 @@ class StockEnv(gym.Env):
 
         info = {}
 
-        if reward < -1.0e-04:
+        if self.returns.y.rolling(window=7).mean() < -1.0e-04:
             if action == actions.Actions.BUY:
                 action = actions.Actions.SELL
             elif action == actions.Actions.SELL:
