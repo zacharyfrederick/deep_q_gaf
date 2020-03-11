@@ -75,13 +75,13 @@ class StockEnv(gym.Env):
         frame = self.dm.get_frame() if not done else self.first_frame
         try:
             reward = self.pm.close_position() * self.REWARD_MULT
+            if not np.isfinite(reward):
+                reward = 0
         except Exception as e:
             print(e)
+            exit()
 
         info = {}
-
-        if not np.isfinite(reward):
-            reward = 0
 
         if reward < self.circuit_breaker:
             action = actions.Actions.HOLD
