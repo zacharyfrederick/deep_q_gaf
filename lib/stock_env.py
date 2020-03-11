@@ -79,7 +79,6 @@ class StockEnv(gym.Env):
             reward = 0
 
         if reward < -3.0e-04:
-            print('Error threshold reached. Trading stopped')
             action = actions.Actions.HOLD
 
         if done == self.dm.INCR_FLAG:
