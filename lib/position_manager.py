@@ -54,7 +54,11 @@ class PositionManager:
         print(self.dm.prices.iloc[open_index], self.dm.prices.iloc[close_index])
         exit()
 
+    def get_pindex_from_dindex(self, index):
+        return self.prices.index[self.prices['Date'] == self.dates.iloc[index]['Date']]
+
     def get_value_w_index(self, index, column):
+        index = self.get_pindex_from_dindex(index)
         self.dm.get_price_w_index(index, column)
 
     def close_position(self):
