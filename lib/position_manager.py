@@ -63,6 +63,7 @@ class PositionManager:
         close = position.close_price
 
         return_ = ((close - open_) / open_)
+        print(return_)
         if Actions(position.type) == Actions.HOLD:
             return 0
         elif Actions(position.type) == Actions.BUY:
