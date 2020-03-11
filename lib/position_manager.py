@@ -62,14 +62,13 @@ class PositionManager:
         open_ = position.open_price
         close = position.close_price
 
+        return_ = ((close - open_) / open_)
         if Actions(position.type) == Actions.HOLD:
             return 0
         elif Actions(position.type) == Actions.BUY:
-            return_ = ((close - open_) / open_)
             return return_
         elif Actions(position.type) == Actions.SELL:
-            return_ = ((open_ - close) / close)
-            return return_
+            return -1 * return_
 
     def position_expired(self, close_index):
         return True if self.pq.peek().close_index is close_index else False
