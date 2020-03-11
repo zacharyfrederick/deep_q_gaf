@@ -1,4 +1,5 @@
 import logging
+import sys
 from stock_env import StockEnv
 from rl.agents.dqn import DQNAgent
 from rl.callbacks import FileLogger, ModelIntervalCheckpoint
@@ -10,8 +11,13 @@ from keras.models import Sequential
 from keras.utils import multi_gpu_model
 from keras.optimizers import Adam
 
-import sys
-sys.path.append('../..Github/')
+if sys.platform is 'darwin':
+    janet_path = '../../../Github/'
+else:
+    janet_path = '../../../zachfred62/'
+
+sys.path.append(janet_path)
+import Janet
 
 def build_paper_model():
     model = Sequential()
@@ -28,7 +34,7 @@ def build_paper_model():
     model.add(Dense(3))
     model.add(Activation('linear'))
 
-    if Janet.python_tools.is_mac():
+    if not Janet.python_tools.is_mac():
         model = multi_gpu_model(model, gpus=2)
 
     return model

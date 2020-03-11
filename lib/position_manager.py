@@ -71,6 +71,5 @@ class PositionManager:
             return_ = ((open_ - close) / close)
             return return_
 
-
     def position_expired(self, close_index):
         return True if self.pq.peek().close_index is close_index else False

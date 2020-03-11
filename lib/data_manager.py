@@ -9,12 +9,13 @@ import pandas as pd
 
 import sys
 
+print(sys.platform)
 if sys.platform is 'darwin':
     janet_path = '../../../Github/'
 else:
     janet_path = '../../../zachfred62/'
 
-sys.path.append(janet_path)
+sys.path.append('../../../Github/')
 import Janet
 
 class DataManager:
@@ -45,8 +46,7 @@ class DataManager:
         self.dates['Date'] = pd.to_datetime(self.dates['Date'])
 
         first_image_date = self.dates['Date'].iloc[0]
-        prices_offset = self.prices.index[self.prices['Date'] == first_image_date]
-        self.prices = self.prices[prices_offset[0]:]
+        self.prices = self.prices.reset_index()
 
     def print_state(self):
         print('Current index: {}, Symbol index: {}'.format(self.index, self.symbol_index))
