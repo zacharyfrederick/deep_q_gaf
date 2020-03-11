@@ -14,8 +14,8 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 class StockEnv(gym.Env):
     def __init__(self):
         self.env_name = 'gaf-environment-v1.0'
-        self.REWARD_MULT = 100000
-        self.cash = 100000
+        self.REWARD_MULT = 100_000
+        self.cash = 100_000
         self.current_action = None
         self.previous_action = None
         self.clock = Clock()
@@ -108,7 +108,7 @@ class StockEnv(gym.Env):
 
     def get_cash(self):
         #need t0 make a proper formatting method
-        return self.cash
+        return f'${self.cash:,}'
 
     def print_returns(self):
         if self.symbols is not None:

@@ -8,7 +8,13 @@ import numpy as np
 import pandas as pd
 
 import sys
-sys.path.append('../../../Github/')
+
+if sys.platform is 'darwin':
+    janet_path = '../../../Github/'
+else:
+    janet_path = '../../../zachfred62/'
+
+sys.path.append(janet_path)
 import Janet
 
 class DataManager:

@@ -4,6 +4,7 @@ import sys
 import pandas as pd
 from pyts.image import MarkovTransitionField, GramianAngularField
 from multiprocessing import Pool, cpu_count
+from .image_concat import concat_images
 
 def extract_period(df, column, index, period=30, reversed=True):
     """Extracts a period of data from the dataframe column at the specified index. 
@@ -171,7 +172,6 @@ def job(symbol):
 
     with open(processed_file_list, 'a+') as file:
         file.write(symbol + '\n')
-
     print('finished processing {} days for {}'.format(days_processed, symbol_print))
 
 if __name__ == "__main__":
@@ -198,4 +198,5 @@ if __name__ == "__main__":
     with Pool(cpu_count()) as p:
         p.map(job, symbols)
 
-    print("Completed")
+    concat_images()
+    print("Completed Image Generation")
