@@ -70,6 +70,8 @@ class PositionManager:
             return return_
         elif Actions(position.type) == Actions.SELL:
             return -1 * return_
+        else:
+            return 0
 
     def position_expired(self, close_index):
         return True if self.pq.peek().close_index is close_index else False
