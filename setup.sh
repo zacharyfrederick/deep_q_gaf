@@ -4,12 +4,9 @@ apt get unzip;
 unzip data.zip;
 rm -r data.zip;
 cd data
-gsutil cp 'gs://zachf632_senior_project/concat.zip' .;
-unzip concat.zip;
-rm concat.zip;
 cd '../../';
 git clone 'https://github.com/zacharyfrederick/Janet.git';
-cd 'lib';
+cd '/deep_q_gaf/lib';
 
 
 #this is a comment you better get this you idiot
