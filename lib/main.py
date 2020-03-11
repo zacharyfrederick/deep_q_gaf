@@ -8,7 +8,7 @@ from rl.policy import EpsGreedyQPolicy, LinearAnnealedPolicy
 from rl.memory import SequentialMemory
 from keras.layers import (Activation, Conv2D, Dense, Flatten)
 from keras.models import Sequential
-from keras.utils import multi_gpu_model, count
+from keras.utils import multi_gpu_model
 from keras.optimizers import Adam
 
 if sys.platform == 'darwin':
@@ -35,7 +35,8 @@ def build_paper_model(num_gpus):
     model.add(Activation('linear'))
 
     if not Janet.python_tools.is_mac():
-        model = multi_gpu_model(model, gpus=gpu_count())
+        model = multi_gpu_model(model, gpus=num_gpus)
+        print('using' + str(num_gpus) + ' GPUs')
 
     return model
 
@@ -47,7 +48,7 @@ if __name__ == "__main__":
     buy_count = 0
     sell_count = 0
     hold_count = 0
-    num_gpus = 2
+    num_gpus = 8
 
     #Janet.filesystem.mkdir_if_null('../logs/')
     level = logging.DEBUG if debug else logging.INFO
