@@ -89,15 +89,13 @@ class DataManager:
         self.current_symbol = self.get_rand_sym()
         self.symbols.remove((self.current_symbol))
         self.load_data()
-        print(len(self.images), len(self.symbols))
         return (len(self.images), len(self.symbols))
 
     def get_date_with_index(self, index):
         return self.dates.iloc[index]
 
     def reset(self):
-        self.current_symbol = self.symbols[self.clock.symbol_index]
-        self.load_data()
+        self.set_initial_state()
 
     def load_data(self):
         self.load_prices(self.current_symbol)
