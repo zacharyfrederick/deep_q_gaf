@@ -111,6 +111,7 @@ class StockEnv(gym.Env):
             self.update_cash(reward)
             self.final_cash_value.append(self.cash)
 
+        print(self.get_cash())
         return frame, reward, done, info
 
     def update_cash(self, reward):
