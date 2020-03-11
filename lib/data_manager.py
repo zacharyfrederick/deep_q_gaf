@@ -74,8 +74,6 @@ class DataManager:
         
         self.images = np.load(data_path)
         self.images = Janet.numpy.rev_ndarray(self.images)
-        print(type(self.images))
-        exit()
         self.clock.len_images = len(self.images)
 
     def get_current_image(self, offset=0):
