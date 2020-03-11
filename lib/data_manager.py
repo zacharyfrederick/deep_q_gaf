@@ -9,16 +9,14 @@ import pandas as pd
 
 import sys
 
-print(sys.platform)
 if sys.platform is 'darwin':
     janet_path = '../../../Github/'
 else:
     janet_path = '../../zachfred62/'
 
 sys.path.append('../../../Github/')
-print(os.getcwd())
-exit()
 import Janet
+exit()
 
 class DataManager:
     def __init__(self, clock):
