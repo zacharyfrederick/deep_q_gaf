@@ -82,7 +82,7 @@ class StockEnv(gym.Env):
             print('Return: {value}%'.format(value=(int((self.cash - 100000)/100000) * 100)))
             self.final_cash_value.append(self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
-
+            self.perm_symbols.append(self.dm.current_symbol)
             self.cash = 100000
             self.clock.set_params(len_images, len_symbols)
             done = False
@@ -117,5 +117,5 @@ class StockEnv(gym.Env):
         return 'Return: ${value:,.2f}'.format(value=source)
 
     def print_returns(self):
-        for value in self.final_cash_value:
-            print(self.get_cash(value))
+        for symbol, value in zip(self.perm_symbols, self.final_cash_value):
+            print('{}:{}'.format(symbol, self.get_cash(value)))
