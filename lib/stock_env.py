@@ -76,12 +76,11 @@ class StockEnv(gym.Env):
             reward = 0
 
         if done == self.dm.INCR_FLAG:
-            print('Cash before increment:' +  self.get_cash())
-            print('Return: {}'.format(str(((self.cash - 100000)/100000) * 100)))
+            print('\nCash before increment:' +  str(self.get_cash()))
+            print('Return: {}%'.format(str(((self.cash - 100000)/100000) * 100)))
             self.final_cash_value.append(self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
             self.cash = 100000
-            print(self.get_cash())
             self.clock.set_params(len_images, len_symbols)
             done = False
             self.pm.open_position(action, self.clock.index)
