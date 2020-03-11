@@ -35,7 +35,6 @@ class StockEnv(gym.Env):
         self.avg_reward = 0
         self.episodes_ran = 0
         self.perm_symbols = [self.dm.current_symbol, ]
-        self.circuit_breaker = -1.0e-04
 
     def get_frame(self):
         return self.dm.get_frame()
@@ -85,9 +84,6 @@ class StockEnv(gym.Env):
 
         info = {}
 
-        if  not reward > self.circuit_breaker:
-            action = actions.Actions.HOLD
-
         if done == self.dm.INCR_FLAG:
             logging.debug('\nCash before increment:' +  str(self.get_cash()))
             logging.debug('Return: {value:.2f}%'.format(value=(float((self.cash - 100000)/100000) * 100)))
@@ -100,13 +96,7 @@ class StockEnv(gym.Env):
             self.pm.open_position(action, self.clock.index)
             self.clock.tick()
         elif done == False:
-            if action != actions.Actions.CIRCUIT_BREAKER_DOWN or action != actions.Actions.CIRCUIT_BREAKER_UP:
-                self.pm.open_position(action, self.clock.index)
-            elif action == actions.Actions.CIRCUIT_BREAKER_UP:
-                self.circuit_breaker += 0.1e-4
-            elif action == actions.Actions.CIRCUIT_BREAKER_DOWN:
-                self.circuit_breaker += -0.1e-4
-
+            self.pm.open_position(action, self.clock.index)
             self.update_cash(reward)
             self.clock.tick()
         else:
