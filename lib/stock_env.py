@@ -103,6 +103,7 @@ class StockEnv(gym.Env):
         else:
             self.update_cash(reward)
             self.final_cash_value.append(self.cash)
+            self.print_returns()
 
         logging.debug(self.get_cash())
         return frame, reward, done, info
@@ -135,3 +136,5 @@ class StockEnv(gym.Env):
 
         logging.debug('\nEnding portfolio value: {}'.format(self.get_cash()))
         logging.debug('Total Return: {value:0.2f}%'.format(value=((ending_capital - starting_capital) / starting_capital) * 100))
+        print('\nEnding portfolio value: {}'.format(self.get_cash()))
+        print('Total Return: {value:0.2f}%'.format(value=((ending_capital - starting_capital) / starting_capital) * 100))
