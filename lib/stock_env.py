@@ -1,3 +1,5 @@
+from __future__ import division
+
 import warnings
 
 import actions
@@ -8,7 +10,6 @@ from clock import Clock
 from colored import attr, fg
 from data_manager import DataManager
 from position_manager import PositionManager
-from __future__ import division
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.simplefilter(action='ignore', category=UserWarning)
