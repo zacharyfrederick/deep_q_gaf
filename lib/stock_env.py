@@ -89,6 +89,12 @@ class StockEnv(gym.Env):
 
         info = {}
 
+        if reward < -1.0e-04:
+            if action == actions.Actions.BUY:
+                action = actions.Actions.SELL
+            elif action == actions.Actions.SELL:
+                action = actions.Actions.BUY
+
         if done == self.dm.INCR_FLAG:
             logging.debug('\nCash before increment:' +  str(self.get_cash()))
             logging.debug('Return: {value:.2f}%'.format(value=(float((self.cash - 100000)/100000) * 100)))
