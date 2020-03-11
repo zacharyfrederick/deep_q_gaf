@@ -9,6 +9,7 @@ import pandas as pd
 
 import random
 import sys
+import time
 
 print(os.getcwd())
 print(sys.platform)
@@ -22,6 +23,7 @@ import Janet
 
 class DataManager:
     def __init__(self, clock):
+        random.seed(time.time())
         self.clock = clock
         self.final_cash_value = []
         self.INCR_FLAG = -1
