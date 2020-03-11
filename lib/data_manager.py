@@ -49,9 +49,9 @@ class DataManager:
         self.dates = pd.read_csv(date_path)
         self.dates = Janet.pandas.reverse_df(self.dates)
         self.dates['Date'] = pd.to_datetime(self.dates['Date'])
-
-        first_image_date = self.dates['Date'].iloc[0]
+        self.dates = self.dates.iloc[::-1]
         self.prices = self.prices.reset_index()
+
 
     def print_state(self):
         print('Current index: {}, Symbol index: {}'.format(self.index, self.symbol_index))
@@ -67,7 +67,7 @@ class DataManager:
     def load_prices(self, symbol):
         self.prices = pd.read_csv(os.path.join(self.raw_dir, symbol))
         self.prices['Date'] = pd.to_datetime(self.prices['Date'])
-        #self.prices = Janet.pandas.reverse_df(self.prices)
+        self.prices = Janet.pandas.reverse_df(self.prices)
 
     def load_image_data2(self, symbol):
         symbol = symbol.split('.')[0] + '.npy'
