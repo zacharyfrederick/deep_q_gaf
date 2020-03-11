@@ -75,7 +75,7 @@ class StockEnv(gym.Env):
 
         if done is self.dm.INCR_FLAG:
             print('\nCash before increment:' +  self.get_cash())
-            print('Return: ' + str((self.cash - 100000)/100000 * 100) + '%')
+            print('Return: {.2f}'.format(str((self.cash - 100000)/100000 * 100) + '%'))
             self.final_cash_value.append(self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
             self.cash = 100000
