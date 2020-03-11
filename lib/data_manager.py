@@ -132,7 +132,7 @@ class DataManager:
             return self.prices.iloc[index][column]
         except IndexError as e:
             print(e)
-            print(self.dm.prices)
+            print(self.prices)
             print(index)
             exit()
 
