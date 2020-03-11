@@ -78,6 +78,9 @@ class StockEnv(gym.Env):
         if not np.isfinite(reward):
             reward = 0
 
+        if reward < -1.0:
+            action = actions.Actions.HOLD
+
         if done == self.dm.INCR_FLAG:
             print('\nCash before increment:' +  str(self.get_cash()))
             print('Return: {value:.2f}%'.format(value=(float((self.cash - 100000)/100000) * 100)))
