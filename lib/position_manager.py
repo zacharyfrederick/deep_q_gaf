@@ -50,6 +50,10 @@ class PositionManager:
             open_, close)
         self.pq.add(position)
 
+        print(self.dm.dates[open_index], self.dm.dates[open_index])
+        print(self.dm.prices[open_index], self.dm.prices[close_index])
+        exit()
+
     def get_value_w_index(self, index, column):
         self.dm.get_price_w_index(index, column)
 
@@ -58,7 +62,7 @@ class PositionManager:
 
         if position is None:
             return 0
-            
+
         open_ = position.open_price
         close = position.close_price
 

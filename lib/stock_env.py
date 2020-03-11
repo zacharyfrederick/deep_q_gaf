@@ -52,6 +52,7 @@ class StockEnv(gym.Env):
 
         if self.episodes_ran >= 1:
             self.print_returns()
+            self.perm_symbols = []
             self.dm.reset()
             self.perm_symbols = [self.dm.current_symbol,]
             print('reset ' + str(self.episodes_ran))
