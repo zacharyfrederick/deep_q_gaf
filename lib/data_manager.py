@@ -7,6 +7,7 @@ import os
 import numpy as np
 import pandas as pd
 
+import random
 import sys
 
 print(os.getcwd())
@@ -33,6 +34,7 @@ class DataManager:
         self.symbols = []
         self.current_symbol = self.load_symbols()
         self.length = 0
+        self.symbols_processed = []
         self.set_initial_state()
 
     def set_initial_state(self):
@@ -55,8 +57,7 @@ class DataManager:
     def load_symbols(self):
         self.symbols = os.listdir(self.raw_dir)
         self.symbols.remove('.DS_Store') #mac is weird
-        print(self.symbols[0])
-        return self.symbols[0]
+        return self.get_rand_sym()
 
     def load_prices(self, symbol):
         self.prices = pd.read_csv(os.path.join(self.raw_dir, symbol))
@@ -73,7 +74,12 @@ class DataManager:
     def get_current_image(self, offset=0):
         return self.images[self.index + offset]
 
+    def get_rand_sym(self):
+        return random.choice(self.symbols)
+
     def increment_symbol(self):
+        self.symbols_processed.append(self.current_symbol)
+        self.symbols.remove((self.current_symbol))
         self.current_symbol = self.symbols[self.clock.symbol_index]
         self.load_data()
         print(self.current_symbol)
