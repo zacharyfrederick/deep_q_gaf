@@ -76,6 +76,11 @@ class StockEnv(gym.Env):
         elif action == actions.Actions.HOLD:
             hold_count += 1
 
+    def calculate_ma(self,reward, period=14):
+        if self.clock.index <= period:
+            return 0
+        else:
+            sum_period = self.returns[]
     def step(self, action):
         self.update_action_count(action)
 
@@ -91,8 +96,7 @@ class StockEnv(gym.Env):
 
         info = {}
 
-        if self.clock.index < 100:
-            if self.returns.y.rolling(window=7).mean() < -1.0e-04:
+        if self.calculate_ma(reward) < -1.0e-04
                 if action == actions.Actions.BUY:
                     action = actions.Actions.SELL
                 elif action == actions.Actions.SELL:
