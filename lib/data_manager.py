@@ -125,8 +125,11 @@ class DataManager:
         return self.prices.iloc[self.index]
 
     def get_price_w_index(self, index, column):
-        print(index, column)
-        return self.prices.iloc[index][column]
+        try:
+            return self.prices.iloc[index][column]
+        except IndexError as e:
+            print(e)
+            exit()
 
     def get_symbols(self):
         return self.symbols
