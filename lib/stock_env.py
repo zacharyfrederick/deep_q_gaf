@@ -39,7 +39,6 @@ class StockEnv(gym.Env):
         self.print_returns()
         self.clock.reset()
         self.cash = 100000
-        self.episodes_ran += 1
         print(self.episodes_ran)
 
         if self.episodes_ran > 1:
@@ -51,6 +50,7 @@ class StockEnv(gym.Env):
 
         frame = self.dm.get_frame()
         self.first_frame = frame
+        self.episodes_ran += 1
         return frame
 
     def position_to_close(self, index):
