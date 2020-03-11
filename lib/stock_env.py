@@ -95,6 +95,7 @@ class StockEnv(gym.Env):
             self.clock.tick()
         else:
             self.update_cash(reward)
+            self.final_cash_value.append(self.cash)
 
         return frame, reward, done, info
 
@@ -124,4 +125,4 @@ class StockEnv(gym.Env):
             ending_capital += value
             print('{}:{}'.format(symbol, self.get_cash(value)))
 
-        print('{value:0.2f}%'.format(value=(ending_capital - starting_capital) / starting_capital))
+        print('Total Return: {value:0.2f}%'.format(value=(ending_capital - starting_capital) / starting_capital))
