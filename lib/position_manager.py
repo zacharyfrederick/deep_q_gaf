@@ -45,7 +45,7 @@ class PositionManager:
     def open_position(self, type_, open_index):
         close_index = open_index + self.holding_period
         open_ = self.dm.get_price_w_index(open_index, 'Open')
-        close = self.dm.get_price_w_index(close_index, 'Close')
+        close = self.dm.get_price_w_index(close_index, 'Open')
         position = Position(type_, open_index, close_index,\
             open_, close)
         self.pq.add(position)

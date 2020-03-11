@@ -126,9 +126,8 @@ class DataManager:
     def get_ohlc(self):
         return self.prices.iloc[self.index]
 
-    def get_price_w_index(self, index, column):
-        try:
-            return self.prices.iloc[index][column]
+    def get_price_w_index(self, index, column, offset=0):
+            return self.prices.iloc[index + offset][column]
         except IndexError as e:
             print(self.clock.index, self.clock.len_images, self.clock.len_symbols)
             print(index)
