@@ -42,7 +42,7 @@ class StockEnv(gym.Env):
 
         if self.episodes_ran > 1:
             print('reset', self.episodes_ran)
-            print('Current cash:', self.cash)
+            print('Current cash:', self.get_cash())
 
         frame = self.dm.get_frame()
         self.first_frame = frame
@@ -78,7 +78,7 @@ class StockEnv(gym.Env):
             self.final_cash_value.append(self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
             self.cash = 100000
-            print(self.cash)
+            print(self.get_cash())
             self.clock.set_params(len_images, len_symbols)
             done = False
             self.pm.open_position(action, self.clock.index)
