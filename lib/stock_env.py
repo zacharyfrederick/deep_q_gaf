@@ -79,6 +79,7 @@ class StockEnv(gym.Env):
             reward = 0
 
         if reward < -1.0:
+            print('Error threshold reached. Trading stopped')
             action = actions.Actions.HOLD
 
         if done == self.dm.INCR_FLAG:
@@ -128,5 +129,5 @@ class StockEnv(gym.Env):
             ending_capital += value
             print('{}:{}'.format(symbol, self.get_cash(value)))
 
-        print('Ending portfolio value: {}'.format(self.get_cash()))
+        print('\nEnding portfolio value: {}'.format(self.get_cash()))
         print('Total Return: {value:0.2f}%'.format(value=((ending_capital - starting_capital) / starting_capital) * 100))
