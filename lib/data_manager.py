@@ -61,7 +61,6 @@ class DataManager:
         self.symbols.remove('.DS_Store') #mac is weird
         symbol = self.get_rand_sym()
         self.symbols.remove(symbol)
-        self.symbols = []
         return symbol
 
     def load_prices(self, symbol):
