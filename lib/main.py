@@ -32,7 +32,7 @@ def build_paper_model(num_gpus):
     model.add(Dropout(0.5))
     model.add(Dense(512))
     model.add(Activation('relu'))
-    model.add(Dropout(0.5))
+    #model.add(Dropout(0.5))
     model.add(Dense(4))
     model.add(Activation('linear'))
 
