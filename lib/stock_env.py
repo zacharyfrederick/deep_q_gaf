@@ -112,7 +112,7 @@ class StockEnv(gym.Env):
 
     def get_cash(self, value=None):
         source = self.cash if value is None else value
-        return '${:,.2f}'.format(value)
+        return f'${source:,}'
 
     def print_returns(self):
         for value in self.final_cash_value:
