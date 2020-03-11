@@ -131,7 +131,7 @@ class DataManager:
         try:
             return self.prices.iloc[index][column]
         except IndexError as e:
-            print(e)
+            print(self.clock.index, self.clock.len_images, self.clock.len_symbols)
             print(index)
             exit()
 
