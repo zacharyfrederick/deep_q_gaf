@@ -96,9 +96,9 @@ class StockEnv(gym.Env):
         elif done == False:
             if action != actions.CIRCUIT_BREAKER_DOWN or action != actions.CIRCUIT_BREAKER_UP:
                 self.pm.open_position(action, self.clock.index)
-            elif action == actions.CIRCUIT_BREAKER_UP:
+            elif action == actions.Actions.CIRCUIT_BREAKER_UP:
                 self.circuit_breaker += 0.1e-4
-            elif action == actions.CIRCUIT_BREAKER_DOWN:
+            elif action == actions.Actions.CIRCUIT_BREAKER_DOWN:
                 self.circuit_breaker += -0.1e-4
 
             self.update_cash(reward)
