@@ -80,7 +80,7 @@ class StockEnv(gym.Env):
 
         if done == self.dm.INCR_FLAG:
             print('\nCash before increment:' +  str(self.get_cash()))
-            print('Return: {value}%'.format(value=(int((self.cash - 100000)/100000) * 100)))
+            print('Return: {value:0.2f}%'.format(value=(int((self.cash - 100000)/100000) * 100)))
             self.final_cash_value.append(self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
             self.perm_symbols.append(self.dm.current_symbol)
@@ -118,5 +118,10 @@ class StockEnv(gym.Env):
         return 'Return: ${value:,.2f}'.format(value=source)
 
     def print_returns(self):
+        ending_capital = 0
+        starting_capital = len(self.perm_symbols) * 100000
         for symbol, value in zip(self.perm_symbols, self.final_cash_value):
+            ending_capital += value
             print('{}:{}'.format(symbol, self.get_cash(value)))
+
+        print('{value:0.2f}%'.format(value=(ending_capital - starting_capital) / starting_capital))

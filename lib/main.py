@@ -50,7 +50,7 @@ if __name__ == "__main__":
     buy_count = 0
     sell_count = 0
     hold_count = 0
-    num_gpus = 2
+    num_gpus = 4
 
     #Janet.filesystem.mkdir_if_null('../logs/')
     level = logging.DEBUG if debug else logging.INFO
