@@ -13,7 +13,7 @@ print(sys.platform)
 if sys.platform is 'darwin':
     janet_path = '../../../Github/'
 else:
-    janet_path = '../../../zachfred62/'
+    janet_path = '../../zachfred62/'
 
 sys.path.append('../../../Github/')
 print(os.getcwd())
