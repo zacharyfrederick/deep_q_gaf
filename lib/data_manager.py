@@ -12,11 +12,10 @@ import sys
 if sys.platform is 'darwin':
     janet_path = '../../../Github/'
 else:
-    janet_path = '../../zachfred62/'
+    janet_path = '../../../zachfred62/'
 
-sys.path.append('../../../Github/')
+sys.path.append(janet_path)
 import Janet
-exit()
 
 class DataManager:
     def __init__(self, clock):
