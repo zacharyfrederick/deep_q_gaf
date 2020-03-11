@@ -6,13 +6,14 @@ class Clock:
         self.len = None
         self.SYMBOL_INCR_FLAG = -1
         self.is_done = False
+        self.debug_end = 2
 
     def tick(self):
         self.index += 1
 
     def done(self):
         if self.index + 1 == self.len_images:
-            if self.len_symbols == 0:
+            if self.len_symbols == 0 or self.len_symbols == self.debug_end:
                 self.is_done = True
                 return True
             else:
