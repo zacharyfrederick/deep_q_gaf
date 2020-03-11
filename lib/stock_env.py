@@ -32,7 +32,7 @@ class StockEnv(gym.Env):
         #self.print_intro()
         self.avg_reward = 0
         self.episodes_ran = 0
-        self.perm_symbols = (self.dm.current_symbol, )
+        self.perm_symbols = [self.dm.current_symbol, ]
 
     def get_frame(self):
         return self.dm.get_frame()
@@ -44,7 +44,7 @@ class StockEnv(gym.Env):
         if self.episodes_ran >= 1:
             self.print_returns()
             self.dm.reset()
-            self.perm_symbols = (self.dm.current_symbol,)
+            self.perm_symbols = [self.dm.current_symbol,]
             print('reset', self.episodes_ran)
             print('Current cash:', self.get_cash())
 
