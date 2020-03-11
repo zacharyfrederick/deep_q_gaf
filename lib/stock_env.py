@@ -73,7 +73,7 @@ class StockEnv(gym.Env):
         if not np.isfinite(reward):
             reward = 0
 
-        if done is self.dm.INCR_FLAG:
+        if done == self.dm.INCR_FLAG:
             print('\nCash before increment:' +  self.get_cash())
             print('Return: {.2f}'.format(str((self.cash - 100000)/100000 * 100) + '%'))
             self.final_cash_value.append(self.cash)
@@ -84,11 +84,13 @@ class StockEnv(gym.Env):
             done = False
             self.pm.open_position(action, self.clock.index)
             self.clock.tick()
-        else:
+        elif done == False:
             self.pm.open_position(action, self.clock.index)
             self.update_cash(reward)
             self.clock.tick()
-
+        else:
+            self.update_cash(reward)
+            
         return frame, reward, done, info
 
     def update_cash(self, reward):
