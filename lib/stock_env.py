@@ -31,7 +31,7 @@ class StockEnv(gym.Env):
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(4, 30, 180))
         self.symbols = None
         self.final_cash_value = []
-        #self.logging.debug_intro()
+        #logging.debug_intro()
         self.avg_reward = 0
         self.episodes_ran = 0
         self.perm_symbols = [self.dm.current_symbol, ]
@@ -45,7 +45,7 @@ class StockEnv(gym.Env):
         self.cash = 100000
 
         if self.episodes_ran >= 1:
-            self.logging.debug_returns()
+            self.print_returns()
             self.dm.reset()
             self.perm_symbols = [self.dm.current_symbol,]
             logging.debug('reset', self.episodes_ran)
