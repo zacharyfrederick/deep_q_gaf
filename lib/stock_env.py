@@ -35,7 +35,7 @@ class StockEnv(gym.Env):
         self.avg_reward = 0
         self.episodes_ran = 0
         self.perm_symbols = [self.dm.current_symbol, ]
-        self.circuit_breaker = -3.0e-04
+        self.circuit_breaker = -1.0e-04
 
     def get_frame(self):
         return self.dm.get_frame()
