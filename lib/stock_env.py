@@ -40,11 +40,11 @@ class StockEnv(gym.Env):
         self.clock.reset()
         self.cash = 100000
         self.episodes_ran += 1
+        print(self.episodes_ran)
 
         if self.episodes_ran > 1:
             print(self.final_cash_value)
             exit()
-            self.final_cash_value = []
             self.dm.reset()
             print('reset', self.episodes_ran)
             print('Current cash:', self.get_cash())
