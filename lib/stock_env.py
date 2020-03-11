@@ -107,8 +107,7 @@ class StockEnv(gym.Env):
         print('Starting Balance:', fg('green'), self.get_cash(), attr('reset'))
 
     def get_cash(self):
-        #need t0 make a proper formatting method
-        return f'${self.cash:,}'
+        return self.cash
 
     def print_returns(self):
         if self.symbols is not None:
