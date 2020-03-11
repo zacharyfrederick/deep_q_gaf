@@ -52,6 +52,8 @@ class DataManager:
         self.dates = self.dates.iloc[::-1]
         self.prices = self.prices.reset_index()
 
+    def get_pindex_from_dindex(self, index):
+        return self.prices.index[self.prices['Date'] == self.dates.iloc[index]['Date']]
 
     def print_state(self):
         print('Current index: {}, Symbol index: {}'.format(self.index, self.symbol_index))
