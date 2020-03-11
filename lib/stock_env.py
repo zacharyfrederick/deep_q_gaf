@@ -94,7 +94,7 @@ class StockEnv(gym.Env):
 
         info = {}
 
-        if self.calculate_ma(reward) < -1.0e-04
+        if self.calculate_ma(reward) < -1.0e-04:
                 if action == actions.Actions.BUY:
                     action = actions.Actions.SELL
                 elif action == actions.Actions.SELL:

@@ -33,7 +33,7 @@ def build_paper_model(num_gpus):
     model.add(Dense(512))
     model.add(Activation('relu'))
     #model.add(Dropout(0.5))
-    model.add(Dense(4))
+    model.add(Dense(3))
     model.add(Activation('linear'))
 
     if not Janet.python_tools.is_mac():
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1., value_min=.1, value_test=.05,
                                   nb_steps=1000000)
 
-    dqn = DQNAgent(model=model, nb_actions=4, policy=policy, memory=memory,
+    dqn = DQNAgent(model=model, nb_actions=3, policy=policy, memory=memory,
                    nb_steps_warmup=50000, gamma=.99, target_model_update=10000,
                    train_interval=4, delta_clip=1.)
     dqn.compile(Adam(lr=.00025), metrics=['mae'])
