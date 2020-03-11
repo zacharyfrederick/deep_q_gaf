@@ -50,7 +50,7 @@ class PositionManager:
             open_, close)
         self.pq.add(position)
 
-        print(self.dm.dates.iloc[open_index], self.dm.dates.iloc[open_index])
+        print(self.dm.dates.iloc[open_index], self.dm.dates.iloc[close_index])
         print(self.dm.prices.iloc[open_index], self.dm.prices.iloc[close_index])
         exit()
 
