@@ -18,7 +18,7 @@ warnings.simplefilter(action='ignore', category=UserWarning)
 class StockEnv(gym.Env):
     def __init__(self):
         self.env_name = 'gaf-environment-v1.0'
-        logging.basicConfig(filename= self.env_name + '_debug.log', level=logging.DEBUG)
+        logging.basicConfig(filename= self.env_name + '_debug.log', level=logging.INFO)
         loggging = logging.getLogger('Test')
         self.REWARD_MULT = 1
         self.cash = 100000
@@ -105,7 +105,6 @@ class StockEnv(gym.Env):
             self.final_cash_value.append(self.cash)
             self.print_returns()
 
-        logging.debug(self.get_cash())
         return frame, reward, done, info
 
     def update_cash(self, reward):
