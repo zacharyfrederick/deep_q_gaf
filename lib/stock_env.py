@@ -8,10 +8,10 @@ from clock import Clock
 from colored import attr, fg
 from data_manager import DataManager
 from position_manager import PositionManager
+from __future__ import division
 
 warnings.simplefilter(action='ignore', category=FutureWarning)
 warnings.simplefilter(action='ignore', category=UserWarning)
-
 
 class StockEnv(gym.Env):
     def __init__(self):
@@ -79,7 +79,7 @@ class StockEnv(gym.Env):
 
         if done == self.dm.INCR_FLAG:
             print('\nCash before increment:' +  str(self.get_cash()))
-            print('Return: {}%'.format(str(((self.cash - 100000)/100000) * 100)))
+            print('Return: {0:.0f}%'.format(str(((self.cash - 100000)/100000) * 100)))
             self.final_cash_value.append(self.cash)
             len_images, len_symbols = self.dm.increment_symbol()
             self.cash = 100000
