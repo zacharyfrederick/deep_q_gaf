@@ -75,6 +75,7 @@ class DataManager:
     def increment_symbol(self):
         self.current_symbol = self.symbols[self.clock.symbol_index]
         self.load_data()
+        print(self.current_symbol)
         return (len(self.images), len(self.symbols))
 
     def get_date_with_index(self, index):
