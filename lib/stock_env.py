@@ -36,13 +36,11 @@ class StockEnv(gym.Env):
         return self.dm.get_frame()
 
     def reset(self):
-        self.print_returns()
         self.clock.reset()
         self.cash = 100000
-        print(self.episodes_ran)
 
         if self.episodes_ran >= 1:
-            print(self.final_cash_value)
+            self.print_returns()
             self.dm.reset()
             print('reset', self.episodes_ran)
             print('Current cash:', self.get_cash())
@@ -111,9 +109,10 @@ class StockEnv(gym.Env):
         print("Time period:", delta.days, 'days')
         print('Starting Balance:', fg('green'), self.get_cash(), attr('reset'))
 
-    def get_cash(self):
-        return '${:,.2f}'.format(self.cash)
+    def get_cash(self, value=None):
+        source = self.cash if value is None else value
+        return '${:,.2f}'.format(value)
 
     def print_returns(self):
         for value in self.final_cash_value:
-            print(value)
+            print(self.get_cash(value))
