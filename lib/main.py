@@ -19,7 +19,7 @@ else:
 sys.path.append(janet_path)
 import Janet
 
-def build_paper_model():
+def build_paper_model(num_gpus):
     model = Sequential()
     model.add(
         Conv2D(32, (8, 8), strides=(4, 4), input_shape=(4, 30, 180), activation='relu', data_format='channels_first'))
@@ -35,7 +35,7 @@ def build_paper_model():
     model.add(Activation('linear'))
 
     if not Janet.python_tools.is_mac():
-        model = multi_gpu_model(model, gpus=2)
+        model = multi_gpu_model(model, gpus=num_gpus)
 
     return model
 
@@ -44,16 +44,17 @@ if __name__ == "__main__":
     env_name = 'gaf_v1.5'
     mode = 'train'
     log_file = '../logs/debug.log'
-    buy_count = 0;
-    sell_count = 0;
-    hold_count = 0;
+    buy_count = 0
+    sell_count = 0
+    hold_count = 0
+    num_gpus = 1
 
     #Janet.filesystem.mkdir_if_null('../logs/')
     level = logging.DEBUG if debug else logging.INFO
     logging.basicConfig(filename=log_file, level=level)
 
     env = StockEnv()
-    model = build_paper_model()
+    model = build_paper_model(num_gpus)
     memory = SequentialMemory(limit=1000000, window_length=4)
     policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1., value_min=.1, value_test=.05,
                                   nb_steps=1000000)
