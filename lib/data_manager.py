@@ -9,7 +9,9 @@ import pandas as pd
 
 import sys
 
-if sys.platform is 'darwin':
+print(os.getcwd())
+print(sys.platform)
+if sys.platform == 'darwin':
     janet_path = '../../../Github/'
 else:
     janet_path = '../../../zachfred62/'

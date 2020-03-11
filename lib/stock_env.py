@@ -73,9 +73,6 @@ class StockEnv(gym.Env):
         if not np.isfinite(reward):
             reward = 0
 
-        if done == True:
-            self.print_returns()
-
         if done is self.dm.INCR_FLAG:
             print('\nCash before increment:' +  str(self.cash))
             self.final_cash_value.append(self.cash)

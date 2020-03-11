@@ -11,7 +11,7 @@ from keras.models import Sequential
 from keras.utils import multi_gpu_model
 from keras.optimizers import Adam
 
-if sys.platform is 'darwin':
+if sys.platform == 'darwin':
     janet_path = '../../../Github/'
 else:
     janet_path = '../../../zachfred62/'
@@ -79,7 +79,7 @@ if __name__ == "__main__":
         dqn.load_weights(weights_filename)
         dqn.test(env, nb_episodes=10, visualize=True)
 
-    logging.info.info('Finished')
+    logging.info('Finished')
     print('buy count:', buy_count)
     print('sell count:', sell_count)
     print('hold count:', hold_count)
