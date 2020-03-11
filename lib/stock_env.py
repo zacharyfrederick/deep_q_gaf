@@ -77,10 +77,8 @@ class StockEnv(gym.Env):
             hold_count += 1
 
     def calculate_ma(self,reward, period=14):
-        if self.clock.index <= period:
-            return 0
-        else:
-            sum_period = self.returns[]
+        return reward
+
     def step(self, action):
         self.update_action_count(action)
 
