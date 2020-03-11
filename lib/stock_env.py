@@ -91,11 +91,12 @@ class StockEnv(gym.Env):
 
         info = {}
 
-        if self.returns.y.rolling(window=7).mean() < -1.0e-04:
-            if action == actions.Actions.BUY:
-                action = actions.Actions.SELL
-            elif action == actions.Actions.SELL:
-                action = actions.Actions.BUY
+        if self.clock.index < 100:
+            if self.returns.y.rolling(window=7).mean() < -1.0e-04:
+                if action == actions.Actions.BUY:
+                    action = actions.Actions.SELL
+                elif action == actions.Actions.SELL:
+                    action = actions.Actions.BUY
 
         if done == self.dm.INCR_FLAG:
             print('\nCash before increment:' +  str(self.get_cash()))
