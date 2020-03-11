@@ -51,7 +51,7 @@ class PositionManager:
         self.pq.add(position)
 
         print(self.dm.dates.iloc[open_index], self.dm.dates.iloc[close_index])
-        print(self.dm.prices.iloc[open_index], self.dm.prices.iloc[close_index])
+        print(self.get_value_w_index(open_index, 'Date'), self.get_value_w_index(close_index, 'Date'))
         exit()
 
     def get_pindex_from_dindex(self, index):
