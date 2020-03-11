@@ -146,7 +146,7 @@ class StockEnv(gym.Env):
             ending_capital += value
             print('{}:{}'.format(symbol, self.get_cash(value)))
 
-        print('\nEnding portfolio value: {}'.format(self.get_cash()))
+        print('\nEnding portfolio value: {}'.format(self.get_cash(ending_capital)))
         print('Total Return: {value:0.2f}%'.format(value=((ending_capital - starting_capital) / starting_capital) * 100))
         print('\nEnding portfolio value: {}'.format(self.get_cash()))
         print('Total Return: {value:0.2f}%'.format(value=((ending_capital - starting_capital) / starting_capital) * 100))
