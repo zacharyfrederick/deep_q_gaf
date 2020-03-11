@@ -41,7 +41,7 @@ class StockEnv(gym.Env):
         self.cash = 100000
         print(self.episodes_ran)
 
-        if self.episodes_ran > 1:
+        if self.episodes_ran >= 1:
             print(self.final_cash_value)
             exit()
             self.dm.reset()
