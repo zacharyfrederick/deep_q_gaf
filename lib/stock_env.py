@@ -115,7 +115,7 @@ class StockEnv(gym.Env):
 
     def get_cash(self, value=None):
         source = float(self.cash if value is None else value)
-        return 'Return: ${value:,.2f}'.format(value=source)
+        return '${value:,.2f}'.format(value=source)
 
     def print_returns(self):
         ending_capital = 0
