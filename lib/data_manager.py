@@ -67,7 +67,7 @@ class DataManager:
     def load_prices(self, symbol):
         self.prices = pd.read_csv(os.path.join(self.raw_dir, symbol))
         self.prices['Date'] = pd.to_datetime(self.prices['Date'])
-        self.prices = Janet.pandas.reverse_df(self.prices)
+        #self.prices = Janet.pandas.reverse_df(self.prices)
 
     def load_image_data2(self, symbol):
         symbol = symbol.split('.')[0] + '.npy'
