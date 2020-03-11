@@ -121,7 +121,7 @@ class StockEnv(gym.Env):
         self.old_cash = self.cash
         self.cash = (1 + reward) * self.cash
 
-    def logging.debug_intro(self):
+    def print_intro(self):
         start = self.dm.get_date()
         end = self.dm.get_ending_date()
         delta = end-start
