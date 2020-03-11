@@ -59,6 +59,7 @@ class DataManager:
     def load_symbols(self):
         self.symbols = os.listdir(self.raw_dir)
         self.symbols.remove('.DS_Store') #mac is weird
+        self.symbols.append('tsla.csv')
         symbol = self.get_rand_sym()
         self.symbols.remove(symbol)
         return symbol
