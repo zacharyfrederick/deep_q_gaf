@@ -73,6 +73,8 @@ class StockEnv(gym.Env):
 
         done = self.clock.done()
         frame = self.dm.get_frame() if not done else self.first_frame
+        print(self.pm.close_position())
+        exit()
         reward = self.pm.close_position() * self.REWARD_MULT
         info = {}
 
