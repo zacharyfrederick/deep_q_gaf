@@ -84,6 +84,7 @@ class DataManager:
     def increment_symbol(self):
         self.symbols_processed.append(self.current_symbol)
         self.symbols.remove((self.current_symbol))
+        self.clock.len_symbols = len(self.symbols)
         self.current_symbol = self.get_rand_sym()
         self.load_data()
         print(self.current_symbol)
