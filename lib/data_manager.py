@@ -42,7 +42,7 @@ class DataManager:
         self.current_symbol = self.load_symbols()
         self.load_data()
         self.set_length()
-        self.clock.set_params(self.length, len(self.symbols))
+        self.clock.set_params(len(self.images), len(self.symbols))
 
     def load_dates(self, symbol):
         date_path = os.path.join(self.concat_dir, symbol.split('.')[0] + '_dates.csv')
