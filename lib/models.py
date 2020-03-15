@@ -39,7 +39,6 @@ def build_combined_model():
     merged = concatenate([x, x_prime])
     output = Dense(3, activation='linear')(merged)
     model = Model(inputs=input, outputs=output)
-    model = multi_gpu_model(model, gpus=8)
     return model
 
 def build_paper_model(num_gpus=None):
