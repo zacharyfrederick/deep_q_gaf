@@ -77,19 +77,19 @@ class StockEnv(gym.Env):
     def step(self, action):
         self.update_action_count(action)
 
+        done = self.clock.done()
+        frame = self.dm.get_frame() if not done else self.first_frame
+        reward = self.pm.close_position()
+        info = {}
+
+        if not np.isfinite(reward):
+            reward = 0
+
         if self.cash < 0.0:
             print('Total Loss of Capital')
             self.total_loss += 100000
             self.cash = 100000
             reward = - 5
-
-        done = self.clock.done()
-        frame = self.dm.get_frame() if not done else self.first_frame
-        reward = self.pm.close_position() if reward is None else reward
-        info = {}
-
-        if not np.isfinite(reward):
-            reward = 0
 
         sandp = self.dm.benchmark[self.dm.benchmark['Date'] == self.dm.dates.iloc[self.clock.index]['Date']]
         sandp = sandp['pct_change'].pct_change()
