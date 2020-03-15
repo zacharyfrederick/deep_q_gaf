@@ -19,12 +19,6 @@ warnings.simplefilter(action='ignore', category=UserWarning)
 class StockEnv(gym.Env):
     def __init__(self):
         self.env_name = 'gaf-environment-v1.0'
-
-        with open(self.env_name + '_debug.log', 'w+') as file:
-            pass
-
-        logging.basicConfig(filename= self.env_name + '_debug.log', level=logging.INFO)
-        loggging = logging.getLogger('Test')
         self.REWARD_MULT = 1
         self.cash = 100000
         self.current_action = None
@@ -37,7 +31,7 @@ class StockEnv(gym.Env):
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(4, 30, 180))
         self.symbols = None
         self.final_cash_value = []
-        #print_intro()
+        #self.print_intro()
         self.avg_reward = 0
         self.episodes_ran = 0
         self.perm_symbols = [self.dm.current_symbol, ]
@@ -80,9 +74,16 @@ class StockEnv(gym.Env):
     def calculate_ma(self,reward, period=14):
         return reward
 
+    def log_position(self, open_index):
+        close_index = open_index + self.pm.holding_period
+        self.logger.info(self.dm.dates.iloc[open_index] + "\n" + self.dm.dates.iloc[close_index])
+        self.logger.info(self.dm.prices.iloc[open_index + self.dm.price_date_offset])
+        self.logger.info(self.dm.prices.iloc[close_index + self.dm.price_date_offset])
+
     def step(self, action):
         self.update_action_count(action)
 
+        reward = None
         done = self.clock.done()
         frame = self.dm.get_frame() if not done else self.first_frame
         try:
@@ -91,15 +92,8 @@ class StockEnv(gym.Env):
                 reward = 0
         except Exception as e:
             print(e)
-            exit()
 
         info = {}
-
-        if self.calculate_ma(reward) < -1.0e-04:
-                if action == actions.Actions.BUY:
-                    action = actions.Actions.SELL
-                elif action == actions.Actions.SELL:
-                    action = actions.Actions.BUY
 
         if done == self.dm.INCR_FLAG:
             print('\nCash before increment:' +  str(self.get_cash()))
@@ -111,17 +105,18 @@ class StockEnv(gym.Env):
             self.clock.set_params(len_images, len_symbols)
             done = False
             self.pm.open_position(action, self.clock.index)
+            self.log_position()
             self.clock.tick()
         elif done == False:
             self.pm.open_position(action, self.clock.index)
             self.update_cash(reward)
             self.clock.tick()
         else:
+            self.returns.append(pd.Series(reward), ignore_index=True)
             self.update_cash(reward)
             self.final_cash_value.append(self.cash)
             self.print_returns()
 
-        self.returns.append(pd.Series(reward), ignore_index=True)
         return frame, reward, done, info
 
     def update_cash(self, reward):

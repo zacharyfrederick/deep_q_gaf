@@ -23,6 +23,10 @@ class PositionQueue:
         else:
             return self.queue[0]
 
+    def __str__(self):
+        for pos in self.queue:
+            return '{} {} {} {} {}'.format(pos.type, pos.open_index, pos.close_index, pos.open_price, pos.close_price)
+
     def remove(self): 
         current = self.peek()
 
@@ -49,10 +53,6 @@ class PositionManager:
         position = Position(type_, open_index, close_index,\
             open_, close)
         self.pq.add(position)
-
-        print(self.dm.dates.iloc[open_index], self.dm.dates.iloc[close_index])
-        print(self.dm.get_price_w_index(open_index, 'Date'), self.dm.get_price_w_index(close_index, 'Date'))
-        exit()
 
     def close_position(self):
         position = self.pq.remove()

@@ -10,6 +10,7 @@ from keras.layers import Activation, Conv2D, Dense, Flatten, Dropout
 from keras.models import Sequential
 from keras.utils import multi_gpu_model
 from keras.optimizers import Adam
+import models
 
 if sys.platform == 'darwin':
     janet_path = '../../../Github/'
@@ -57,7 +58,8 @@ if __name__ == "__main__":
     logging.basicConfig(filename=log_file, level=level)
 
     env = StockEnv()
-    model = build_paper_model(num_gpus)
+
+    model = models.build_combined_model()
     memory = SequentialMemory(limit=1000000, window_length=4)
     policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1., value_min=.1, value_test=.05,
                                   nb_steps=1000000)

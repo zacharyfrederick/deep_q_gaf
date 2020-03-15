@@ -1,2 +1,6 @@
 data/
 data.zip
+research/
+*.h5f
+*.log
+*.h5f
