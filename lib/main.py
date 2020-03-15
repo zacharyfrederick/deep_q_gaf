@@ -16,9 +16,12 @@ from rl.memory import SequentialMemory
 from rl.core import Processor
 from rl.callbacks import FileLogger, ModelIntervalCheckpoint
 from stock_env import StockEnv
+import models
 
 INPUT_SHAPE = (30, 180)
 WINDOW_LENGTH = 4
+
+model = models.build_paper_model()
 
 # Get the environment and extract the number of actions.
 env = StockEnv()
@@ -26,32 +29,7 @@ nb_actions = 3
 
 # Next, we build our model. We use the same model that was described by Mnih et al. (2015).
 input_shape = (WINDOW_LENGTH,) + INPUT_SHAPE
-model = Sequential()
-if K.image_dim_ordering() == 'tf':
-    # (width, height, channels)
-    model.add(Permute((2, 3, 1), input_shape=input_shape))
-elif K.image_dim_ordering() == 'th':
-    # (channels, width, height)
-    model.add(Permute((1, 2, 3), input_shape=input_shape))
-else:
-    raise RuntimeError('Unknown image_dim_ordering.')
 
-model = Sequential()
-model.add(\
-    Conv2D(32, (8, 8), strides=(4, 4), input_shape=(4, 30, 180), activation='relu', data_format='channels_first'))
-model.add(Activation('relu'))
-model.add(Conv2D(64, (4, 4), strides=(1, 1), data_format='channels_first'))
-model.add(Activation('relu'))
-model.add(Conv2D(64, (3, 3), strides=(1, 1), data_format='channels_first'))
-model.add(Activation('relu'))
-model.add(Flatten())
-# model.add(Dropout(0.5))
-model.add(Dense(512))
-model.add(Activation('relu'))
-# model.add(Dropout(0.5))
-model.add(Dense(3))
-model.add(Activation('linear'))
-print(model.summary())
 
 # Finally, we configure and compile our agent. You can use every built-in Keras optimizer and
 # even the metrics!
