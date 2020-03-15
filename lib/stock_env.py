@@ -45,6 +45,7 @@ class StockEnv(gym.Env):
     def reset(self):
         print('reset ' + str(self.episodes_ran))
         print('Current cash: ' + self.get_cash())
+        self.total_loss = 0.0
 
         self.clock.reset()
         self.cash = 100000
@@ -101,7 +102,7 @@ class StockEnv(gym.Env):
             self.perm_symbols.append(self.dm.current_symbol)
             self.cash = 100000
             self.clock.set_params(len_images, len_symbols)
-            done = True
+            done = False
             self.pm.open_position(action, self.clock.index)
             self.print_returns()
             self.clock.tick()
