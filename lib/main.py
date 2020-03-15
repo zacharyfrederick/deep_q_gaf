@@ -6,12 +6,12 @@ from rl.callbacks import FileLogger, ModelIntervalCheckpoint
 from rl.memory import SequentialMemory
 from rl.policy import EpsGreedyQPolicy, LinearAnnealedPolicy
 from rl.memory import SequentialMemory
-from keras.layers import Activation, Conv2D, Dense, Flatten, Dropout
-from keras.models import Sequential
-from keras.utils import multi_gpu_model
-from keras.optimizers import Adam
+from tensorflow.keras.layers import Activation, Conv2D, Dense, Flatten, Dropout
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.utils import multi_gpu_model
+from tensorflow.keras.optimizers import Adam
 import models
-from tensorflow.python.client import device_lib
+from tensorflow.tensorflow.python.client import device_lib
 
 if sys.platform == 'darwin':
     janet_path = '../../../Github/'
