@@ -85,7 +85,7 @@ class StockEnv(gym.Env):
 
         done = self.clock.done()
         frame = self.dm.get_frame() if not done else self.first_frame
-        reward = self.pm.close_position() if reward is not None else reward
+        reward = self.pm.close_position() if reward is None else reward
         info = {}
 
         if not np.isfinite(reward):
