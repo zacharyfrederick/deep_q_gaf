@@ -14,6 +14,7 @@ janet_path = '../../../Github/' if sys.platform == 'darwin' else '../../../zachf
 
 sys.path.append(janet_path)
 import Janet
+import time
 
 class DataManager:
     def __init__(self, clock):
