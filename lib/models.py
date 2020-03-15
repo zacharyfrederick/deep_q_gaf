@@ -40,7 +40,6 @@ def build_combined_model():
     output = Dense(3, activation='linear')(merged)
     model = Model(inputs=input, outputs=output)
     print(model.summary())
-    exit()
     return model
 
 def build_paper_model(num_gpus=None):
