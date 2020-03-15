@@ -21,6 +21,7 @@ class StockEnv(gym.Env):
         self.env_name = 'gaf-environment-v1.0'
         self.REWARD_MULT = 1
         self.cash = 100000
+        self.total_loss = 0.0
         self.current_action = None
         self.previous_action = None
         self.clock = Clock()
@@ -55,7 +56,6 @@ class StockEnv(gym.Env):
         self.episodes_ran += 1
         return frame
 
-
     def position_to_close(self, index):
         return self.pm.position_expired(index)
 
@@ -76,8 +76,11 @@ class StockEnv(gym.Env):
     def step(self, action):
         self.update_action_count(action)
 
-        reward = None
-        done = self.clock.done()
+        if self.cash < 0.0:
+            print('Loss of capital')
+            self.total_loss += 100000
+
+ß        done = self.clock.done()
         frame = self.dm.get_frame() if not done else self.first_frame
         reward = self.pm.close_position()
         info = {}
