@@ -33,7 +33,6 @@ class DataManager:
         self.symbols_processed = []
         self.symbols_failed = []
         self.set_initial_state()
-        print('done')
 
     def print_day(self):
         print()
@@ -50,15 +49,10 @@ class DataManager:
         self.dates = Janet.pandas.reverse_df(self.dates)
         self.dates['Date'] = pd.to_datetime(self.dates['Date'])
         self.dates = self.dates.iloc[::-1]
-        print(self.dates)
         return True
-
-    def print_state(self):
-        print('Current index: {}, Symbol index: {}'.format(self.index, self.symbol_index))
 
     def load_symbols(self):
         self.symbols = os.listdir(self.raw_dir)
-        print(self.symbols)
 
         remove_list = [
             '.DS_Store',
@@ -73,7 +67,6 @@ class DataManager:
             if item in self.symbols:
                 self.symbols.remove(item)
 
-        print(self.symbols)
         self.symbols = ['aapl.csv']
         symbol = self.get_rand_sym()
         print('Now processing', symbol)
@@ -82,7 +75,6 @@ class DataManager:
     def load_prices(self, symbol):
         self.prices = pd.read_csv(os.path.join(self.raw_dir, symbol))
         self.prices['Date'] = pd.to_datetime(self.prices['Date'])
-        print(self.prices)
         return True
 
     def load_image_data2(self, symbol):
