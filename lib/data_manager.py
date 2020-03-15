@@ -67,8 +67,8 @@ class DataManager:
             if item in self.symbols:
                 self.symbols.remove(item)
 
-        self.current_symbols = ('aapl.csv',)
-        symbol = self.current_symbols[0]
+        self.symbols = ('aapl.csv',)
+        symbol = self.symbols[0]
         print('Now processing', symbol)
         return symbol
 
