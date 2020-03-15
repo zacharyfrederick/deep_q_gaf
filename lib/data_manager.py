@@ -9,7 +9,6 @@ import pandas as pd
 
 import random
 import sys
-import time
 
 janet_path = '../../../Github/' if sys.platform == 'darwin' else '../../../zachfred62/'
 
@@ -46,7 +45,7 @@ class DataManager:
 
     def load_dates(self, symbol):
         date_path = os.path.join(self.concat_dir, symbol.split('.')[0] + '_dates.csv')
-        self.dates = pd.read_csv(date_path, nrows=10)
+        self.dates = pd.read_csv(date_path, nrows=100)
         self.dates = Janet.pandas.reverse_df(self.dates)
         self.dates['Date'] = pd.to_datetime(self.dates['Date'])
         self.dates = self.dates.iloc[::-1]
