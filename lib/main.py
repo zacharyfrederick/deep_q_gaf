@@ -11,6 +11,7 @@ from keras.models import Sequential
 from keras.utils import multi_gpu_model
 from keras.optimizers import Adam
 import models
+from tensorflow.python.client import device_lib
 
 if sys.platform == 'darwin':
     janet_path = '../../../Github/'
@@ -63,6 +64,8 @@ if __name__ == "__main__":
     memory = SequentialMemory(limit=1000000, window_length=4)
     policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1., value_min=.1, value_test=.05,
                                   nb_steps=1000000)
+
+    print(device_lib.list_local_devices())
 
     dqn = DQNAgent(model=model, nb_actions=3, policy=policy, memory=memory,
                    nb_steps_warmup=50000, gamma=.99, target_model_update=10000,
