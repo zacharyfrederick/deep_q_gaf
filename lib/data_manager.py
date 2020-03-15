@@ -75,6 +75,7 @@ class DataManager:
 
         print(self.symbols)
         symbol = self.get_rand_sym()
+        print('Now processing', symbol)
         return symbol
 
     def load_prices(self, symbol):
@@ -108,6 +109,7 @@ class DataManager:
         self.symbols.remove((self.current_symbol))
         self.clock.len_symbols = len(self.symbols)
         self.current_symbol = self.get_rand_sym()
+        print('Now processing', self.current_symbol)
         self.load_data()
         return (len(self.images), len(self.symbols))
 
