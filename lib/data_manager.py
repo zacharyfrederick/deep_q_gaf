@@ -67,8 +67,9 @@ class DataManager:
             if item in self.symbols:
                 self.symbols.remove(item)
 
-        self.symbols = (input('enter a symbol: '),)
-        symbol = self.get_rand_sym()
+        test = input('Enter a symbol: ')
+        print(test)
+        symbol = test
         print('Now processing', symbol)
         return symbol
 
