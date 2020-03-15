@@ -21,7 +21,7 @@ import models
 INPUT_SHAPE = (30, 180)
 WINDOW_LENGTH = 4
 
-model = models.build_paper_model()
+model = models.build_combined_model()
 
 # Get the environment and extract the number of actions.
 env = StockEnv()
