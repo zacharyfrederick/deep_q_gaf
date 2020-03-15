@@ -26,6 +26,7 @@ class StockEnv(gym.Env):
         self.clock = Clock()
         self.dm = DataManager(self.clock)
         self.pm = PositionManager(self.clock, self.dm, self.cash, 1)
+        self.benchmark = PositionManager(self.clock, self.dm, self.cash, 1)
         self.symbols = self.dm.get_symbols()
         self.action_space = gym.spaces.Discrete(3)
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(4, 30, 180))
@@ -86,6 +87,9 @@ class StockEnv(gym.Env):
 
         info = {}
 
+        sandp = self.dm.benchmark[self.dm.benchmark['Date'] == self.dm.dates[self.clock.index]['Date']]['pct_change']
+
+
         if done == self.dm.INCR_FLAG:
             print('\nCash before increment:' +  str(self.get_cash()))
             print('Return: {value:.2f}%'.format(value=(float((self.cash - 100000)/100000) * 100)))
@@ -110,6 +114,7 @@ class StockEnv(gym.Env):
             print(self.get_cash)
             print('Episode Completed')
 
+        reward = reward / sandp
         return frame, reward, done, info
 
     def update_cash(self, reward):

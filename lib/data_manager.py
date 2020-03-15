@@ -24,6 +24,7 @@ class DataManager:
         self.INCR_FLAG = -1
         self.name_of_index = 'Date'
         self.index = 3
+        self.data_dir = '../data/'
         self.raw_dir = '../data/raw/'
         self.processed_dir = '../data/processed/'
         self.concat_dir = '../data/concat/'
@@ -112,7 +113,13 @@ class DataManager:
     def reset(self):
         self.set_initial_state()
 
+    def load_benchmark_data(self):
+        self.benchmark = pd.read_csv(os.path.join(self.data_dir, 's&p.csv'))
+        self.benchmark['Date'] = pd.to_datetime(self.benchmark['Date'])
+        print(self.benchmark)
+
     def load_data(self):
+        self.load_benchmark_data()
         self.load_image_data2(self.current_symbol)
         self.load_dates(self.current_symbol)
         self.load_prices(self.current_symbol)
