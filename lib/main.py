@@ -38,7 +38,7 @@ def build_paper_model(num_gpus):
     model.add(Activation('linear'))
 
     if not Janet.python_tools.is_mac():
-        model = multi_gpu_model(model, gpus=num_gpus)
+       # model = multi_gpu_model(model, gpus=num_gpus)
         print('using' + str(num_gpus) + ' GPUs')
 
     return model
