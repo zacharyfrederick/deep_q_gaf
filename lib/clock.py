@@ -13,7 +13,7 @@ class Clock:
 
     def done(self):
         if self.index + 1 == self.len_images:
-            if self.len_symbols == 0 or self.len_symbols == self.debug_end:
+            if self.len_symbols == 0;
                 self.is_done = True
                 return True
             else:
