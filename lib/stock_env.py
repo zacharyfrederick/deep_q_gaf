@@ -43,19 +43,16 @@ class StockEnv(gym.Env):
     def reset(self):
         self.clock.reset()
         self.cash = 100000
-
-        if self.episodes_ran >= 1:
-            self.print_returns()
-            self.perm_symbols = []
-            self.dm.increment_symbol()
-            self.perm_symbols = [self.dm.current_symbol,]
-            print('reset ' + str(self.episodes_ran))
-            print('Current cash: ' + self.get_cash())
-
+        self.print_returns()
+        self.perm_symbols = []
+        self.dm.reset()
+        print('reset ' + str(self.episodes_ran))
+        print('Current cash: ' + self.get_cash())
         frame = self.dm.get_frame()
         self.first_frame = frame
         self.episodes_ran += 1
         return frame
+
 
     def position_to_close(self, index):
         return self.pm.position_expired(index)
