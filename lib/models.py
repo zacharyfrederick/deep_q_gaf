@@ -60,7 +60,7 @@ def build_paper_model(num_gpus=None):
     model.add(Activation('linear'))
 
     if num_gpus is not None:
-        model = multi_gpu_model(model, gpus=8)
+        model = multi_gpu_model(model)
         print('using' + str(num_gpus) + ' GPUs')
 
     return model
