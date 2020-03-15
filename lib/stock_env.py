@@ -87,8 +87,11 @@ class StockEnv(gym.Env):
 
         info = {}
 
-        sandp = self.dm.benchmark[self.dm.benchmark['Date'] == self.dm.dates[self.clock.index]['Date']]['pct_change']
+        if reward < 0:
+            reward = -1
 
+        sandp = self.dm.benchmark[self.dm.benchmark['Date'] == self.dm.dates[self.clock.index]['Date']]['pct_change']
+        reward = reward - sandp
 
         if done == self.dm.INCR_FLAG:
             print('\nCash before increment:' +  str(self.get_cash()))
@@ -114,7 +117,6 @@ class StockEnv(gym.Env):
             print(self.get_cash)
             print('Episode Completed')
 
-        reward = reward / sandp
         return frame, reward, done, info
 
     def update_cash(self, reward):
