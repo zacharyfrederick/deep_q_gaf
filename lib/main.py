@@ -33,7 +33,7 @@ input_shape = (WINDOW_LENGTH,) + INPUT_SHAPE
 
 # Finally, we configure and compile our agent. You can use every built-in Keras optimizer and
 # even the metrics!
-memory = SequentialMemory(limit=10, window_length=WINDOW_LENGTH)
+memory = SequentialMemory(limit=10000000, window_length=WINDOW_LENGTH)
 
 # Select a policy. We use eps-greedy action selection, which means that a random action is selected
 # with probability eps. We anneal eps from 1.0 to 0.1 over the course of 1M steps. This is done so that

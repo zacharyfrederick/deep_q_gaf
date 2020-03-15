@@ -80,10 +80,11 @@ class StockEnv(gym.Env):
             print('Total Loss of Capital')
             self.total_loss += 100000
             self.cash = 100000
+            reward = - 5
 
         done = self.clock.done()
         frame = self.dm.get_frame() if not done else self.first_frame
-        reward = self.pm.close_position()
+        reward = self.pm.close_position() if reward is not None else reward
         info = {}
 
         if not np.isfinite(reward):
@@ -138,8 +139,7 @@ class StockEnv(gym.Env):
         return '${value:,.2f}'.format(value=source)
 
     def print_returns(self):
-        ending_capital = 0
-        starting_capital = 100000
+        starting_capital = 100000 + self.total_loss
         ending_capital = self.cash
         print('\nEnding portfolio value: {}'.format(self.get_cash(ending_capital)))
         print('Total Return: {value:0.2f}%'.format(value=((ending_capital - starting_capital) / starting_capital) * 100))
