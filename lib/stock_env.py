@@ -105,7 +105,7 @@ class StockEnv(gym.Env):
             self.clock.set_params(len_images, len_symbols)
             done = False
             self.pm.open_position(action, self.clock.index)
-            self.log_position()
+            self.log_position(self.clock.index)
             self.clock.tick()
         elif done == False:
             self.pm.open_position(action, self.clock.index)
@@ -117,6 +117,7 @@ class StockEnv(gym.Env):
             self.final_cash_value.append(self.cash)
             self.print_returns()
 
+        print("", reward)
         return frame, reward, done, info
 
     def update_cash(self, reward):
