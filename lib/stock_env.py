@@ -97,7 +97,7 @@ class StockEnv(gym.Env):
             self.perm_symbols.append(self.dm.current_symbol)
             self.cash = 100000
             self.clock.set_params(len_images, len_symbols)
-            done = False
+            done = True
             self.pm.open_position(action, self.clock.index)
             self.print_returns()
             self.clock.tick()
