@@ -90,7 +90,7 @@ class StockEnv(gym.Env):
         if reward < 0:
             reward = -1
 
-        sandp = self.dm.benchmark[self.dm.benchmark['Date'] == self.dm.dates[self.clock.index]]
+        sandp = self.dm.benchmark[self.dm.benchmark['Date'] == self.dm.dates.iloc[self.clock.index]]
         exit()
 
         if done == self.dm.INCR_FLAG:
