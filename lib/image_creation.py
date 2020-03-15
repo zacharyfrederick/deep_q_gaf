@@ -4,9 +4,9 @@ import sys
 import pandas as pd
 from pyts.image import MarkovTransitionField, GramianAngularField
 from multiprocessing import Pool, cpu_count
-from .image_concat import concat_images
+from image_concat import concat_images
 
-def extract_period(df, column, index, period=30, reversed=True):
+def extract_period(df, column, index, period=10, reversed=True):
     """Extracts a period of data from the dataframe column at the specified index. 
     Index row is NOT included 
     
@@ -34,7 +34,7 @@ def extract_period(df, column, index, period=30, reversed=True):
     else:
         return None
 
-def create_image(data, date=None, image_size=30, method='summation', field='gaf', strategy='uniform'):
+def create_image(data, date=None, image_size=10, method='summation', field='gaf', strategy='uniform'):
     """Creates an image of the specified size and using the specified field
     
     Arguments:
@@ -89,7 +89,7 @@ def extract_date(df, index):
 
 def job(symbol):
     raw_data_folder = '../data/raw/'
-    output_data_folder = '../data/processed/'
+    output_data_folder = '../data/processed/10/'
     processed_file_list = os.path.abspath('../data/processed_files.txt')
     print('Starting processing for', symbol)
     path = os.path.join(raw_data_folder, symbol)

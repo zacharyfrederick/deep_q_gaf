@@ -107,6 +107,8 @@ class StockEnv(gym.Env):
             self.update_cash(reward)
             self.final_cash_value.append(self.cash)
             self.print_returns()
+            print(self.get_cash)
+            print('Episode Completed')
 
         return frame, reward, done, info
 
@@ -132,10 +134,7 @@ class StockEnv(gym.Env):
     def print_returns(self):
         ending_capital = 0
         starting_capital = 100000
-        for symbol, value in zip(self.perm_symbols, self.final_cash_value):
-            ending_capital += value
-            print('{}:{}'.format(symbol, self.get_cash(value)))
-
+        ending_capital = self.cash
         print('\nEnding portfolio value: {}'.format(self.get_cash(ending_capital)))
         print('Total Return: {value:0.2f}%'.format(value=((ending_capital - starting_capital) / starting_capital) * 100))
         print('\nEnding portfolio value: {}'.format(self.get_cash()))
