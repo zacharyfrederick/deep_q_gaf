@@ -39,6 +39,7 @@ def build_combined_model():
     merged = concatenate([x, x_prime])
     output = Dense(3, activation='linear')(merged)
     model = Model(inputs=input, outputs=output)
+    model = multi_gpu_model(model, gpus=8)
     return model
 
 def build_paper_model(num_gpus=None):
@@ -59,7 +60,7 @@ def build_paper_model(num_gpus=None):
     model.add(Activation('linear'))
 
     if num_gpus is not None:
-        model = multi_gpu_model(model, gpus=num_gpus)
+        model = multi_gpu_model(model, gpus=8)
         print('using' + str(num_gpus) + ' GPUs')
 
     return model
