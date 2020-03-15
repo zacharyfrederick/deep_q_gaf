@@ -7,6 +7,7 @@ class Clock:
         self.SYMBOL_INCR_FLAG = -1
         self.is_done = False
         self.debug_end = 2
+        self.episode_count = 3
 
     def tick(self):
         self.index += 1

@@ -74,6 +74,7 @@ class DataManager:
                 self.symbols.remove(item)
 
         print(self.symbols)
+        self.symbols = ['aapl.csv']
         symbol = self.get_rand_sym()
         print('Now processing', symbol)
         return symbol
