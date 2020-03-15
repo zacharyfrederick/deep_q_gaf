@@ -68,10 +68,7 @@ class DataManager:
             if item in self.symbols:
                 self.symbols.remove(item)
 
-        self.symbols = ('aapl.csv',)
-        symbol = self.symbols[0]
-        print('Now processing', symbol)
-        return symbol
+        return self.symbols[0]
 
     def load_prices(self, symbol):
         self.prices = pd.read_csv(os.path.join(self.raw_dir, symbol))
