@@ -42,13 +42,14 @@ class StockEnv(gym.Env):
         return self.dm.get_frame()
 
     def reset(self):
+        print('reset ' + str(self.episodes_ran))
+        print('Current cash: ' + self.get_cash())
+
         self.clock.reset()
         self.cash = 100000
         self.print_returns()
         self.perm_symbols = []
         self.dm.reset()
-        print('reset ' + str(self.episodes_ran))
-        print('Current cash: ' + self.get_cash())
         frame = self.dm.get_frame()
         self.first_frame = frame
         self.episodes_ran += 1
@@ -78,17 +79,11 @@ class StockEnv(gym.Env):
         reward = None
         done = self.clock.done()
         frame = self.dm.get_frame() if not done else self.first_frame
-        try:
-            reward = self.pm.close_position() * self.REWARD_MULT
-            if not np.isfinite(reward):
-                reward = 0
-        except Exception as e:
-            print(e)
-
+        reward = self.pm.close_position()
         info = {}
 
-        if reward < 0:
-            reward = -1
+        if not np.isfinite(reward):
+            reward = 0
 
         sandp = self.dm.benchmark[self.dm.benchmark['Date'] == self.dm.dates.iloc[self.clock.index]['Date']]
         sandp = sandp['pct_change'].pct_change()
