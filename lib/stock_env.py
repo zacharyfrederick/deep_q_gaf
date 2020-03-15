@@ -90,8 +90,8 @@ class StockEnv(gym.Env):
         if reward < 0:
             reward = -1
 
-        sandp = self.dm.benchmark[self.dm.benchmark['Date'] == self.dm.dates[self.clock.index]['Date']]
-        reward = reward - sandp
+        sandp = self.dm.benchmark[self.dm.benchmark['Date'] == self.dm.dates[self.clock.index]]
+        exit()
 
         if done == self.dm.INCR_FLAG:
             print('\nCash before increment:' +  str(self.get_cash()))
