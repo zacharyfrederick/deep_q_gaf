@@ -77,10 +77,11 @@ class StockEnv(gym.Env):
         self.update_action_count(action)
 
         if self.cash < 0.0:
-            print('Loss of capital')
+            print('Total Loss of Capital')
             self.total_loss += 100000
+            self.cash = 100000
 
-ß        done = self.clock.done()
+        done = self.clock.done()
         frame = self.dm.get_frame() if not done else self.first_frame
         reward = self.pm.close_position()
         info = {}
