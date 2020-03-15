@@ -1,9 +1,9 @@
-from keras.layers import Input, Dense, concatenate
-from keras.layers import Activation, Conv2D, Flatten, Dropout, Reshape, Permute, Lambda
+from tensorflow.keras.layers import Input, Dense, concatenate
+from tensorflow.keras.layers import Activation, Conv2D, Flatten, Dropout, Reshape, Permute, Lambda
 from tensorflow.keras.utils import multi_gpu_model
-from keras.models import Sequential
-import keras as keras
-from keras.models import Model
+from tensorflow.keras.models import Sequential
+import tensorflow.keras as keras
+from tensorflow.keras.models import Model
 import keras.backend as K
 
 resized_shape=(224,224,3)
