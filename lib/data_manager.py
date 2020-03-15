@@ -46,10 +46,11 @@ class DataManager:
 
     def load_dates(self, symbol):
         date_path = os.path.join(self.concat_dir, symbol.split('.')[0] + '_dates.csv')
-        self.dates = pd.read_csv(date_path)
+        self.dates = pd.read_csv(date_path, nrows=10)
         self.dates = Janet.pandas.reverse_df(self.dates)
         self.dates['Date'] = pd.to_datetime(self.dates['Date'])
         self.dates = self.dates.iloc[::-1]
+        self.clock.len_images = len(self.dates)
         return True
 
     def load_symbols(self):
@@ -82,7 +83,6 @@ class DataManager:
 
         self.images = np.load(data_path)
         self.images = Janet.numpy.rev_ndarray(self.images)
-        self.clock.len_images = len(self.images)
         return True
 
     def get_current_image(self, offset=0):
@@ -102,7 +102,7 @@ class DataManager:
         self.current_symbol = self.get_rand_sym()
         print('Now processing', self.current_symbol)
         self.load_data()
-        return (len(self.images), len(self.symbols))
+        return (len(self.dates), len(self.symbols))
 
     def get_date_with_index(self, index):
         return self.dates.iloc[index]
@@ -123,7 +123,7 @@ class DataManager:
         print('all loaded succesfully')
 
     def set_length(self):
-        self.length = len(self.images)
+        self.length = len(self.dates)
 
     def get_frame(self):
         return self.get_current_image().squeeze(axis=0)
