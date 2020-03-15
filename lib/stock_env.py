@@ -74,12 +74,6 @@ class StockEnv(gym.Env):
     def calculate_ma(self,reward, period=14):
         return reward
 
-    def log_position(self, open_index):
-        close_index = open_index + self.pm.holding_period
-        self.logger.info(self.dm.dates.iloc[open_index] + "\n" + self.dm.dates.iloc[close_index])
-        self.logger.info(self.dm.prices.iloc[open_index + self.dm.price_date_offset])
-        self.logger.info(self.dm.prices.iloc[close_index + self.dm.price_date_offset])
-
     def step(self, action):
         self.update_action_count(action)
 
@@ -105,7 +99,6 @@ class StockEnv(gym.Env):
             self.clock.set_params(len_images, len_symbols)
             done = False
             self.pm.open_position(action, self.clock.index)
-            self.log_position(self.clock.index)
             self.clock.tick()
         elif done == False:
             self.pm.open_position(action, self.clock.index)
