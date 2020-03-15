@@ -4,6 +4,7 @@ from keras.utils import multi_gpu_model
 from keras.models import Sequential
 from keras.models import Model
 import keras.backend as K
+import keras
 
 resized_shape=(224,224,3)
 
