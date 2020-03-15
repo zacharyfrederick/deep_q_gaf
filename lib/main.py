@@ -59,7 +59,7 @@ if __name__ == "__main__":
 
     env = StockEnv()
 
-    model = build_paper_model()
+    model = build_paper_model(8)
     memory = SequentialMemory(limit=1000000, window_length=4)
     policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1., value_min=.1, value_test=.05,
                                   nb_steps=1000000)
