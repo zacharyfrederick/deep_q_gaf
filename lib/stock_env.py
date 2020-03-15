@@ -131,7 +131,7 @@ class StockEnv(gym.Env):
 
     def print_returns(self):
         ending_capital = 0
-        starting_capital = len(self.perm_symbols) * 100000
+        starting_capital = 100000
         for symbol, value in zip(self.perm_symbols, self.final_cash_value):
             ending_capital += value
             print('{}:{}'.format(symbol, self.get_cash(value)))
