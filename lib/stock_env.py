@@ -99,6 +99,7 @@ class StockEnv(gym.Env):
             self.clock.set_params(len_images, len_symbols)
             done = False
             self.pm.open_position(action, self.clock.index)
+            self.print_returns()
             self.clock.tick()
         elif done == False:
             self.pm.open_position(action, self.clock.index)
