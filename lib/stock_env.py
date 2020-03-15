@@ -91,7 +91,7 @@ class StockEnv(gym.Env):
             reward = -1
 
         sandp = self.dm.benchmark[self.dm.benchmark['Date'] == self.dm.dates.iloc[self.clock.index]['Date']]
-        exit()
+        sandp = sandp['Open'].pct_change().dropna()
 
         if done == self.dm.INCR_FLAG:
             print('\nCash before increment:' +  str(self.get_cash()))
