@@ -113,7 +113,6 @@ class DataManager:
     def load_benchmark_data(self):
         self.benchmark = pd.read_csv(os.path.join(self.data_dir, 's&p.csv'))
         self.benchmark['Date'] = pd.to_datetime(self.benchmark['Date'])
-        print(self.benchmark)
 
     def load_data(self):
         self.load_benchmark_data()
