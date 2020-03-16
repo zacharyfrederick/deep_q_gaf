@@ -19,7 +19,7 @@ warnings.simplefilter(action='ignore', category=UserWarning)
 class StockEnv(gym.Env):
     def __init__(self):
         self.env_name = 'gaf-environment-v1.0'
-        self.REWARD_MULT = 100000
+        self.reward_mult = 100000
         self.cash = 100000
         self.total_loss = 0.0
         self.current_action = None
@@ -79,7 +79,7 @@ class StockEnv(gym.Env):
 
         done = self.clock.done()
         frame = self.dm.get_frame() if not done else self.first_frame
-        reward = self.pm.close_position()
+        reward = self.pm.close_position() * self.reward_mult
         info = {}
 
         if not np.isfinite(reward):
@@ -121,7 +121,7 @@ class StockEnv(gym.Env):
         return frame, reward, done, info
 
     def update_cash(self, reward):
-        reward /= self.REWARD_MULT
+        reward /= self.reward_mult
         self.old_cash = self.cash
         self.cash = (1 + reward) * self.cash
 
