@@ -43,13 +43,13 @@ class StockEnv(gym.Env):
         return self.dm.get_frame()
 
     def reset(self):
-        print('reset ' + str(self.episodes_ran))
-        print('Current cash: ' + self.get_cash())
         self.total_loss = 0.0
+
+        if self.episodes_ran > 0:
+            self.print_returns()
 
         self.clock.reset()
         self.cash = 100000
-        self.print_returns()
         self.perm_symbols = []
         self.dm.reset()
         frame = self.dm.get_frame()
@@ -85,26 +85,17 @@ class StockEnv(gym.Env):
         if not np.isfinite(reward):
             reward = 0
 
-        if self.cash < 0.0:
-            print('Total Loss of Capital')
-            self.total_loss += 100000
-            self.cash = 100000
-            reward = - 5
-
         sandp = self.dm.benchmark[self.dm.benchmark['Date'] == self.dm.dates.iloc[self.clock.index]['Date']]
         sandp = sandp['pct_change'].pct_change()
 
         if done == self.dm.INCR_FLAG:
-            print('\nCash before increment:' +  str(self.get_cash()))
-            print('Return: {value:.2f}%'.format(value=(float((self.cash - 100000)/100000) * 100)))
             self.final_cash_value.append(self.cash)
-            len_images, len_symbols = self.dm.increment_symbol()
+            self.dm.increment_symbol()
             self.perm_symbols.append(self.dm.current_symbol)
+            print(self.cash)
             self.cash = 100000
-            self.clock.set_params(len(self.dm.dates), len_symbols)
             done = False
             self.pm.open_position(action, self.clock.index)
-            self.print_returns()
             self.clock.tick()
         elif done == False:
             self.pm.open_position(action, self.clock.index)
@@ -114,9 +105,19 @@ class StockEnv(gym.Env):
             self.returns.append(pd.Series(reward), ignore_index=True)
             self.update_cash(reward)
             self.final_cash_value.append(self.cash)
-            self.print_returns()
-            print(self.get_cash)
-            print('Episode Completed')
+
+        if reward < 0:
+            reward = -1
+        elif reward > 0:
+            reward = 1
+        else:
+            reward = 0
+
+        if self.cash < 0.0:
+            print('Total Loss of Capital')
+            self.total_loss += 100000
+            self.cash = 100000
+            reward = - 5
 
         return frame, reward, done, info
 
@@ -138,11 +139,3 @@ class StockEnv(gym.Env):
     def get_cash(self, value=None):
         source = float(self.cash if value is None else value)
         return '${value:,.2f}'.format(value=source)
-
-    def print_returns(self):
-        starting_capital = 100000 + self.total_loss
-        ending_capital = self.cash
-        print('\nEnding portfolio value: {}'.format(self.get_cash(ending_capital)))
-        print('Total Return: {value:0.2f}%'.format(value=((ending_capital - starting_capital) / starting_capital) * 100))
-        print('\nEnding portfolio value: {}'.format(self.get_cash()))
-        print('Total Return: {value:0.2f}%'.format(value=((ending_capital - starting_capital) / starting_capital) * 100))

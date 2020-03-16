@@ -1,4 +1,5 @@
 from actions import Actions
+import random
 
 class Position:
     def __init__(self, type_, open_index, \
@@ -45,15 +46,19 @@ class PositionManager:
         self.is_open = False
         self.is_long = False
 
+    def reset(self):
+        self.pq = PositionQueue()
+
     def open_position(self, type_, open_index):
         close_index = open_index + self.holding_period
         open_ = self.dm.get_price_w_index(open_index, 'Open')
         close = self.dm.get_price_w_index(close_index, 'Open')
         position = Position(type_, open_index, close_index,\
-            open_, close)
+           open_, close)
         self.pq.add(position)
 
     def close_position(self):
+        return random.uniform(-.0003, 0.003)
         position = self.pq.remove()
 
         if position is None:

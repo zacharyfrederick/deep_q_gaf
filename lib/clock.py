@@ -3,10 +3,8 @@ class Clock:
         self.initial_value = initial_value
         self.index = initial_value
         self.symbol_index = 0
-        self.len = None
         self.SYMBOL_INCR_FLAG = -1
         self.is_done = False
-        self.debug_end = 2
         self.episode_count = 3
 
     def tick(self):
@@ -25,8 +23,6 @@ class Clock:
     def reset(self):
         self.is_done = False
         self.index = self.initial_value
-        self.symbol_index = 0
-        self.JUST_RESET = True
 
     def set_params(self, len_images, len_symbols):
         self.len_images = len_images

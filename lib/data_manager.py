@@ -15,6 +15,7 @@ janet_path = '../../../Github/' if sys.platform == 'darwin' else '../../../zachf
 sys.path.append(janet_path)
 import Janet
 import time
+import random
 
 class DataManager:
     def __init__(self, clock):
@@ -33,10 +34,7 @@ class DataManager:
         self.length = 0
         self.symbols_processed = []
         self.symbols_failed = []
-        self.set_initial_state()
-
-    def print_day(self):
-        print()
+        self.current_symbol = None
 
     def set_initial_state(self):
         self.current_symbol = self.load_symbols()
@@ -92,6 +90,7 @@ class DataManager:
         return random.choice(self.symbols)
 
     def increment_symbol(self, successful=True):
+        self.clock.reset()
         if not successful:
             self.symbols_failed.append(self.current_symbol)
         else:
@@ -119,7 +118,6 @@ class DataManager:
         self.load_image_data2(self.current_symbol)
         self.load_dates(self.current_symbol)
         self.load_prices(self.current_symbol)
-        print('all loaded succesfully')
 
     def set_length(self):
         self.length = len(self.dates)
