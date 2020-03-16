@@ -50,7 +50,6 @@ class DataManager:
         self.dates = Janet.pandas.reverse_df(self.dates)
         self.dates['Date'] = pd.to_datetime(self.dates['Date'])
         self.dates = self.dates.iloc[::-1]
-        print(self.dates)
         return True
 
     def print_state(self):
@@ -58,9 +57,8 @@ class DataManager:
 
     def load_symbols(self):
         self.symbols = os.listdir(self.raw_dir)
-        print(self.symbols)
 
-        remove_list = [
+        bad_symbols = [
             '.DS_Store',
             'treasury_rates.csv',
             'treasurey_rates.xml',
@@ -69,18 +67,16 @@ class DataManager:
             'gspc.csv',
         ]
 
-        for item in remove_list:
+        for item in bad_symbols:
             if item in self.symbols:
                 self.symbols.remove(item)
 
-        print(self.symbols)
         symbol = self.get_rand_sym()
         return symbol
 
     def load_prices(self, symbol):
         self.prices = pd.read_csv(os.path.join(self.raw_dir, symbol))
         self.prices['Date'] = pd.to_datetime(self.prices['Date'])
-        print(self.prices)
         return True
 
     def load_image_data2(self, symbol):

@@ -1,6 +1,5 @@
 from actions import Actions
 
-
 class Position:
     def __init__(self, type_, open_index, \
         close_index, open_price, close_price):

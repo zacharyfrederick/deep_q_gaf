@@ -51,10 +51,10 @@ def build_paper_model(num_gpus=None):
     model.add(Conv2D(64, (3, 3), strides=(1, 1), data_format='channels_first'))
     model.add(Activation('relu'))
     model.add(Flatten())
-    #model.add(Dropout(0.5))
+    model.add(Dropout(0.5))
     model.add(Dense(512))
     model.add(Activation('relu'))
-    #model.add(Dropout(0.5))
+    model.add(Dropout(0.5))
     model.add(Dense(3))
     model.add(Activation('linear'))
 

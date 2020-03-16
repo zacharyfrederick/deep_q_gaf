@@ -1,7 +1,6 @@
 from __future__ import division
 
 import warnings
-
 import actions
 import gym
 import gym.spaces
@@ -19,23 +18,22 @@ warnings.simplefilter(action='ignore', category=UserWarning)
 class StockEnv(gym.Env):
     def __init__(self):
         self.env_name = 'gaf-environment-v1.0'
-        self.REWARD_MULT = 1
-        self.cash = 100000
+        self.symbols = None
         self.current_action = None
         self.previous_action = None
+        self.final_cash_value = []
+        self.episodes_ran = 0
+        self.avg_reward = 0
+        self.REWARD_MULT = 1
+        self.cash = 100000
         self.clock = Clock()
+        self.returns = pd.DataFrame()
         self.dm = DataManager(self.clock)
         self.pm = PositionManager(self.clock, self.dm, self.cash, 10)
         self.symbols = self.dm.get_symbols()
         self.action_space = gym.spaces.Discrete(3)
         self.observation_space = gym.spaces.Box(low=-1, high=1, shape=(4, 30, 180))
-        self.symbols = None
-        self.final_cash_value = []
-        #self.print_intro()
-        self.avg_reward = 0
-        self.episodes_ran = 0
         self.perm_symbols = [self.dm.current_symbol, ]
-        self.returns = pd.DataFrame()
 
     def get_frame(self):
         return self.dm.get_frame()
@@ -49,13 +47,13 @@ class StockEnv(gym.Env):
             self.perm_symbols = []
             self.dm.reset()
             self.perm_symbols = [self.dm.current_symbol,]
+
             print('reset ' + str(self.episodes_ran))
             print('Current cash: ' + self.get_cash())
 
-        frame = self.dm.get_frame()
-        self.first_frame = frame
         self.episodes_ran += 1
-        return frame
+        self.first_frame = self.dm.get_frame()
+        return self.first_frame
 
     def position_to_close(self, index):
         return self.pm.position_expired(index)
