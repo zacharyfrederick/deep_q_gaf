@@ -42,6 +42,8 @@ class StockEnv(gym.Env):
         self.clock.reset()
         self.cash = 100000
 
+        print(len(self.dm.images))
+        exit()
         if self.episodes_ran >= 1:
             self.print_returns()
             self.perm_symbols = []
