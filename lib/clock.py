@@ -11,11 +11,12 @@ class Clock:
         self.index += 1
 
     def done(self):
-        if self.index + 2 == self.len_images:
-            if self.len_symbols == 1:
+        if self.index - 1 == self.len_images:
+            if self.len_symbols == 0:
                 self.is_done = True
                 return True
             else:
+                print('Incrementing symbols')
                 return self.SYMBOL_INCR_FLAG
         else:
             return False

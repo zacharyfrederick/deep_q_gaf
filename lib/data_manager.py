@@ -101,6 +101,7 @@ class DataManager:
         self.current_symbol = self.get_rand_sym()
         print('Now processing', self.current_symbol)
         self.load_data()
+        self.clock.len_images = len(self.dates)
         return (len(self.dates), len(self.symbols))
 
     def get_date_with_index(self, index):
@@ -118,6 +119,9 @@ class DataManager:
         self.load_image_data2(self.current_symbol)
         self.load_dates(self.current_symbol)
         self.load_prices(self.current_symbol)
+
+        print(len(self.images))
+        print(len(self.dates))
 
     def set_length(self):
         self.length = len(self.dates)
@@ -145,8 +149,14 @@ class DataManager:
         return self.prices.iloc[self.index]
 
     def get_price_w_index(self, index, column):
-        first_date = self.dates.iloc[index]['Date']
-        return self.prices[self.prices['Date'] == first_date].iloc[0][column]
+        try:
+            first_date = self.dates.iloc[index]['Date']
+            return self.prices[self.prices['Date'] == first_date].iloc[0][column]
+        except Exception as e:
+            print(e)
+            print(index)
+            print(len(self.dates))
+            return 10
 
     def get_symbols(self):
         return self.symbols

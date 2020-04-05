@@ -50,8 +50,8 @@ policy = LinearAnnealedPolicy(EpsGreedyQPolicy(), attr='eps', value_max=1., valu
 # Feel free to give it a try!
 
 dqn = DQNAgent(model=model, nb_actions=nb_actions, policy=policy, memory=memory,
-                nb_steps_warmup=50000, gamma=.99, target_model_update=10000,
-               train_interval=4, delta_clip=1.)
+            nb_steps_warmup=50000, gamma=.99, target_model_update=10000,
+            train_interval=4, delta_clip=1.)
 dqn.compile(Adam(lr=.00025), metrics=['mae'])
 
 
@@ -60,3 +60,4 @@ dqn.compile(Adam(lr=.00025), metrics=['mae'])
 weights_filename = 'dqn_{}_weights.h5f'.format('god_help_me.weights')
 dqn.fit(env, nb_steps=1750000, log_interval=10000)
 dqn.save_weights(weights_filename, overwrite=True)
+

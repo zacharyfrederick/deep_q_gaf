@@ -85,9 +85,6 @@ class StockEnv(gym.Env):
         if not np.isfinite(reward):
             reward = 0
 
-        sandp = self.dm.benchmark[self.dm.benchmark['Date'] == self.dm.dates.iloc[self.clock.index]['Date']]
-        sandp = sandp['pct_change'].pct_change()
-
         if done == self.dm.INCR_FLAG:
             self.final_cash_value.append(self.cash)
             self.dm.increment_symbol()
@@ -105,13 +102,6 @@ class StockEnv(gym.Env):
             self.returns.append(pd.Series(reward), ignore_index=True)
             self.update_cash(reward)
             self.final_cash_value.append(self.cash)
-
-        if reward < 0:
-            reward = -1
-        elif reward > 0:
-            reward = 1
-        else:
-            reward = 0
 
         if self.cash < 0.0:
             print('Total Loss of Capital')
