@@ -51,6 +51,9 @@ class DataManager:
         self.clock.len_images = len(self.dates)
         return True
 
+    def test_function(self):
+        pass
+
     def load_symbols(self):
         self.symbols = os.listdir(self.raw_dir)
 
