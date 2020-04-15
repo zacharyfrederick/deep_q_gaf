@@ -1,9 +1,10 @@
 import json
 
 class EnvConfig(object):
-    def __init__(self, filepath):
-        self.read_file(filepath)
-        self.format_paths()
+    def __init__(self, filepath=None):
+        if filepath is not None:
+            self.read_file(filepath)
+            self.format_paths()
 
     def read_file(self, config):
         with open(config, 'r') as file:
